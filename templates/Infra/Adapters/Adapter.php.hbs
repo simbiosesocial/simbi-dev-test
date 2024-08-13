@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Infra\Adapters\Persistence\Eloquent\Mapper\\{{ pascalCase domainName }};
+
+use App\Core\Domain\\{{ pascalCase domainName }}\Entity\\{{ pascalCase domainName }} as DomainEntity;
+use App\Infra\Adapters\Persistence\Eloquent\Models\\{{ pascalCase domainName }} as EloquentModel;
+
+final class {{ pascalCase name }}
+{
+    /**
+     * @param EloquentModel $param
+     * @return DomainEntity
+     */
+    public static function toDomainEntity(EloquentModel $model): DomainEntity
+    {
+         $modelEntity = new DomainEntity(
+            id: $model->id,
+         );
+
+         return $modelEntity;
+    }
+
+    /**
+     * @param DomainEntity $param
+     * @return EloquentModel
+     */
+    public static function toEloquentModel(DomainEntity $entity): EloquentModel
+    {
+        return new EloquentModel([
+            'id' => $entity->id 
+        ]);
+    }
+}

@@ -1,0 +1,22 @@
+<?php
+
+namespace {{ namespace }}\\{{pascalCase name}}UseCase;
+
+final class {{pascalCase name}}ResponseModel
+{
+    /**
+     * @param mixed $param
+     */
+    public function __construct(private mixed $param)
+    {
+        //todo
+    }
+
+    /**
+     * @return mixed
+     */
+    public function get(): mixed
+    {
+        return $this->param;
+    }
+}

@@ -1,0 +1,13 @@
+includes:
+    - ./vendor/larastan/larastan/extension.neon
+
+parameters:
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - 
+            identifier: missingType.iterableValue
+    paths:
+        - app
+    level: 2
+    excludePaths:
+         - app/Providers/*.php

@@ -1,0 +1,20 @@
+FROM php:8.2-fpm-alpine
+LABEL maintainer="Alan Matias <alanmatias@simbiose.social>"
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
+RUN apk update && \
+    apk add wget
+
+# Add composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+# Add PHP extensions
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions ds pdo_pgsql pgsql intl sockets xdebug-stable mysqli pdo pdo_mysql
+
+WORKDIR /var/www/html
+USER 1000:1000
+EXPOSE 8000

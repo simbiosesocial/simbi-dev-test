@@ -1,0 +1,39 @@
+name: Laravel template tests and validations
+on: push
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-versions: ["8.2"]
+
+    steps:
+      - name: Setup PHP
+        uses: actions/checkout@v3
+
+      - uses: shivammathur/setup-php@v2
+        # env:
+        #   runner: self-hosted
+        with:
+          php-version: ${{ matrix.php-versions }}
+
+      - name: Install dependencies
+        run: composer install --no-scripts
+
+      - name: Verify code quality
+        run: vendor/bin/phpstan analyse app/ --ansi
+
+      - name: Check for code sniffs
+        run: |
+          vendor/bin/phpcs --report=code -p --colors --report-width=80 --standard=phpcs.xml \
+          --ignore=resources/lang,resources/views,bootstrap/helpers,database/migrations,app/Console,bin app/
+
+      - name: Check code complexity
+        run: |
+          vendor/bin/phpinsights --no-interaction --config-path='config/insights.php' \
+          --disable-security-check --ansi --format=github-action
+
+      - name: Run Testsuite
+        run: vendor/bin/phpunit tests/

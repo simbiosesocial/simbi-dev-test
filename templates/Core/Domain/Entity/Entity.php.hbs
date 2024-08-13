@@ -1,0 +1,41 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Core\Common\Entities\Entity;
+use App\Core\Common\Traits\{WithCreatedAt, WithDeletedAt, WithUpdatedAt};
+use DateTime;
+
+final class {{pascalCase name}} extends Entity
+{
+    use WithCreatedAt, WithUpdatedAt, WithDeletedAt;
+
+    /**
+     * @var ?string $var
+     */
+    public ?string $var;
+
+
+    public function __construct(
+        ?string $id = null,
+        ?string $var = null,
+        ?DateTime $createdAt = null,
+        ?DateTime $updatedAt = null,
+        ?DateTime $deletedAt = null,
+    ) {
+        parent::__construct($id);
+        $this->var = $var;
+        $this->createdAt = $createdAt;
+        $this->updatedAt = $updatedAt;
+        $this->deletedAt = $deletedAt;
+        $this->validate();
+    }
+
+    /**
+     * @return void
+     */
+    private function validate(): void
+    {
+        
+    }
+}

@@ -1,0 +1,21 @@
+<?php
+
+namespace {{ namespace }}\\{{pascalCase name}}UseCase;
+
+final class {{pascalCase name}}RequestModel
+{
+    /**
+     * @param array $attributes
+     */
+    public function __construct(private array $attributes = [])
+    {
+    }
+
+    /**
+     * @return mixed
+     */
+    public function get(): mixed
+    {
+        return $this->attributes["param"] ?? null;
+    }
+}

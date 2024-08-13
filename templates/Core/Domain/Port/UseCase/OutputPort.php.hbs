@@ -1,0 +1,14 @@
+<?php
+
+namespace {{ namespace }}\\{{pascalCase name}}UseCase;
+
+use App\Core\Common\Ports\ViewModel;
+
+interface {{pascalCase name}}OutputPort
+{
+    /**
+     * @param {{pascalCase name}}ResponseModel $responseModel
+     * @return ViewModel
+     */
+    public function present({{pascalCase name}}ResponseModel $responseModel): ViewModel;
+}

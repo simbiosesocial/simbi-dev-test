@@ -1,0 +1,626 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel Template Simbi API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/authors": {
+            "post": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Adiciona um novo autor na API",
+                "description": "Permite adicionar um autor",
+                "operationId": "1f4827c47725ae88eac52beb263f9af4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "firstName",
+                                    "lastName"
+                                ],
+                                "properties": {
+                                    "firstName": {
+                                        "type": "string"
+                                    },
+                                    "lastName": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Author Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                        },
+                                        "firstName": {
+                                            "type": "string",
+                                            "example": "User"
+                                        },
+                                        "lastName": {
+                                            "type": "string",
+                                            "example": "Teste"
+                                        },
+                                        "createdAt": {
+                                            "type": "string",
+                                            "example": "2022-12-14T22:24:26+00:00"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string",
+                                            "example": "2022-12-14T22:24:26+00:00"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição com erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bad Request"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Proibido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Forbidden Error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/books": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Lista todos os livros cadastrados na API",
+                "description": "Lista todos os livros cadastrados.",
+                "operationId": "6b187b4abb5fb71e8505f3ac73313cc8",
+                "responses": {
+                    "200": {
+                        "description": "Books list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "example": "Curso avançado de Java"
+                                            },
+                                            "publisher": {
+                                                "type": "string",
+                                                "example": "Editora XPTO"
+                                            },
+                                            "author": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Autor Y"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "createdAt": {
+                                                "type": "string",
+                                                "example": "2022-12-14T22:24:26+00:00"
+                                            },
+                                            "updatedAt": {
+                                                "type": "string",
+                                                "example": "2022-12-14T22:24:26+00:00"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição com erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bad Request"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Proibido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Forbidden Error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Adiciona um novo livro na API",
+                "description": "Permite adicionar um novo livro",
+                "operationId": "0ed456e5e5823be8d576d3c58547755b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "firstName",
+                                    "lastName"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "publisher": {
+                                        "type": "string"
+                                    },
+                                    "authorId": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Book Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "Curso avançado de Java"
+                                        },
+                                        "publisher": {
+                                            "type": "string",
+                                            "example": "Editora XPTO"
+                                        },
+                                        "author": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string",
+                                                    "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Autor Y"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "createdAt": {
+                                            "type": "string",
+                                            "example": "2022-12-14T22:24:26+00:00"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string",
+                                            "example": "2022-12-14T22:24:26+00:00"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição com erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bad Request"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Proibido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Forbidden Error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "tags": [
+                    "Health Check"
+                ],
+                "summary": "Mostra o status dos serviços do sistema.",
+                "description": "Mostra o status dos serviços do sistema",
+                "operationId": "9670d4703d537cde38734b096d9d24cd",
+                "responses": {
+                    "200": {
+                        "description": "Dados buscados com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "status geral.",
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "log": {
+                                            "properties": {
+                                                "status": {
+                                                    "description": "status de log.",
+                                                    "type": "string",
+                                                    "example": "OK"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "database": {
+                                            "properties": {
+                                                "status": {
+                                                    "description": "status do banco de dados.",
+                                                    "type": "string",
+                                                    "example": "OK"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "env": {
+                                            "properties": {
+                                                "status": {
+                                                    "description": "status do env.",
+                                                    "type": "string",
+                                                    "example": "OK"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "rabbit-mq-check": {
+                                            "properties": {
+                                                "status": {
+                                                    "description": "status do RabbitMQ.",
+                                                    "type": "string",
+                                                    "example": "OK"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ping": {
+            "get": {
+                "tags": [
+                    "Health Check"
+                ],
+                "summary": "Retorna pong se a aplicação está online.",
+                "description": "Verifica se a aplicação está online",
+                "operationId": "70f9c97fbd23b238c975f48804df8398",
+                "responses": {
+                    "200": {
+                        "description": "Aplicação online.",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "example": "pong"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/authors/{id}/books": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Lista todos os livros cadastrados na API para um determinado autor",
+                "description": "Lista todos os livros cadastrados por um determinado autor.",
+                "operationId": "05e289382ad925246b99df38487e708f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do autor",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "2234f840-417e-4944-ac9b-e7e6eb06c590"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Books list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "example": "Curso avançado de Java"
+                                            },
+                                            "publisher": {
+                                                "type": "string",
+                                                "example": "Editora XPTO"
+                                            },
+                                            "author": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Autor Y"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "createdAt": {
+                                                "type": "string",
+                                                "example": "2022-12-14T22:24:26+00:00"
+                                            },
+                                            "updatedAt": {
+                                                "type": "string",
+                                                "example": "2022-12-14T22:24:26+00:00"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição com erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bad Request"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Proibido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Forbidden Error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Resource Not Found Error": {
+                "properties": {
+                    "error": {
+                        "properties": {
+                            "message": {
+                                "description": "Mensagem de erro",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "Bad Request": {
+                "properties": {
+                    "error": {
+                        "properties": {
+                            "message": {
+                                "description": "Mensagem de erro",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "Internal server error": {
+                "properties": {
+                    "error": {
+                        "properties": {
+                            "message": {
+                                "description": "Mensagem de erro",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "Forbidden Error": {
+                "properties": {
+                    "error": {
+                        "properties": {
+                            "message": {
+                                "description": "Mensagem de erro",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "Unauthorized Error": {
+                "properties": {
+                    "error": {
+                        "properties": {
+                            "message": {
+                                "description": "Mensagem de erro",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Authors",
+            "description": "Authors"
+        },
+        {
+            "name": "Books",
+            "description": "Books"
+        },
+        {
+            "name": "Health Check",
+            "description": "Health Check"
+        }
+    ]
+}

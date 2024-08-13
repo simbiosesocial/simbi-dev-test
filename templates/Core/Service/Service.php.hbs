@@ -1,0 +1,49 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Core\Common\Exceptions\EntityNotFound;
+use App\Core\Common\Ports\ViewModel;
+use App\Core\Domain\\{{ pascalCase domainName }}\Port\Persistence\\{{pascalCase repositoryName}};
+use App\Core\Domain\\{{ pascalCase domainName }}\Port\UseCase\\{{pascalCase name}}UseCase\{
+    {{pascalCase name}}RequestModel,
+    {{pascalCase name}}OutputPort,
+    {{pascalCase name}}ResponseModel,
+    {{pascalCase name}}UseCase,
+};
+
+final class {{pascalCase name}}Service implements {{pascalCase name}}UseCase
+{
+    /**
+     * @param {{pascalCase repositoryName}} $repository,
+     * @param {{pascalCase name}}OutputPort $output,
+     */
+    public function __construct(
+        private {{pascalCase repositoryName}} $repository,
+        private {{pascalCase name}}OutputPort $output,
+    ) {
+    }
+
+    /**
+     * @param {{pascalCase name}}RequestModel $requestModel
+     * @return ViewModel
+     */
+    public function execute({{pascalCase name}}RequestModel $requestModel): ViewModel
+    {
+        $this->validate($requestModel);
+
+        //TO DO
+        $var = 'string';
+
+        return $this->output->present(new {{pascalCase name}}ResponseModel($var));
+    }
+
+    /**
+     * @param {{pascalCase name}}RequestModel $requestModel
+     * @return void
+     */
+    private function validate({{pascalCase name}}RequestModel $requestModel): void
+    {
+        
+    }
+}
