@@ -1,6 +1,6 @@
 <center>
 
-![Simbi](![AF_Logotipo_01](https://github.com/user-attachments/assets/56910741-2499-4b62-96b4-a1e754195470))
+![Simbi]((https://github.com/user-attachments/assets/56910741-2499-4b62-96b4-a1e754195470))
 
 # Teste de Desenvolvimento - Simbi
 
