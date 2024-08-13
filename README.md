@@ -134,3 +134,4 @@ Organize seus testes no diretório tests, e utilize os diretórios padrão do La
 
 - Faça um fork do repositório e implemente a sua solução.
 - Certifique-se de que todos os testes estão passando, que o código está devidamente documentado com o Swagger, e que as factories e seeders estão funcionando corretamente.
+- Quando tudo estiver pronto, abra um Pull Request para o repositório original.
