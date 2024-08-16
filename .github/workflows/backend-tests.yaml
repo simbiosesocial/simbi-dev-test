@@ -1,6 +1,6 @@
 name: Laravel tests and validations
 on:
-  pull_request:
+  push:
     paths:
       - "./backend/**"
 

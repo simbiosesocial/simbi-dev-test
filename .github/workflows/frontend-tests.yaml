@@ -1,6 +1,6 @@
 name: Next.JS tests and validations
 on:
-  pull_request:
+  push:
     paths:
       - "./frontend/**"
 jobs:
