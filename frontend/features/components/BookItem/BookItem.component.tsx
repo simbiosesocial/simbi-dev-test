@@ -5,7 +5,7 @@ import { Card, CardContent, CardMedia, CardActions, Button, Typography, Tooltip 
 export const BookItem: FunctionComponent<BookItemProps> = ({ title, coverUrl }) => {
   return (
     <Card variant="outlined">
-      <CardMedia sx={{ height: 264 }} image={coverUrl ?? "/cover.png"} title={title} />
+      <CardMedia sx={{ height: 264 }} image={coverUrl ? coverUrl : "/cover.png"} title={title} />
       <CardContent>
         <Tooltip title={title} arrow>
           <Typography gutterBottom variant="h5" noWrap>

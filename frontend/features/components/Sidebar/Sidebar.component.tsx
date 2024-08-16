@@ -15,7 +15,13 @@ export const Sidebar: FunctionComponent = () => {
   return (
     <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
       {isSmUp ? null : (
-        <Navigator PaperProps={{ style: { width: drawerWidth } }} variant="temporary" open={mobileOpen} onClose={onDrawerToggle} />
+        <Navigator
+          data-testid="navigator-xs"
+          PaperProps={{ style: { width: drawerWidth } }}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={onDrawerToggle}
+        />
       )}
       <Navigator PaperProps={{ style: { width: drawerWidth } }} sx={{ display: { sm: "block", xs: "none" } }} />
     </Box>

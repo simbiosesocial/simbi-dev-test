@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: laravel-template-frontend
+    restart: on-failure
+    env_file:
+      - ./frontend/.env
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/home/node/app
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: laravel-template
+    restart: on-failure
+    env_file:
+      - ./backend/.env
+    ports:
+      - 9000:8000
+    volumes:
+      - ./backend:/var/www/html
+    working_dir: "/var/www/html"
+    entrypoint: "./.docker/entrypoint.sh"
+
+  phpdoc:
+    image: phpdoc/phpdoc:3
+    container_name: laravel-template-doc
+    command: phpdoc -c ./phpdoc.xml -d app -t ./documentation/ --title "Documentação do Microservice"
+    volumes:
+      - ./backend:/data
+
+  database:
+    image: postgres:14
+    container_name: laravel-template-database
+    ports:
+      - 5432:5432
+    restart: on-failure
+    environment:
+      POSTGRES_DB: database
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+    volumes:
+      - ./backend/.docker/database:/var/lib/postgresql/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "database", "-U", "dev"]
+      retries: 3
+      timeout: 5s
