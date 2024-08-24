@@ -45,7 +45,7 @@ final class Loan extends Model
      */
     public function book(): HasOne
     {
-        return $this->hasOne(Book::class);
+        return $this->hasOne(Book::class, "id", "book_id");
     }
 
     /**
