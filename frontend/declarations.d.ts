@@ -19,3 +19,10 @@ type Loan = {
   start_loan_date: string;
   end_loan_date: string;
 };
+
+type BookPan = {
+  title: string;
+  authorFirstName: string;
+  authorLastName: string;
+  publisher: string;
+}
