@@ -19,8 +19,8 @@ final class LoanMapper
         $domainLoan = new DomainLoan(
             id: $eloquentLoan->id,
             book: null,
-            startLoanDate: $eloquentLoan->start_loan_date,
-            finalLoanDate: $eloquentLoan->end_loan_date,
+            startLoanDate: DomainLoan::getFormatedDateFromDateString($eloquentLoan->start_loan_date),
+            finalLoanDate: DomainLoan::getFormatedDateFromDateString($eloquentLoan->end_loan_date),
         );
 
         if ($withRelations) {
