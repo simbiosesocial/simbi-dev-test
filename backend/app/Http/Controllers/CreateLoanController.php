@@ -43,7 +43,7 @@ class CreateLoanController extends Controller
      *        @OA\Property(
      *          property="loaned_book",
      *          type="object",
-     *          @OA\Property(property="title", type="string", example="O Príncipe")
+     *          @OA\Property(property="title", type="string", example="O Príncipe"),
      *          @OA\Property(property="publisher", type="string", example="Editora XPTO"),
      *          @OA\Property(
      *            property="author",
