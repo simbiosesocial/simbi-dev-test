@@ -39,36 +39,20 @@ class CreateLoanController extends Controller
      *      description="Loan Created",
      *      @OA\JsonContent(
      *        type="object",
+     *        @OA\Property(property="id", type="string", example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344"),
      *        @OA\Property(
-     *          property="id",
-     *          type="string",
-     *          example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344",
-     *        ),
-     *        @OA\Property(
-     *          property="title",
-     *          type="string",
-     *          example="Curso avançado de Java",
-     *        ),
-     *        @OA\Property(
-     *          property="publisher",
-     *          type="string",
-     *          example="Editora XPTO",
-     *        ),
-     *        @OA\Property(
-     *          property="author",
+     *          property="loaned_book",
      *          type="object",
-     *          @OA\Property(property="id", type="string", example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344"),
-     *          @OA\Property(property="name", type="string", example="Autor Y"),
-     *        ),
-     *        @OA\Property(
-     *          property="createdAt",
-     *          type="string",
-     *          example="2022-12-14T22:24:26+00:00",
-     *        ),
-     *        @OA\Property(
-     *          property="updatedAt",
-     *          type="string",
-     *          example="2022-12-14T22:24:26+00:00",
+     *          @OA\Property(property="title", type="string", example="O Príncipe")
+     *          @OA\Property(property="publisher", type="string", example="Editora XPTO"),
+     *          @OA\Property(
+     *            property="author",
+     *            type="object",
+     *            @OA\Property(property="id", type="string", example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344"),
+     *            @OA\Property(property="name", type="string", example="Nicolau Maquiavel"),
+     *          ),
+     *          @OA\Property(property="createdAt", type="string", example="2022-12-14T22:24:26+00:00"),
+     *          @OA\Property(property="updatedAt", type="string", example="2022-12-14T22:24:26+00:00"),
      *        ),
      *      )
      *    ),
