@@ -27,7 +27,7 @@ final class LoanEloquentRepository implements LoanRepository
      * @return DomainLoan[]
      */
     public function getAll(): array {
-        $eloquentLoans = EloquentLoan::all()->toArray();
+        $eloquentLoans = EloquentLoan::get()->all();
 
         $convertedDomainLoans = LoanMapper::toDomainEntities($eloquentLoans);
 
