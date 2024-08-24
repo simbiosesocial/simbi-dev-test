@@ -8,15 +8,15 @@ use DateTime;
 final class Loan extends Entity
 {
 
-    /**
-     * @var Reader $reader
-     */
-    public Reader $reader;
+    // /**
+    //  * @var Reader $reader
+    //  */
+    // public Reader $reader;
 
     /**
      * @var Book $book
      */
-    public Book $book;
+    public ?Book $book;
 
     /**
      * @var Datetime $startLoanDate
@@ -29,29 +29,31 @@ final class Loan extends Entity
     public Datetime $finalLoanDate;
 
     /**
-     * @var bool $isBookBackToLibrary
-     */
-    public bool $isBookBackToLibrary;
-
-    /**
      * @param ?string $id
      * @param Book book
-     * @param Reader reader
+
      * @param Datetime $startLoanDate
      * @param Datetime $finalLoanDate
-     * @param bool $isBookBackToLibrary
      */
     public function __construct(
-        Book $book,
-        Reader $reader,
+        ?string $id,
+        ?Book $book,
+        // Reader $reader,
         Datetime $startLoanDate,
         Datetime $finalLoanDate,
-        bool $isBookBackToLibrary,
     ) {
+        parent::__construct($id);
         $this->book = $book;
-        $this->reader = $reader;
+        // $this->reader = $reader;
         $this->startLoanDate = $startLoanDate;
         $this->finalLoanDate = $finalLoanDate;
-        $this->isBookBackToLibrary = $isBookBackToLibrary;
+    }
+
+    public function getFormatedStartLoanDate() {
+        return $this->startLoanDate->format("Y-m-d");
+    }
+
+    public function finalFormatedStartLoanDate() {
+        return $this->startLoanDate->format("Y-m-d");
     }
 }
