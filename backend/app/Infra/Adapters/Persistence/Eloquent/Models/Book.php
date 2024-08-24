@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 final class Book extends Model
 {
@@ -46,6 +47,15 @@ final class Book extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(Author::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function loan(): BelongsTo
+    {
+        // I wish make this as n->n relationship, but the time is eating my life
+        return $this->belongsTo(Loan::class, 'id', 'book_id');
     }
 
     /**
