@@ -1,3 +1,7 @@
+'use client';
+
+import Link from "next/link";
+import { useSelectedLayoutSegment } from "next/navigation";
 import type { NavigatorProps } from "./Navigator.interface";
 
 import Divider from "@mui/material/Divider";
@@ -14,6 +18,8 @@ import { categories, item, itemCategory } from "./Navigator.consts";
 
 export function Navigator(props: NavigatorProps) {
   const { ...other } = props;
+  const segment = useSelectedLayoutSegment();
+  const currentPath = `/${segment ?? ""}`;
 
   return (
     <Drawer variant="permanent" {...other}>
@@ -30,13 +36,15 @@ export function Navigator(props: NavigatorProps) {
             <ListItem sx={{ py: 2, px: 3 }}>
               <ListItemText sx={{ color: "#fff" }}>{id}</ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active }) => (
-              <ListItem disablePadding key={childId}>
-                <ListItemButton selected={active} sx={item}>
-                  <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText>{childId}</ListItemText>
-                </ListItemButton>
-              </ListItem>
+            {children.map(({ id: childId, icon, urlPath }) => (
+              <Link href={urlPath} key={childId}>
+                <ListItem disablePadding>
+                    <ListItemButton selected={currentPath === urlPath} sx={item}>
+                      <ListItemIcon>{icon}</ListItemIcon>
+                      <ListItemText>{childId}</ListItemText>
+                    </ListItemButton>
+                </ListItem>
+              </Link>
             ))}
             <Divider sx={{ mt: 2 }} />
           </Box>

@@ -13,7 +13,7 @@ export const Sidebar: FunctionComponent = () => {
   const isSmUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"));
 
   return (
-    <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
+    <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} data-testid="sidebar">
       {isSmUp ? null : (
         <Navigator
           data-testid="navigator-xs"
