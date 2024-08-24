@@ -56,4 +56,8 @@ final class Loan extends Entity
     public function finalFormatedStartLoanDate() {
         return $this->startLoanDate->format("Y-m-d");
     }
+
+    public static function getFormatedDateFromDateString(string $loanDate) {
+        return DateTime::createFromFormat("Y-m-d", $loanDate);
+    }
 }
