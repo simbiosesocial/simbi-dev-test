@@ -37,5 +37,5 @@ interface LoanRepository
      *
      * @return void
      */
-    public function deleteLoan(Loan $loan): void;
+    public function deleteLoanById(string $id): void;
 }
