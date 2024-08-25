@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, type FunctionComponent } from "react";
 import type { BookItemProps } from "./BookItem.interface";
 import { Card, CardContent, CardMedia, CardActions, Button, Typography, Tooltip } from "@mui/material";
@@ -5,11 +7,10 @@ import loanBook from "@/services/loanBook";
 import dateObjToApiFormat from "@/common/utils/dateObjToApiFormat";
 
 export const BookItem: FunctionComponent<BookItemProps> = ({ title, coverUrl, id }) => {
-  const [loanProcess, setLoanProces] = useState<{isLoaning: boolean, message: string}>({isLoaning: false, message: "Aguarde"});
+  const [loanProcesss, setLoanProcess] = useState<{isLoaning: boolean, message: string}>({isLoaning: false, message: "Aguarde"});
 
   const handleLoanBookAction = async (bookId: string) => {
-    setLoanProces({isLoaning: true, message: "Emprestando Livro"});
-    console.log('clicked');
+    setLoanProcess({isLoaning: true, message: "Emprestando Livro"});
     const today = new Date();
     const todayFormatted = dateObjToApiFormat(today);
 
@@ -19,11 +20,11 @@ export const BookItem: FunctionComponent<BookItemProps> = ({ title, coverUrl, id
 
     try {
       await loanBook(bookId, todayFormatted, eightDaysLaterFormatted);
-      setLoanProces({isLoaning: true, message: "Livro Emprestado! 😀"})
+      setLoanProcess({isLoaning: true, message: "Livro Emprestado! 😀"})
     } catch (error) {
-      setLoanProces({isLoaning: true, message: "Occorreu Um Erro 😔. Talvez já tenha sido emprestado"});
+      setLoanProcess({isLoaning: true, message: "Occorreu Um Erro 😔. Talvez já tenha sido emprestado"});
     }
-    setTimeout(() => setLoanProces({isLoaning: false, message: "Aguarde"}), 1500);
+    setTimeout(() => setLoanProcess({isLoaning: false, message: "Aguarde"}), 1500);
   };
 
   return (
@@ -39,11 +40,11 @@ export const BookItem: FunctionComponent<BookItemProps> = ({ title, coverUrl, id
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non arcu...
         </Typography>
         {
-          loanProcess.isLoaning && <Typography variant="body2">{loanProcess.message}</Typography>
+          loanProcesss.isLoaning && <Typography variant="body2">{loanProcesss.message}</Typography>
         }
       </CardContent>
       <CardActions>
-        <Button size="small" variant="contained" fullWidth onClick={ () => handleLoanBookAction(id) } disabled={ loanProcess.isLoaning }>
+        <Button size="small" variant="contained" fullWidth onClick={ () => handleLoanBookAction(id) } disabled={ loanProcesss.isLoaning }>
           Empréstimo
         </Button>
       </CardActions>
