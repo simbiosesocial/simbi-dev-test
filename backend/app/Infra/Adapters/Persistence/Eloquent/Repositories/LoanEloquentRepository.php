@@ -72,7 +72,8 @@ final class LoanEloquentRepository implements LoanRepository
      *
      * @return void
      */
-    public function deleteLoan(DomainLoan $loan): void {
-        EloquentLoan::where(['id' => $loan->id])->delete();
+    public function deleteLoanById(string $id): void
+    {
+        EloquentLoan::where(['id' => $id])->delete();
     }
 }
