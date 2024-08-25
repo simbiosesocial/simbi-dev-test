@@ -29,7 +29,7 @@ export function Navigator(props: NavigatorProps) {
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText>Overview</ListItemText>
+          <Link href="overview"><ListItemText>Overview</ListItemText></Link>
         </ListItem>
         {categories.map(({ id, children }) => (
           <Box key={id} sx={{ bgcolor: "#101F33" }}>
