@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Adapters\Presenters\Library\CreateAuthorJsonPresenter;
 use App\Adapters\Presenters\Library\CreateBookJsonPresenter;
 use App\Adapters\Presenters\Library\CreateLoanJsonPresenter;
+use App\Adapters\Presenters\Library\DeleteLoanByIdJsonPresenter;
 use App\Adapters\Presenters\Library\ListAllBooksJsonPresenter;
 use App\Adapters\Presenters\Library\ListAllLoansJsonPresenter;
 use App\Adapters\Presenters\Library\ListBooksByAuthorJsonPresenter;
@@ -14,18 +15,21 @@ use App\Core\Domain\Library\Ports\Persistence\LoanRepository;
 use App\Core\Domain\Library\Ports\UseCases\CreateAuthor\CreateAuthorUseCase;
 use App\Core\Domain\Library\Ports\UseCases\CreateBook\CreateBookUseCase;
 use App\Core\Domain\Library\Ports\UseCases\CreateLoan\CreateLoanUseCase;
+use App\Core\Domain\Library\Ports\UseCases\DeleteLoanById\DeleteLoanByIdUseCase;
 use App\Core\Domain\Library\Ports\UseCases\ListAllBooks\ListAllBooksUseCase;
 use App\Core\Domain\Library\Ports\UseCases\ListAllLoans\ListAllLoansUseCase;
 use App\Core\Domain\Library\Ports\UseCases\ListBooksByAuthor\ListBooksByAuthorUseCase;
 use App\Core\Services\Library\CreateAuthorService;
 use App\Core\Services\Library\CreateBookService;
 use App\Core\Services\Library\CreateLoanService;
+use App\Core\Services\Library\DeleteLoanByIdService;
 use App\Core\Services\Library\ListAllBooksService;
 use App\Core\Services\Library\ListAllLoansService;
 use App\Core\Services\Library\ListBooksByAuthorService;
 use App\Http\Controllers\CreateAuthorController;
 use App\Http\Controllers\CreateBookController;
 use App\Http\Controllers\CreateLoanController;
+use App\Http\Controllers\DeleteLoanByIdController;
 use App\Http\Controllers\ListAllBooksController;
 use App\Http\Controllers\ListAllLoansController;
 use App\Http\Controllers\ListBooksByAuthorController;
@@ -115,6 +119,15 @@ class AppServiceProvider extends ServiceProvider
             ->give(
                 fn($app) => $app->make(ListAllLoansService::class, [
                     "output" => $app->make(ListAllLoansJsonPresenter::class),
+                ]),
+            );
+
+        $this->app
+            ->when(DeleteLoanByIdController::class)
+            ->needs(DeleteLoanByIdUseCase::class)
+            ->give(
+                fn($app) => $app->make(DeleteLoanByIdService::class, [
+                    "output" => $app->make(DeleteLoanByIdJsonPresenter::class),
                 ]),
             );
     }

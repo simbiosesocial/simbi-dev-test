@@ -2,41 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Core\Domain\Library\Ports\UseCases\CreateLoan\{CreateLoanRequestModel, CreateLoanUseCase};
-use App\Http\Requests\CreateLoanRequest;
+use App\Core\Domain\Library\Ports\UseCases\DeleteLoanById\{DeleteLoanByIdRequestModel, DeleteLoanByIdUseCase};
+use App\Http\Requests\DeleteLoanByIdRequest;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateLoanController extends Controller
+class DeleteLoanByIdController extends Controller
 {
     /**
-     * @param CreateLoanUseCase $useCase
+     * @param DeleteLoanByIdUseCase $useCase
      */
-    public function __construct(private CreateLoanUseCase $useCase)
+    public function __construct(private DeleteLoanByIdUseCase $useCase)
     {
     }
 
     /**
-     * Permite adicionar um novo empréstimo
+     * Permite remove um empréstimo através do seu ID
      *
-     * @OA\Post(
+     * @OA\Delete(
      *    path="/api/loan",
-     *    summary="Cria um novo empréstimo",
+     *    summary="Deleta um empréstimo a partir do ID",
      *    tags={"Loans"},
      *
      *    @OA\RequestBody(
      *      required=true,
      *      @OA\JsonContent(
      *        type="object",
-     *        @OA\Property(property="book_id", type="string"),
-     *        @OA\Property(property="start_loan_date", type="string"),
-     *        @OA\Property(property="end_loan_date", type="string"),
+     *        @OA\Property(property="loan_id", type="string"),
      *      )
      *    ),
      *
      *    @OA\Response(
-     *      response=201,
-     *      description="Loan Created",
+     *      response=200,
+     *      description="Loan Deleted",
      *      @OA\JsonContent(
      *        type="object",
      *        @OA\Property(property="id", type="string", example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344"),
@@ -84,13 +82,13 @@ class CreateLoanController extends Controller
      *
      * ),
      *
-     * @param  CreateLoanRequest $request
+     * @param  DeleteLoanByIdRequest $request
      *
      * @return JsonResponse
      */
-    public function __invoke(CreateLoanRequest $request)
+    public function __invoke(DeleteLoanByIdRequest $request)
     {
-        $viewModel = $this->useCase->execute(new CreateLoanRequestModel($request->validated()));
+        $viewModel = $this->useCase->execute(new DeleteLoanByIdRequestModel($request->validated()));
         return response()->json($viewModel->getResponse(), Response::HTTP_CREATED);
     }
 }

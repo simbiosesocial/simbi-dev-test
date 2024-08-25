@@ -16,11 +16,11 @@ class ListAllLoansController extends Controller
     }
 
     /**
-     * Lista todos os livros cadastrados.
+     * Lista todos os empréstimos cadastrados.
      *
      * @OA\Get(
      *    path="/api/loans",
-     *    summary="Lista todos os livros cadastrados na API",
+     *    summary="Lista todos os empréstimos cadastrados na API",
      *    tags={"Loans"},
      *
      *    @OA\Response(
@@ -29,6 +29,11 @@ class ListAllLoansController extends Controller
      *      @OA\JsonContent(
      *        type="array",
      *        @OA\Items(
+     *          @OA\Property(type="string", property="start_loan_date", example="2024-08-24"),
+     *          @OA\Property(type="string", property="end_loan_date", example="2024-08-24"),
+     *          @OA\Property(
+     *            type="object",
+     *            property="loaned_book",
      *            @OA\Property(
      *              property="id",
      *              type="string",
@@ -60,6 +65,7 @@ class ListAllLoansController extends Controller
      *              type="string",
      *              example="2022-12-14T22:24:26+00:00",
      *            ),
+     *          ),
      *        )
      *      ),
      *    ),

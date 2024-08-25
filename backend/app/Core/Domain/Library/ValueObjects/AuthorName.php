@@ -8,13 +8,13 @@ use App\Core\Domain\Library\Exceptions\InvalidAuthorName;
 final class AuthorName implements ValueObject
 {
     /**
-     * @var string $firstName
+     * @var ?string $firstName
      */
-    public string $firstName;
+    public ?string $firstName;
     /**
-     * @var string $lastName
+     * @var ?string $lastName
      */
-    public string $lastName;
+    public ?string $lastName;
     /**
      * @param ?string $firstName
      * @param ?string $lastName

@@ -3,3 +3,4 @@ export * from "./Sidebar";
 export * from "./BookItem";
 export * from "./LoansList";
 export * from "./LoanItem";
+export * from "./CreateBookDialog";

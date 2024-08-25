@@ -331,6 +331,244 @@
                 }
             }
         },
+        "/api/loan": {
+            "post": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "Cria um novo empréstimo",
+                "description": "Permite adicionar um novo empréstimo",
+                "operationId": "806e84abc52f60a308d7530076f4e7fe",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "book_id": {
+                                        "type": "string"
+                                    },
+                                    "start_loan_date": {
+                                        "type": "string"
+                                    },
+                                    "end_loan_date": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Loan Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                        },
+                                        "loaned_book": {
+                                            "properties": {
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "O Príncipe"
+                                                },
+                                                "publisher": {
+                                                    "type": "string",
+                                                    "example": "Editora XPTO"
+                                                },
+                                                "author": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "string",
+                                                            "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "Nicolau Maquiavel"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "createdAt": {
+                                                    "type": "string",
+                                                    "example": "2022-12-14T22:24:26+00:00"
+                                                },
+                                                "updatedAt": {
+                                                    "type": "string",
+                                                    "example": "2022-12-14T22:24:26+00:00"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição com erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bad Request"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Proibido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Forbidden Error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "Deleta um empréstimo a partir do ID",
+                "description": "Permite remove um empréstimo através do seu ID",
+                "operationId": "1fbacabb1be90be4057306846ee34395",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "loan_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Loan Deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                        },
+                                        "loaned_book": {
+                                            "properties": {
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "O Príncipe"
+                                                },
+                                                "publisher": {
+                                                    "type": "string",
+                                                    "example": "Editora XPTO"
+                                                },
+                                                "author": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "string",
+                                                            "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "Nicolau Maquiavel"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "createdAt": {
+                                                    "type": "string",
+                                                    "example": "2022-12-14T22:24:26+00:00"
+                                                },
+                                                "updatedAt": {
+                                                    "type": "string",
+                                                    "example": "2022-12-14T22:24:26+00:00"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição com erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bad Request"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Proibido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Forbidden Error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/health": {
             "get": {
                 "tags": [
@@ -415,6 +653,119 @@
                             "text/html": {
                                 "schema": {
                                     "example": "pong"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/loans": {
+            "get": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "Lista todos os empréstimos cadastrados na API",
+                "description": "Lista todos os empréstimos cadastrados.",
+                "operationId": "da1da231dd673e1cd157ba27ce4f70c9",
+                "responses": {
+                    "200": {
+                        "description": "Loans list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "start_loan_date": {
+                                                "type": "string",
+                                                "example": "2024-08-24"
+                                            },
+                                            "end_loan_date": {
+                                                "type": "string",
+                                                "example": "2024-08-24"
+                                            },
+                                            "loaned_book": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Curso avançado de Java"
+                                                    },
+                                                    "publisher": {
+                                                        "type": "string",
+                                                        "example": "Editora XPTO"
+                                                    },
+                                                    "author": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string",
+                                                                "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Autor Y"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "createdAt": {
+                                                        "type": "string",
+                                                        "example": "2022-12-14T22:24:26+00:00"
+                                                    },
+                                                    "updatedAt": {
+                                                        "type": "string",
+                                                        "example": "2022-12-14T22:24:26+00:00"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição com erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bad Request"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Proibido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Forbidden Error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Internal server error"
                                 }
                             }
                         }
@@ -617,6 +968,10 @@
         {
             "name": "Books",
             "description": "Books"
+        },
+        {
+            "name": "Loans",
+            "description": "Loans"
         },
         {
             "name": "Health Check",
