@@ -3,6 +3,7 @@
 use App\Http\Controllers\CreateAuthorController;
 use App\Http\Controllers\CreateBookController;
 use App\Http\Controllers\CreateLoanController;
+use App\Http\Controllers\DeleteLoanByIdController;
 use App\Http\Controllers\ListAllBooksController;
 use App\Http\Controllers\ListAllLoansController;
 use App\Http\Controllers\ListBooksByAuthorController;
@@ -32,10 +33,10 @@ Route::group(["prefix" => "authors"], function () {
 
 Route::group(["prefix" => "loans"], function () {
     Route::post("", CreateLoanController::class);
-    Route::patch("{id:int}");
-    Route::delete("{id:int}");
-    Route::get("/id/{id:int}");
+    Route::delete("", DeleteLoanByIdController::class);
     Route::get("", ListAllLoansController::class);
+    // Route::patch("{id:int}");
+    // Route::get("/id/{id:int}");
 });
 
 Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
