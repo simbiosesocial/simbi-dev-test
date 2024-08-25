@@ -17,11 +17,11 @@ class DeleteLoanByIdController extends Controller
     }
 
     /**
-     * Permite adicionar um novo empréstimo
+     * Permite remove um empréstimo através do seu ID
      *
-     * @OA\Post(
+     * @OA\Delete(
      *    path="/api/loan",
-     *    summary="Cria um novo empréstimo",
+     *    summary="Deleta um empréstimo a partir do ID",
      *    tags={"Loans"},
      *
      *    @OA\RequestBody(

@@ -452,6 +452,121 @@
                         }
                     }
                 }
+            },
+            "delete": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "Deleta um empréstimo a partir do ID",
+                "description": "Permite remove um empréstimo através do seu ID",
+                "operationId": "1fbacabb1be90be4057306846ee34395",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "loan_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Loan Deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                        },
+                                        "loaned_book": {
+                                            "properties": {
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "O Príncipe"
+                                                },
+                                                "publisher": {
+                                                    "type": "string",
+                                                    "example": "Editora XPTO"
+                                                },
+                                                "author": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "string",
+                                                            "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "Nicolau Maquiavel"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "createdAt": {
+                                                    "type": "string",
+                                                    "example": "2022-12-14T22:24:26+00:00"
+                                                },
+                                                "updatedAt": {
+                                                    "type": "string",
+                                                    "example": "2022-12-14T22:24:26+00:00"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição com erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bad Request"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Proibido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Forbidden Error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/health": {
@@ -550,8 +665,8 @@
                 "tags": [
                     "Loans"
                 ],
-                "summary": "Lista todos os livros cadastrados na API",
-                "description": "Lista todos os livros cadastrados.",
+                "summary": "Lista todos os empréstimos cadastrados na API",
+                "description": "Lista todos os empréstimos cadastrados.",
                 "operationId": "da1da231dd673e1cd157ba27ce4f70c9",
                 "responses": {
                     "200": {
@@ -562,38 +677,51 @@
                                     "type": "array",
                                     "items": {
                                         "properties": {
-                                            "id": {
+                                            "start_loan_date": {
                                                 "type": "string",
-                                                "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                                "example": "2024-08-24"
                                             },
-                                            "title": {
+                                            "end_loan_date": {
                                                 "type": "string",
-                                                "example": "Curso avançado de Java"
+                                                "example": "2024-08-24"
                                             },
-                                            "publisher": {
-                                                "type": "string",
-                                                "example": "Editora XPTO"
-                                            },
-                                            "author": {
+                                            "loaned_book": {
                                                 "properties": {
                                                     "id": {
                                                         "type": "string",
                                                         "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
                                                     },
-                                                    "name": {
+                                                    "title": {
                                                         "type": "string",
-                                                        "example": "Autor Y"
+                                                        "example": "Curso avançado de Java"
+                                                    },
+                                                    "publisher": {
+                                                        "type": "string",
+                                                        "example": "Editora XPTO"
+                                                    },
+                                                    "author": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string",
+                                                                "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Autor Y"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "createdAt": {
+                                                        "type": "string",
+                                                        "example": "2022-12-14T22:24:26+00:00"
+                                                    },
+                                                    "updatedAt": {
+                                                        "type": "string",
+                                                        "example": "2022-12-14T22:24:26+00:00"
                                                     }
                                                 },
                                                 "type": "object"
-                                            },
-                                            "createdAt": {
-                                                "type": "string",
-                                                "example": "2022-12-14T22:24:26+00:00"
-                                            },
-                                            "updatedAt": {
-                                                "type": "string",
-                                                "example": "2022-12-14T22:24:26+00:00"
                                             }
                                         },
                                         "type": "object"
