@@ -9,7 +9,7 @@ export default async function createBook(title: string, authorId: string, publis
       mode: 'cors'
     });
   if (!response.ok) {
-      throw new Error("Failed to fetch books", { cause: response.statusText });
+      throw new Error("Failed to create book", { cause: response.statusText });
   }
   return response.json();
 }

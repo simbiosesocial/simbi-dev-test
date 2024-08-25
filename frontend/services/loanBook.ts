@@ -13,7 +13,7 @@ export default async function loanBook(bookId: string, startLoanDate: string, en
         mode: 'cors'
       });
     if (!response.ok) {
-        throw new Error("Failed to fetch books", { cause: response.statusText });
+        throw new Error("Failed to loan book", { cause: response.statusText });
     }
     return response.json();
   }
