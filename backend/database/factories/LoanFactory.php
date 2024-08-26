@@ -25,15 +25,16 @@ class LoanFactory extends Factory
     {
         $book = Book::inRandomOrder()->first();
         $loanDate = $this->faker->dateTimeBetween('-1 month', 'now');
-        $returnDate = $this->faker->dateTimeBetween($loanDate, '+7 days');
+        $returnDate = (clone $loanDate)->modify('+7 days');
         $now = new DateTime();
-        $status = $returnDate > $now ? 'active' : 'overdue';
+        $returned_at = $this->faker->optional()->dateTimeBetween($loanDate, $returnDate);
+        $status = is_null($returned_at) ? ($returnDate < $now ? 'overdue' : 'active') : 'finished';
         return [
             'id' => $this->faker->uuid(),
-            'book_id' => [$book->id],
+            'book_id' => $book->id,
             'loan_date' => $loanDate,
             'return_date' => $returnDate,
-            'returned_at' => null,
+            'returned_at' => $returned_at,
             'status' => $status,
             'renewal_count' => 0,
             'last_renewed_at' => null,
