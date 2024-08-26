@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use App\Core\Domain\Library\Entities\Loan;
 use App\Core\Domain\Library\Exceptions\LoanMustHaveABook;
-use App\Core\Domain\Library\Exceptions\LoanMustHaveAnInitDate;
 use App\Core\Domain\Library\Exceptions\LoanMustHaveAReturnDate;
 use DateTime;
 use PHPUnit\Framework\TestCase;
