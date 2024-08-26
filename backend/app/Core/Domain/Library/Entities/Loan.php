@@ -95,10 +95,6 @@ class Loan extends Entity
             throw new LoanMustHaveABook();
         }
 
-        if (empty($this->loanDate)) {
-            throw new LoanMustHaveAnInitDate();
-        }
-
         if (empty($this->returnDate)) {
             throw new LoanMustHaveAReturnDate();
         }
