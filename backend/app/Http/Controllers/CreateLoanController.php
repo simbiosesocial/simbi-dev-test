@@ -41,7 +41,7 @@ class CreateLoanController extends Controller
      *        @OA\Property(
      *          property="id",
      *          type="string",
-     *          example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344",
+     *          example="31c35de6-4d7f-65a7-2da9-8abcf3c44357",
      *        ),
      *        @OA\Property(
      *          property="bookId",
@@ -57,6 +57,11 @@ class CreateLoanController extends Controller
      *          property="returnDate",
      *          type="string",
      *          example="2022-12-21",
+     *        ),
+     *        @OA\Property(
+     *          property="status",
+     *          type="string",
+     *          example="active",
      *        ),
      *        @OA\Property(
      *          property="createdAt",

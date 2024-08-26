@@ -16,14 +16,18 @@ return new class extends Migration {
             $table->uuid("id")->primary();
             $table->uuid("book_id");
             $table->date("loan_date");
-            $table->date("return_date")->nullable();
+            $table->date("return_date");
+            $table->date("returned_at")->nullable();
+            $table->integer("renewal_count")->default(0);
+            $table->date("last_renewed_at")->nullable();
+            $table->string("status")->default('created');
+            $table->timestamps();
             $table
                 ->foreign("book_id")
                 ->references("id")
                 ->on("books")
                 ->onUpdate("CASCADE")
                 ->onDelete("CASCADE");
-            $table->timestamps();
         });
     }
 
