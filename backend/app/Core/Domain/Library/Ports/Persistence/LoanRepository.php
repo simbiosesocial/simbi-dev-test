@@ -12,4 +12,10 @@ interface LoanRepository
      * @return Loan
      */
     public function create(Loan $loan): Loan;
+
+    /**
+     *
+     * @return array<Loan>
+     */
+    public function getAll(): array;
 }
