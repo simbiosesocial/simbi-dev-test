@@ -33,6 +33,8 @@ final class Loan extends Model
      */
     protected $keyType = 'string';
 
+    public $timestamps = true;
+    
     /**
      * The attributes that are mass assignable.
      *
