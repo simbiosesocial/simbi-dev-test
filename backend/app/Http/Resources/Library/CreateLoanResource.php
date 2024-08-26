@@ -11,7 +11,9 @@ final class CreateLoanResource extends JsonResource
     /**
      * @param Loan $loan
      */
-    public function __construct(private Loan $loan) {}
+    public function __construct(private Loan $loan)
+    {
+    }
 
     /**
      * Transform the resource into an array.

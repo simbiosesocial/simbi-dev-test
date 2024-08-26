@@ -34,7 +34,7 @@ final class Loan extends Model
     protected $keyType = 'string';
 
     public $timestamps = true;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -54,9 +54,9 @@ final class Loan extends Model
     ];
 
     /**
-     * The books that belong to the loan.
+     * The book that belong to the loan.
      *
-     * @return BelongsToMany
+     * @return BelongsTo
      */
     public function book(): BelongsTo
     {

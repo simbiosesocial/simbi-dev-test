@@ -4,7 +4,7 @@ namespace App\Core\Domain\Library\Entities;
 
 use App\Core\Common\Entities\Entity;
 use App\Core\Common\Traits\{WithCreatedAt, WithUpdatedAt};
-use App\Core\Domain\Library\Exceptions\{InvalidRenewLoan, LoanAlreadyHaveFinished, LoanMustHaveABook, LoanMustHaveAnInitDate, LoanMustHaveAReturnDate, ReturnDateAlreadySet};
+use App\Core\Domain\Library\Exceptions\{LoanMustHaveABook, LoanMustHaveAnInitDate, LoanMustHaveAReturnDate};
 
 use DateTime;
 

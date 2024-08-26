@@ -12,7 +12,9 @@ class CreateLoanController extends Controller
     /**
      * @param CreateLoanUseCase $useCase
      */
-    public function __construct(private CreateLoanUseCase $useCase) {}
+    public function __construct(private CreateLoanUseCase $useCase)
+    {
+    }
 
     /**
      * Permite adicionar um novo empréstimo
