@@ -1,8 +1,25 @@
-import type { FunctionComponent } from "react";
+'use client';
+
+import { useState, type FunctionComponent } from "react";
 import type { BookItemProps } from "./BookItem.interface";
 import { Card, CardContent, CardMedia, CardActions, Button, Typography, Tooltip } from "@mui/material";
+import { createLoan } from "@/api/loan";
 
-export const BookItem: FunctionComponent<BookItemProps> = ({ title, coverUrl }) => {
+export const BookItem: FunctionComponent<BookItemProps> = ({ id, title, coverUrl }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [activateLoan, setActivateLoan] = useState<boolean>(false);
+
+  const handleLoan = async () => {
+    setIsLoading(true);
+    try {
+      const data = await createLoan(id);
+      setActivateLoan(true);
+    } catch (error) {
+      console.error("Error creating loan:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
   return (
     <Card variant="outlined">
       <CardMedia sx={{ height: 264 }} image={coverUrl ? coverUrl : "/cover.png"} title={title} />
@@ -17,8 +34,14 @@ export const BookItem: FunctionComponent<BookItemProps> = ({ title, coverUrl }) 
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" variant="contained" fullWidth>
-          Empréstimo
+        <Button 
+          size="small" 
+          variant="contained" 
+          fullWidth 
+          onClick={handleLoan}
+          disabled={activateLoan}
+        >
+          {isLoading ? "Processando..." : activateLoan ? 'Empréstimo ativo' : "Empréstimo"}
         </Button>
       </CardActions>
     </Card>
