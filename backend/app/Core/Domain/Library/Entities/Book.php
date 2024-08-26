@@ -56,6 +56,7 @@ final class Book extends Entity
         $this->authorId = $authorId;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
+        $this->validate();
     }
     /**
      * @param Author $author
