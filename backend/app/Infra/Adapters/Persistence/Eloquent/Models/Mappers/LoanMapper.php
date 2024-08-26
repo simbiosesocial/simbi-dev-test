@@ -4,6 +4,7 @@ namespace App\Infra\Adapters\Persistence\Eloquent\Models\Mappers;
 
 use App\Core\Domain\Library\Entities\Loan as DomainLoan;
 use App\Infra\Adapters\Persistence\Eloquent\Models\Loan as EloquentLoan;
+use DateTime;
 
 final class LoanMapper
 {
@@ -39,14 +40,14 @@ final class LoanMapper
         $domainLoan = new DomainLoan(
             id: $loan->id,
             bookId: $loan->book_id,
-            loanDate: $loan->loan_date,
-            returnDate: $loan->return_date,
-            returnedAt: $loan->returned_at,
+            loanDate: $loan->loan_date ? new DateTime($loan->loan_date) : null,
+            returnDate: $loan->return_date ? new DateTime($loan->return_date) : null,
+            returnedAt: $loan->returned_at ? new DateTime($loan->returned_at) : null,
             status: $loan->status,
             renewalCount: $loan->renewal_count,
-            lastRenewedAt: $loan->last_renewed_at,
-            createdAt: $loan->created_at,
-            updatedAt: $loan->updated_at,
+            lastRenewedAt: $loan->last_renewed_at ? new DateTime($loan->last_renewed_at) : null,
+            createdAt: new DateTime($loan->created_at),
+            updatedAt: new DateTime($loan->updated_at),
         );
 
         if ($withRelations && ! empty($loan->book)) {
@@ -54,5 +55,15 @@ final class LoanMapper
         }
 
         return $domainLoan;
+    }
+
+    /**
+     * @param array<EloquentLoan> $loans
+     *
+     * @return array<DomainLoan>
+     */
+    public static function toManyDomainEntities(array $loans): array
+    {
+        return array_map(static fn($loan) => self::toDomainEntity($loan), $loans);
     }
 }
