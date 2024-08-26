@@ -7,6 +7,7 @@ use App\Core\Domain\Library\Exceptions\LoanMustHaveABook;
 use App\Core\Domain\Library\Ports\UseCases\CreateLoan\CreateLoanRequestModel;
 use App\Core\Domain\Library\Ports\UseCases\CreateLoan\CreateLoanUseCase;
 use App\Core\Services\Library\CreateLoanService;
+use App\Infra\Adapters\Persistence\Eloquent\Models\Book;
 use App\Infra\Adapters\Persistence\Eloquent\Repositories\LoanEloquentRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -16,6 +17,7 @@ class CreateLoanUseCaseTest extends TestCase
     use RefreshDatabase;
 
     private CreateLoanUseCase $useCase;
+    private Book $book;
 
     protected function setUp(): void
     {
@@ -24,18 +26,19 @@ class CreateLoanUseCaseTest extends TestCase
             output: new CreateLoanJsonPresenter(),
             loanRepository: new LoanEloquentRepository(),
         );
+        $this->book = Book::first() ?? Book::factory()->create();
     }
 
     public function testShouldCreateALoan()
     {
         $request = new CreateLoanRequestModel([
-            "bookId" => "book_id_1234",
+            "bookId" => $this->book->id,
         ]);
 
         $loan = $this->useCase->execute($request)->resource->toArray(null);
 
         $this->assertIsString($loan->id);
-        $this->assertEquals("book_id_1234", $loan->book->id);
+        $this->assertEquals($this->book->id, $loan->book->id);
     }
 
     public function testShouldThrowLoanMustHaveABook()
