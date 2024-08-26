@@ -30,24 +30,24 @@ interface LoanRepository
     /**
      * @param string $id,
      * @param string $status,
-     * @param DateTime $returnedAt,
+     * @param string $returnedAt,
      *
      * @return Loan
      */
-    public function finalize(string $id, string $status, DateTime $returnedAt): Loan;
+    public function finalize(string $id, string $status, string $returnedAt): Loan;
 
     /**
      * @param string $id,
      * @param string $status,
-     * @param DateTime $lastRenewedAt,
-     * @param DateTime $returnDate,
+     * @param string $lastRenewedAt,
+     * @param string $returnDate,
      *
      * @return Loan
      */
     public function renew(
         string $id,
         string $status,
-        DateTime $lastRenewedAt,
-        DateTime $returnDate,
+        string $lastRenewedAt,
+        string $returnDate,
     ): Loan;
 }
