@@ -20,8 +20,7 @@ class UpdateLoanController extends Controller
     public function __construct(
         private FinalizeLoanUseCase $finalizeUseCase,
         private RenewLoanUseCase $renewUseCase
-    )
-    {
+    ){
         $this->finalizeUseCase = $finalizeUseCase;
         $this->renewUseCase = $renewUseCase;
     }

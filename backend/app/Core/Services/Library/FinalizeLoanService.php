@@ -41,7 +41,7 @@ final class FinalizeLoanService implements FinalizeLoanUseCase
         $status = 'finished';
         $returnedAt = new DateTime();
 
-        $loan = $this->loanRepository->finalize($id, $status, $returnedAt);
+        $loan = $this->loanRepository->finalize($id, $status, $returnedAt->format('Y-m-d H:i:s'));
         return $this->output->present(new FinalizeLoanResponseModel($loan));
     }
 

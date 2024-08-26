@@ -42,7 +42,7 @@ final class LoanEloquentRepository implements LoanRepository
 
     /**
      *
-     *  @param uuid $id
+     *  @param string $id
      *
      * @return Loan
      */
@@ -60,7 +60,7 @@ final class LoanEloquentRepository implements LoanRepository
     /**
      * @param string $id,
      * @param string $status,
-     * @param DateTime $returnedAt,
+     * @param string $returnedAt,
      *
      * @return Loan
      */
@@ -68,7 +68,7 @@ final class LoanEloquentRepository implements LoanRepository
     {
         EloquentLoan::where('id', $id)->update([
             'status' => $status,
-            'returned_at' => $returnedAt->format('Y-m-d H:i:s')
+            'returned_at' => $returnedAt,
         ]);
 
         $loan = EloquentLoan::findOrFail($id);
@@ -78,8 +78,8 @@ final class LoanEloquentRepository implements LoanRepository
     /**
      * @param string $id,
      * @param string $status,
-     * @param DateTime $lastRenewedAt,
-     * @param DateTime $returnDate,
+     * @param string $lastRenewedAt,
+     * @param string $returnDate,
      *
      * @return Loan
      */
@@ -88,8 +88,8 @@ final class LoanEloquentRepository implements LoanRepository
 
         $loan = EloquentLoan::findOrFail($id);
         $loan->status = $status;
-        $loan->last_renewed_at = $lastRenewedAt->format('Y-m-d H:i:s');
-        $loan->return_date = $returnDate->format('Y-m-d H:i:s');
+        $loan->last_renewed_at = $lastRenewedAt;
+        $loan->return_date = $returnDate;
         $loan->increment('renewal_count');
         $loan->save();
 
