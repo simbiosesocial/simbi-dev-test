@@ -331,6 +331,124 @@
                 }
             }
         },
+        "/api/loans": {
+            "post": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "Adiciona um novo empréstimo na API",
+                "description": "Permite adicionar um novo empréstimo",
+                "operationId": "bf75f8441c0b3e6818b9a5a48f2e512a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "bookId"
+                                ],
+                                "properties": {
+                                    "bookId": {
+                                        "type": "string"
+                                    },
+                                    "loanDate": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "returnDate": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Loan Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "31c35de6-4d7f-65a7-2da9-8abcf3c44357"
+                                        },
+                                        "bookId": {
+                                            "type": "string",
+                                            "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                        },
+                                        "loanDate": {
+                                            "type": "string",
+                                            "example": "2022-12-14"
+                                        },
+                                        "returnDate": {
+                                            "type": "string",
+                                            "example": "2022-12-21"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "active"
+                                        },
+                                        "createdAt": {
+                                            "type": "string",
+                                            "example": "2022-12-14T22:24:26+00:00"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string",
+                                            "example": "2022-12-14T22:24:26+00:00"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição com erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bad Request"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Proibido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Forbidden Error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/health": {
             "get": {
                 "tags": [
@@ -617,6 +735,10 @@
         {
             "name": "Books",
             "description": "Books"
+        },
+        {
+            "name": "Loans",
+            "description": "Loans"
         },
         {
             "name": "Health Check",
