@@ -29,14 +29,70 @@ final class LoanEloquentRepository implements LoanRepository
      */
     public function getAll(): array
     {
-        $books = EloquentLoan::with(['book'])
+        $loans = EloquentLoan::with(['book'])
             ->get()
             ->all();
 
-        if (empty($books)) {
+        if (empty($loans)) {
             return [];
         }
 
-        return LoanMapper::toManyDomainEntities($books);
+        return LoanMapper::toManyDomainEntities($loans);
+    }
+
+    /**
+     *
+     *  @param uuid $id
+     *
+     * @return Loan
+     */
+    public function findById(string $id): ?Loan
+    {
+        $loan = EloquentLoan::with(['book'])->find($id);
+
+        if (!$loan) {
+            return null;
+        }
+
+        return LoanMapper::toDomainEntity($loan);
+    }
+
+    /**
+     * @param string $id,
+     * @param string $status,
+     * @param DateTime $returnedAt,
+     *
+     * @return Loan
+     */
+    public function finalize($id, $status, $returnedAt): Loan
+    {
+        EloquentLoan::where('id', $id)->update([
+            'status' => $status,
+            'returned_at' => $returnedAt->format('Y-m-d H:i:s')
+        ]);
+
+        $loan = EloquentLoan::findOrFail($id);
+        return LoanMapper::toDomainEntity($loan);
+    }
+
+    /**
+     * @param string $id,
+     * @param string $status,
+     * @param DateTime $lastRenewedAt,
+     * @param DateTime $returnDate,
+     *
+     * @return Loan
+     */
+    public function renew($id, $status, $lastRenewedAt, $returnDate): Loan
+    {
+
+        $loan = EloquentLoan::findOrFail($id);
+        $loan->status = $status;
+        $loan->last_renewed_at = $lastRenewedAt->format('Y-m-d H:i:s');
+        $loan->return_date = $returnDate->format('Y-m-d H:i:s');
+        $loan->increment('renewal_count');
+        $loan->save();
+
+        return LoanMapper::toDomainEntity($loan);
     }
 }
