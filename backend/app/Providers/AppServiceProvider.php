@@ -108,7 +108,7 @@ class AppServiceProvider extends ServiceProvider
                     "output" => $app->make(ListAllLoansJsonPresenter::class),
                 ]),
             );
-            
+
         $this->app
             ->when(ListBooksByAuthorController::class)
             ->needs(ListBooksByAuthorUseCase::class)
