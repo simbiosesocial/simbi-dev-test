@@ -90,6 +90,12 @@ class ListBooksByAuthorController extends Controller
      *          @OA\Schema(ref="#/components/schemas/Unauthorized Error")
      *      )
      *    ),
+     *    @OA\Response(response=404, description="Não encontrado",
+     *      @OA\MediaType(
+     *       mediaType="application/json",
+     *          @OA\Schema(ref="#/components/schemas/Unauthorized Error")
+     *      )
+     *     ),
      *    @OA\Response(response="500", description="Erro interno",
      *      @OA\MediaType(
      *       mediaType="application/json",

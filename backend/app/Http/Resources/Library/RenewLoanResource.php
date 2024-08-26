@@ -3,10 +3,10 @@
 namespace App\Http\Resources\Library;
 
 use App\Core\Domain\Library\Entities\Loan;
-use DateTime;
+use DateTimeInterface;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ListAllLoansResource extends JsonResource
+final class RenewLoanResource extends JsonResource
 {
     /**
      * @param Loan $loan
@@ -14,6 +14,7 @@ class ListAllLoansResource extends JsonResource
     public function __construct(private Loan $loan)
     {
     }
+
     /**
      * Transform the resource into an array.
      *
@@ -25,15 +26,11 @@ class ListAllLoansResource extends JsonResource
     {
         return [
             'id' => $this->loan->id,
-            'book' => (new BookDetailsResource($this->loan->book))->resolve(),
-            'loanDate' => $this->loan->loanDate->format(DateTime::ATOM),
-            'returnDate' => $this->loan->returnDate->format(DateTime::ATOM),
+            'bookId' => $this->loan->bookId,
             'status' => $this->loan->status,
+            'returnDate' => $this->loan->returnDate->format(DateTimeInterface::ATOM),
             'renewalCount' => $this->loan->renewalCount,
-            'lastRenewedAt' => $this->loan->lastRenewedAt ? $this->loan->lastRenewedAt->format(DateTime::ATOM) : null,
-            'returnedAt' => $this->loan->returnedAt ? $this->loan->returnedAt->format(DateTime::ATOM) : null,
-            'createdAt' => $this->loan->createdAt->format(DateTime::ATOM),
-            'updatedAt' => $this->loan->updatedAt->format(DateTime::ATOM),
+            'lastRenewedAt' => $this->loan->lastRenewedAt->format(DateTimeInterface::ATOM),
         ];
     }
 }
