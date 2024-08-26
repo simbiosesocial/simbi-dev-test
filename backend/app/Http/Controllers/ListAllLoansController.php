@@ -19,7 +19,7 @@ class ListAllLoansController extends Controller
      * Lista todos os empréstimos cadastrados.
      *
      * @OA\Get(
-     *    path="/api/books",
+     *    path="/api/loans",
      *    summary="Lista todos os empréstimos cadastrados na API",
      *    tags={"Loans"},
      *
@@ -34,9 +34,15 @@ class ListAllLoansController extends Controller
      *          example="31c35de6-4d7f-65a7-2da9-8abcf3c44357",
      *        ),
      *        @OA\Property(
-     *          property="bookId",
-     *          type="string",
-     *          example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344",
+     *          property="book",
+     *          type="object",
+     *              @OA\Property(property="id", type="string", example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344"),
+     *              @OA\Property(property="title", type="string", example="Book X"),
+     *              @OA\Property(property="publisher", type="string", example="Publisher Y"),
+     *              @OA\Property(property="author", type="object",
+     *                  @OA\Property(property="id", type="string", example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344"),
+     *                  @OA\Property(property="name", type="string", example="Autor Y"),
+     *               ),
      *        ),
      *        @OA\Property(
      *          property="loanDate",
@@ -45,6 +51,11 @@ class ListAllLoansController extends Controller
      *        ),
      *        @OA\Property(
      *          property="returnDate",
+     *          type="string",
+     *          example="2022-12-21",
+     *        ),
+     *        @OA\Property(
+     *          property="returnedAt",
      *          type="string",
      *          example="2022-12-21",
      *        ),
