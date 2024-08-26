@@ -31,6 +31,10 @@ final class Book extends Entity
      * @var ?Author $author
      */
     public ?Author $author;
+    /**
+     * @var mixed $loans
+     */
+    private mixed $loans;
 
     /**
      * @param ?string $id
