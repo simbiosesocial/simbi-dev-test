@@ -727,6 +727,16 @@
                             }
                         }
                     },
+                    "404": {
+                        "description": "Não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
                     "500": {
                         "description": "Erro interno",
                         "content": {
@@ -736,6 +746,167 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/api/loans/{id}/finalize": {
+            "patch": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "Finaliza um empréstimo, com o retorno do livro.",
+                "operationId": "f0ac00dd3e2ccdcf175cb008c257a803",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the loan to return",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Loan returned successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "31c35de6-4d7f-65a7-2da9-8abcf3c44357"
+                                        },
+                                        "bookId": {
+                                            "type": "string",
+                                            "example": "31c35de6-4d7f-65a7-2da9-8abcf3c44357"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "finished"
+                                        },
+                                        "returnedAt": {
+                                            "type": "string",
+                                            "example": "2023-10-01"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição com erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bad Request"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Proibido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Forbidden Error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/loans/{id}/renew": {
+            "patch": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "Renova um empréstimo",
+                "operationId": "5bdb9fe12a904e8a52685e722e63ebdf",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the loan to renew",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Loan renewed successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "31c35de6-4d7f-65a7-2da9-8abcf3c44357"
+                                        },
+                                        "bookId": {
+                                            "type": "string",
+                                            "example": "31c35de6-4d7f-65a7-2da9-8abcf3c44357"
+                                        },
+                                        "renewalCount": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "returnDate": {
+                                            "type": "string",
+                                            "example": "2023-10-15"
+                                        },
+                                        "lastRenewedAt": {
+                                            "type": "string",
+                                            "example": "2023-10-15"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "active"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Loan not found"
                     }
                 }
             }
