@@ -27,15 +27,15 @@ final class BookEloquentRepository implements BookRepository
      */
     public function getAll(): array
     {
-        $books = EloquentBook::with(['author'])
+        $eloquentBooks = EloquentBook::with(['author'])
             ->get()
             ->all();
 
-        if (empty($books)) {
+        if (empty($eloquentBooks)) {
             return [];
         }
 
-        return BookMapper::toManyDomainEntities($books);
+        return BookMapper::toManyDomainEntities($eloquentBooks);
     }
 
     /**
@@ -55,5 +55,35 @@ final class BookEloquentRepository implements BookRepository
         }
 
         return BookMapper::toManyDomainEntities($eloquentBooks);
+    }
+
+    /**
+     * @param string $bookId
+     *
+     * @return ?Book
+     */
+    public function findById(string $bookId): ?Book
+    {
+        $eloquentBook = EloquentBook::with(['author'])->find($bookId);
+        if (!$eloquentBook) {
+            return null;
+        }
+        return BookMapper::toDomainEntity($eloquentBook);
+    }
+
+    /**
+     * @param string $bookId
+     *
+     * @param bool $isAvailable
+     *
+     * @return Book
+     */
+    public function setAvailable(string $bookId, bool $isAvailable): Book
+    {
+        $eloquentBook = EloquentBook::findOrFail($bookId);
+        $eloquentBook->isAvailable = $isAvailable;
+        $eloquentBook->save();
+
+        return BookMapper::toDomainEntity($eloquentBook);
     }
 }
