@@ -3,9 +3,11 @@
 import { useState, type FunctionComponent } from "react";
 import type { BookItemProps } from "./BookItem.interface";
 import { Card, CardContent, CardMedia, CardActions, Button, Typography, Tooltip } from "@mui/material";
-import { createLoan } from "@/api/loan";
+import { createLoan } from "@/requests/loans/createLoan";
 
-export const BookItem: FunctionComponent<BookItemProps> = ({ id, title, coverUrl }) => {
+
+export const BookItem: FunctionComponent<BookItemProps> = (book) => {
+  const { id, title, coverUrl, isAvailable } = book;
   const [isLoading, setIsLoading] = useState(false);
   const [activateLoan, setActivateLoan] = useState<boolean>(false);
 
@@ -39,9 +41,9 @@ export const BookItem: FunctionComponent<BookItemProps> = ({ id, title, coverUrl
           variant="contained" 
           fullWidth 
           onClick={handleLoan}
-          disabled={activateLoan}
+          disabled={!isAvailable}
         >
-          {isLoading ? "Processando..." : activateLoan ? 'Empréstimo ativo' : "Empréstimo"}
+          {isLoading ? "Processando..." : isAvailable ? "Empréstimo" : 'Emprestado' } 
         </Button>
       </CardActions>
     </Card>
