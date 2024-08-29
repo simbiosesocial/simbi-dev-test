@@ -16,10 +16,15 @@ export const LoanItem: FunctionComponent<LoanItemProps> = ({ id, status, returnD
   const [isLoadingFinalize, setIsLoadingFinalize] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
-  const finished = status === 'finished';
+  const [loan, setLoan] = useState({
+    status,
+    returnDate,
+    returnedAt,
+  });
+  const finished = loan.status === 'finished';
 
-  const formattedReturnDate = formatDateToLocal(returnDate);
-  const formattedReturnedAt = returnedAt && formatDateToLocal(returnedAt);
+  const formattedReturnDate = formatDateToLocal(loan.returnDate);
+  const formattedReturnedAt = loan.returnedAt && formatDateToLocal(loan.returnedAt);
 
 
   const handleRenewLoan = async () => {
@@ -27,10 +32,19 @@ export const LoanItem: FunctionComponent<LoanItemProps> = ({ id, status, returnD
     try {
       const data = await renewLoan(id);
       setIsLoadingRenew(false);
-      if (data) setOpenSuccess(true);
+      if (data) {
+        setOpenSuccess(true);
+        setLoan({
+          ...loan,
+          status: data.status,
+          returnDate: data.returnDate
+        });
+      }
     } catch (error) {
       setOpenError(true);
       console.error("Error renewing loan:", error);
+    } finally {
+      setIsLoadingRenew(false);
     }
   }
 
@@ -39,10 +53,19 @@ export const LoanItem: FunctionComponent<LoanItemProps> = ({ id, status, returnD
     try {
       const data = await finalizeLoan(id);
       setIsLoadingFinalize(false);
-      if (data) setOpenSuccess(true);
+      if (data) {
+        setOpenSuccess(true);
+        setLoan({
+          ...loan,
+          status: data.status,
+          returnedAt: data.returnedAt
+        });
+      }
     } catch (error) {
       setOpenError(true);
       console.error("Error finalizing loan:", error);
+    } finally {
+      setIsLoadingFinalize(false);
     }
   }
 
@@ -69,7 +92,7 @@ export const LoanItem: FunctionComponent<LoanItemProps> = ({ id, status, returnD
         </Tooltip>
         
         <Typography variant="overline">
-          Status: {status}
+          Status: {loan.status}
         </Typography>
 
         {finished ? 

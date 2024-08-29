@@ -1,4 +1,4 @@
-export const finalizeLoan = async (loanId: string): Promise<Partial<Loan> | undefined> => {
+export const finalizeLoan = async (loanId: string): Promise<Loan | undefined> => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/loans/${loanId}/finalize`, {
       method: "PATCH",
@@ -16,7 +16,7 @@ export const finalizeLoan = async (loanId: string): Promise<Partial<Loan> | unde
   } 
 }
 
-export const renewLoan = async (loanId: string): Promise<Partial<Loan> | undefined> => {
+export const renewLoan = async (loanId: string): Promise<Loan | undefined> => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/loans/${loanId}/renew`, {
       method: "PATCH",
