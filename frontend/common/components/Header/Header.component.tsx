@@ -13,10 +13,21 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useApp } from "@/common/providers/AppProvider";
 import { lightColor } from "./Header.consts";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { categories } from "../Navigator/Navigator.consts";
 
 export function Header() {
   const { onDrawerToggle } = useApp();
+  const currentPath = usePathname();
+  const [title, setTitle] = useState('');
 
+  useEffect(() => {
+    let title;
+    categories.forEach(({ children }) => title = children.find(child => child.url === currentPath)?.id)
+    setTitle(title || 'Livros');
+  }, [currentPath])
+  
   return (
     <>
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -48,7 +59,7 @@ export function Header() {
           <Grid container spacing={1} sx={{ alignItems: "center" }}>
             <Grid item xs>
               <Typography color="inherit" variant="h5" component="h1">
-                Livros
+                {title}
               </Typography>
             </Grid>
             <Grid item>

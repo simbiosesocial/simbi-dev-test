@@ -8,9 +8,13 @@ export const categories = [
       {
         id: "Livros",
         icon: <LibraryBooksIcon />,
-        active: true,
+        url: '/'
       },
-      { id: "Empréstimos", icon: <AssignmentTurnedInIcon /> },
+      { 
+        id: "Empréstimos", 
+        icon: <AssignmentTurnedInIcon />, 
+        url: '/loans'
+      },
     ],
   },
 ];
