@@ -66,12 +66,11 @@ final class LoanEloquentRepository implements LoanRepository
      */
     public function finalize($id, $status, $returnedAt): Loan
     {
-        EloquentLoan::where('id', $id)->update([
-            'status' => $status,
-            'returned_at' => $returnedAt,
-        ]);
-
         $loan = EloquentLoan::findOrFail($id);
+        $loan->status = $status;
+        $loan->returned_at = $returnedAt;
+        $loan->save();
+
         return LoanMapper::toDomainEntity($loan);
     }
 
@@ -85,7 +84,6 @@ final class LoanEloquentRepository implements LoanRepository
      */
     public function renew($id, $status, $lastRenewedAt, $returnDate): Loan
     {
-
         $loan = EloquentLoan::findOrFail($id);
         $loan->status = $status;
         $loan->last_renewed_at = $lastRenewedAt;

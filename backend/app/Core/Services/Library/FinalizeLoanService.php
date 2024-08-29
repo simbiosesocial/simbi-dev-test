@@ -6,6 +6,7 @@ use App\Core\Common\Ports\ViewModel;
 use App\Core\Domain\Library\Entities\Loan;
 use App\Core\Domain\Library\Exceptions\LoanAlreadyHaveFinished;
 use App\Core\Domain\Library\Exceptions\LoanIdIsRequired;
+use App\Core\Domain\Library\Ports\Persistence\BookRepository;
 use App\Core\Domain\Library\Ports\Persistence\LoanRepository;
 use App\Core\Domain\Library\Ports\UseCases\FinalizeLoan\{
     FinalizeLoanOutputPort,
@@ -21,7 +22,11 @@ final class FinalizeLoanService implements FinalizeLoanUseCase
      * @param FinalizeLoanOutputPort $output
      * @param LoanRepository $loanRepository
      */
-    public function __construct(private FinalizeLoanOutputPort $output, private LoanRepository $loanRepository)
+    public function __construct(
+        private FinalizeLoanOutputPort $output,
+        private LoanRepository $loanRepository,
+        private BookRepository $bookRepository
+        )
     {
     }
     /**
@@ -31,39 +36,30 @@ final class FinalizeLoanService implements FinalizeLoanUseCase
      */
     public function execute(FinalizeLoanRequestModel $requestModel): ViewModel
     {
-        $this->validate($requestModel);
-
-        $id = $requestModel->getLoanId();
-        $loan = $this->loanRepository->findById($id);
-
-        $this->validateLoanStatus($loan);
+        $loanId = $requestModel->getLoanId();
+        $this->validate($loanId);
 
         $status = 'finished';
         $returnedAt = new DateTime();
 
-        $loan = $this->loanRepository->finalize($id, $status, $returnedAt->format('Y-m-d H:i:s'));
+        $loan = $this->loanRepository->finalize($loanId, $status, $returnedAt->format('Y-m-d H:i:s'));
+        $this->bookRepository->setAvailable($loan->bookId, true);
+
         return $this->output->present(new FinalizeLoanResponseModel($loan));
     }
 
     /**
-     * @param FinalizeLoanRequestModel $requestModel
+     * @param string $loanId
      *
      * @return void
      */
-    private function validate(FinalizeLoanRequestModel $requestModel): void
+    private function validate(?string $loanId): void
     {
-        if (empty($requestModel->getLoanId())) {
+        if (empty($loanId)) {
             throw new LoanIdIsRequired();
         }
-    }
 
-    /**
-     * @param Loan $loan
-     *
-     * @return void
-     */
-    private function validateLoanStatus(Loan $loan): void
-    {
+        $loan = $this->loanRepository->findById($loanId);
         if ($loan->status === 'finished') {
             throw new LoanAlreadyHaveFinished($loan->returnedAt);
         }
