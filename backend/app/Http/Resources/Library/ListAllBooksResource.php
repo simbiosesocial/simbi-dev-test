@@ -30,6 +30,7 @@ class ListAllBooksResource extends JsonResource
             'author' => (new AuthorDetailsResource($this->book->author))->resolve(),
             'createdAt' => $this->book->createdAt->format(DateTime::ATOM),
             'updatedAt' => $this->book->updatedAt->format(DateTime::ATOM),
+            'is_available' => $this->book->isAvailable,
         ];
     }
 }

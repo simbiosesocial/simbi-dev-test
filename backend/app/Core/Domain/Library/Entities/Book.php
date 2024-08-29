@@ -32,9 +32,9 @@ final class Book extends Entity
      */
     public ?Author $author;
     /**
-     * @var mixed $loans
+     * @var array<Loan> $loans
      */
-    private mixed $loans;
+    public array $loans;
     /**
      * @var bool $isAvailable
      */

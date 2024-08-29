@@ -4,7 +4,10 @@ namespace App\Core\Services\Library;
 
 use App\Core\Common\Ports\ViewModel;
 use App\Core\Domain\Library\Entities\Loan;
+use App\Core\Domain\Library\Exceptions\BookIsNotAvailable;
+use App\Core\Domain\Library\Exceptions\BookNotFound;
 use App\Core\Domain\Library\Exceptions\LoanMustHaveABook;
+use App\Core\Domain\Library\Ports\Persistence\BookRepository;
 use App\Core\Domain\Library\Ports\Persistence\LoanRepository;
 use App\Core\Domain\Library\Ports\UseCases\CreateLoan\{
     CreateLoanOutputPort,
@@ -29,7 +32,11 @@ final class CreateLoanService implements CreateLoanUseCase
      * @param CreateLoanOutputPort $output
      * @param LoanRepository $loanRepository
      */
-    public function __construct(private CreateLoanOutputPort $output, private LoanRepository $loanRepository)
+    public function __construct(
+        private CreateLoanOutputPort $output,
+        private LoanRepository $loanRepository,
+        private BookRepository $bookRepository
+        )
     {
         $this->loanDate = null;
         $this->returnDate = null;
@@ -41,31 +48,42 @@ final class CreateLoanService implements CreateLoanUseCase
      */
     public function execute(CreateLoanRequestModel $requestModel): ViewModel
     {
-        $this->validate($requestModel);
+        $bookId = $requestModel->getBookId();
+        $this->validate($bookId);
 
         $this->checkLoanDate($requestModel);
 
         $this->checkReturnDate($requestModel);
 
         $loan = $this->loanRepository->create(new Loan(
-            bookId: $requestModel->getBookId(),
+            bookId: $bookId,
             loanDate: $this->loanDate,
             returnDate: $this->returnDate,
         ));
+
+        $this->bookRepository->setAvailable($bookId, false);
 
         return $this->output->present(new CreateLoanResponseModel($loan));
     }
 
     /**
-     * @param CreateLoanRequestModel $requestModel
+     * @param ?string $bookId
      *
      * @return void
      */
-    private function validate(CreateLoanRequestModel $requestModel): void
+    private function validate(?string $bookId): void
     {
-        if (empty($requestModel->getBookId())) {
+        if (empty($bookId)) {
             throw new LoanMustHaveABook();
         }
+
+        $book = $this->bookRepository->findById($bookId);
+        if (!$book) {
+            throw new BookNotFound();
+        }
+        if (!$book->isAvailable) {
+            throw new BookIsNotAvailable();
+        };
     }
 
     /**
