@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Carbon\Carbon;
 
 final class Loan extends Model
 {
@@ -48,6 +49,34 @@ final class Loan extends Model
         'returned_at',
         'status',
         'renewal_count',
+        'last_renewed_at',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'loan_date' => 'datetime',
+        'return_date' => 'datetime',
+        'returned_at' => 'datetime',
+        'last_renewed_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'loan_date',
+        'return_date',
+        'returned_at',
         'last_renewed_at',
         'created_at',
         'updated_at',

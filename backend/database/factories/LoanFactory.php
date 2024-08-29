@@ -24,24 +24,22 @@ class LoanFactory extends Factory
     public function definition(): array
     {
         $book = Book::where('is_available', true)->inRandomOrder()->first();
-        $book->isAvailable = false;
-        $book->save();
         $loanDate = $this->faker->dateTimeBetween('-1 month', 'now');
         $returnDate = (clone $loanDate)->modify('+7 days');
         $now = new DateTime();
         $returned_at = $this->faker->optional()->dateTimeBetween($loanDate, $returnDate);
         $status = is_null($returned_at) ? ($returnDate < $now ? 'overdue' : 'active') : 'finished';
+        $book->is_available = is_null($returned_at) ? false : true;
+        $book->save();
         return [
             'id' => $this->faker->uuid(),
             'book_id' => $book->id,
-            'loan_date' => $loanDate,
-            'return_date' => $returnDate,
-            'returned_at' => $returned_at,
+            'loan_date' => $loanDate->format(DateTime::ATOM),
+            'return_date' => $returnDate->format(DateTime::ATOM),
+            'returned_at' => $returned_at ? $returned_at->format(DateTime::ATOM) : null,
             'status' => $status,
             'renewal_count' => 0,
             'last_renewed_at' => null,
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime(),
         ];
     }
 }

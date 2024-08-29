@@ -24,8 +24,6 @@ final class LoanMapper
             'status' => $loan->status,
             'renewal_count' => $loan->renewalCount,
             'last_renewed_at' => $loan->lastRenewedAt,
-            'created_at' => $loan->createdAt,
-            'updated_at' => $loan->updatedAt,
         ]);
     }
 
@@ -40,14 +38,14 @@ final class LoanMapper
         $domainLoan = new DomainLoan(
             id: $loan->id,
             bookId: $loan->book_id,
-            loanDate: $loan->loan_date ? new DateTime($loan->loan_date) : null,
-            returnDate: $loan->return_date ? new DateTime($loan->return_date) : null,
-            returnedAt: $loan->returned_at ? new DateTime($loan->returned_at) : null,
+            loanDate: $loan->loan_date,
+            returnDate: $loan->return_date,
+            returnedAt: $loan->returned_at,
             status: $loan->status,
             renewalCount: $loan->renewal_count,
-            lastRenewedAt: $loan->last_renewed_at ? new DateTime($loan->last_renewed_at) : null,
-            createdAt: new DateTime($loan->created_at),
-            updatedAt: new DateTime($loan->updated_at),
+            lastRenewedAt: $loan->last_renewed_at,
+            createdAt: $loan->created_at,
+            updatedAt: $loan->updated_at,
         );
 
         if ($withRelations && ! empty($loan->book)) {

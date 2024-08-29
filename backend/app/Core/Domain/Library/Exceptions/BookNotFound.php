@@ -2,10 +2,9 @@
 
 namespace App\Core\Domain\Library\Exceptions;
 
-use App\Exceptions\HttpExceptionHandlers\EntityNotFoundHandler;
+use DomainException;
 
-
-final class BookNotFound extends EntityNotFoundHandler
+final class BookNotFound extends DomainException
 {
     protected $message = 'Book not found';
 }

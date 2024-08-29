@@ -3,9 +3,9 @@
 namespace App\Core\Services\Library;
 
 use App\Core\Common\Ports\ViewModel;
-use App\Core\Domain\Library\Entities\Loan;
 use App\Core\Domain\Library\Exceptions\LoanAlreadyHaveFinished;
 use App\Core\Domain\Library\Exceptions\LoanIdIsRequired;
+use App\Core\Domain\Library\Exceptions\LoanNotFound;
 use App\Core\Domain\Library\Ports\Persistence\LoanRepository;
 use App\Core\Domain\Library\Ports\UseCases\RenewLoan\{
     RenewLoanOutputPort,
@@ -32,12 +32,8 @@ final class RenewLoanService implements RenewLoanUseCase
      */
     public function execute(RenewLoanRequestModel $requestModel): ViewModel
     {
-        $this->validate($requestModel);
-
         $id = $requestModel->getLoanId();
-        $loan = $this->loanRepository->findById($id);
-
-        $this->validateLoanStatus($loan);
+        $this->validate($id);
 
         $status = 'active';
         $lastRenewedAt = new DateTime();
@@ -46,31 +42,26 @@ final class RenewLoanService implements RenewLoanUseCase
         $loan = $this->loanRepository->renew(
             $id,
             $status,
-            $lastRenewedAt->format('Y-m-d H:i:s'),
-            $returnDate->format('Y-m-d H:i:s')
+            $lastRenewedAt->format(DateTime::ATOM),
+            $returnDate->format(DateTime::ATOM)
         );
         return $this->output->present(new RenewLoanResponseModel($loan));
     }
 
     /**
-     * @param RenewLoanRequestModel $requestModel
+     * @param ?string $loanId
      *
      * @return void
      */
-    private function validate(RenewLoanRequestModel $requestModel): void
+    private function validate(?string $loanId): void
     {
-        if (empty($requestModel->getLoanId())) {
+        if (empty($loanId)) {
             throw new LoanIdIsRequired();
         }
-    }
-
-    /**
-     * @param Loan $loan
-     *
-     * @return void
-     */
-    private function validateLoanStatus(Loan $loan): void
-    {
+        $loan = $this->loanRepository->findById($loanId);
+        if (empty($loan)) {
+            throw new LoanNotFound();
+        }
         if ($loan->status === 'finished') {
             throw new LoanAlreadyHaveFinished($loan->returnedAt);
         }
