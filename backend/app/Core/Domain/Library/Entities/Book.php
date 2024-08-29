@@ -36,9 +36,9 @@ final class Book extends Entity
      */
     public array $loans;
     /**
-     * @var bool $isAvailable
+     * @var ?bool $isAvailable
      */
-    public bool $isAvailable;
+    public ?bool $isAvailable;
 
     /**
      * @param ?string $id

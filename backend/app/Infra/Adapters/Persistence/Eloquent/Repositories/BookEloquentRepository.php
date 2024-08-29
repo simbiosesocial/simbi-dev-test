@@ -81,7 +81,7 @@ final class BookEloquentRepository implements BookRepository
     public function setAvailable(string $bookId, bool $isAvailable): Book
     {
         $eloquentBook = EloquentBook::findOrFail($bookId);
-        $eloquentBook->isAvailable = $isAvailable;
+        $eloquentBook->is_available = $isAvailable;
         $eloquentBook->save();
 
         return BookMapper::toDomainEntity($eloquentBook);
