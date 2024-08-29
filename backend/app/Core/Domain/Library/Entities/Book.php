@@ -35,6 +35,10 @@ final class Book extends Entity
      * @var mixed $loans
      */
     private mixed $loans;
+    /**
+     * @var bool $isAvailable
+     */
+    public bool $isAvailable;
 
     /**
      * @param ?string $id
@@ -49,6 +53,7 @@ final class Book extends Entity
         ?string $authorId = null,
         ?DateTime $createdAt = null,
         ?DateTime $updatedAt = null,
+        ?bool $isAvailable = true,
     ) {
         parent::__construct($id);
         $this->title = $title;
@@ -56,6 +61,7 @@ final class Book extends Entity
         $this->authorId = $authorId;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
+        $this->isAvailable = $isAvailable;
         $this->validate();
     }
     /**
