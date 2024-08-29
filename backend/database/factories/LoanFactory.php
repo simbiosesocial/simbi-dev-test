@@ -23,7 +23,9 @@ class LoanFactory extends Factory
      */
     public function definition(): array
     {
-        $book = Book::inRandomOrder()->first();
+        $book = Book::where('is_available', true)->inRandomOrder()->first();
+        $book->isAvailable = false;
+        $book->save();
         $loanDate = $this->faker->dateTimeBetween('-1 month', 'now');
         $returnDate = (clone $loanDate)->modify('+7 days');
         $now = new DateTime();
