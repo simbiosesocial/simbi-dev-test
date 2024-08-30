@@ -36,4 +36,14 @@ final class AuthorMapper
             updatedAt: $author->updated_at,
         );
     }
+
+    /**
+     * @param array<EloquentAuthor> $authors
+     *
+     * @return array<DomainAuthor>
+     */
+    public static function toManyDomainEntities(array $authors): array
+    {
+        return array_map(static fn($author) => self::toDomainEntity($author), $authors);
+    }
 }

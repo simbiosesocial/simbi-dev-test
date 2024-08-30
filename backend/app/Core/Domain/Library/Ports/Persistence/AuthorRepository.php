@@ -12,4 +12,10 @@ interface AuthorRepository
      * @return Author
      */
     public function create(Author $author): Author;
+
+    /**
+     *
+     * @return array<Author>
+     */
+    public function getAll(): array;
 }
