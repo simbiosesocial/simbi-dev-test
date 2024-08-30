@@ -6,6 +6,7 @@ use App\Core\Common\Ports\ViewModel;
 use App\Core\Domain\Library\Entities\Loan;
 use App\Core\Domain\Library\Exceptions\LoanAlreadyHaveFinished;
 use App\Core\Domain\Library\Exceptions\LoanIdIsRequired;
+use App\Core\Domain\Library\Exceptions\LoanNotFound;
 use App\Core\Domain\Library\Ports\Persistence\BookRepository;
 use App\Core\Domain\Library\Ports\Persistence\LoanRepository;
 use App\Core\Domain\Library\Ports\UseCases\FinalizeLoan\{
@@ -58,7 +59,10 @@ final class FinalizeLoanService implements FinalizeLoanUseCase
         if (empty($loanId)) {
             throw new LoanIdIsRequired();
         }
-
+        $loan = $this->loanRepository->findById($loanId);
+        if(empty($loan)) {
+            throw new LoanNotFound();
+        }
         $loan = $this->loanRepository->findById($loanId);
         if ($loan->status === 'finished') {
             throw new LoanAlreadyHaveFinished($loan->returnedAt);
