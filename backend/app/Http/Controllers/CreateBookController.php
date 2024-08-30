@@ -28,7 +28,7 @@ class CreateBookController extends Controller
      *      required=true,
      *      @OA\JsonContent(
      *        type="object",
-     *        required={"firstName","lastName"},
+     *        required={"title","publisher", "authorId"},
      *        @OA\Property(property="title", type="string"),
      *        @OA\Property(property="publisher", type="string"),
      *        @OA\Property(property="authorId", type="string"),
@@ -38,40 +38,7 @@ class CreateBookController extends Controller
      *    @OA\Response(
      *      response=201,
      *      description="Book Created",
-     *      @OA\JsonContent(
-     *        type="object",
-     *        @OA\Property(
-     *          property="id",
-     *          type="string",
-     *          example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344",
-     *        ),
-     *        @OA\Property(
-     *          property="title",
-     *          type="string",
-     *          example="Curso avançado de Java",
-     *        ),
-     *        @OA\Property(
-     *          property="publisher",
-     *          type="string",
-     *          example="Editora XPTO",
-     *        ),
-     *        @OA\Property(
-     *          property="author",
-     *          type="object",
-     *          @OA\Property(property="id", type="string", example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344"),
-     *          @OA\Property(property="name", type="string", example="Autor Y"),
-     *        ),
-     *        @OA\Property(
-     *          property="createdAt",
-     *          type="string",
-     *          example="2022-12-14T22:24:26+00:00",
-     *        ),
-     *        @OA\Property(
-     *          property="updatedAt",
-     *          type="string",
-     *          example="2022-12-14T22:24:26+00:00",
-     *        ),
-     *      )
+     *      @OA\JsonContent(ref="#/components/schemas/Book")
      *    ),
      *
      *    @OA\Response(response="400", description="Requisição com erro",

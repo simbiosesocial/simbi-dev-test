@@ -21,25 +21,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "properties": {
-                                            "id": {
-                                                "type": "string",
-                                                "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
-                                            },
-                                            "name": {
-                                                "type": "string",
-                                                "example": "Maria Carolina de Jesus"
-                                            },
-                                            "createdAt": {
-                                                "type": "string",
-                                                "example": "2022-12-14T22:24:26+00:00"
-                                            },
-                                            "updatedAt": {
-                                                "type": "string",
-                                                "example": "2022-12-14T22:24:26+00:00"
-                                            }
-                                        },
-                                        "type": "object"
+                                        "$ref": "#/components/schemas/Author"
                                     }
                                 }
                             }
@@ -122,29 +104,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "string",
-                                            "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
-                                        },
-                                        "firstName": {
-                                            "type": "string",
-                                            "example": "User"
-                                        },
-                                        "lastName": {
-                                            "type": "string",
-                                            "example": "Teste"
-                                        },
-                                        "createdAt": {
-                                            "type": "string",
-                                            "example": "2022-12-14T22:24:26+00:00"
-                                        },
-                                        "updatedAt": {
-                                            "type": "string",
-                                            "example": "2022-12-14T22:24:26+00:00"
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Author"
                                 }
                             }
                         }
@@ -208,42 +168,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "properties": {
-                                            "id": {
-                                                "type": "string",
-                                                "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
-                                            },
-                                            "title": {
-                                                "type": "string",
-                                                "example": "Curso avançado de Java"
-                                            },
-                                            "publisher": {
-                                                "type": "string",
-                                                "example": "Editora XPTO"
-                                            },
-                                            "author": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "string",
-                                                        "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
-                                                    },
-                                                    "name": {
-                                                        "type": "string",
-                                                        "example": "Autor Y"
-                                                    }
-                                                },
-                                                "type": "object"
-                                            },
-                                            "createdAt": {
-                                                "type": "string",
-                                                "example": "2022-12-14T22:24:26+00:00"
-                                            },
-                                            "updatedAt": {
-                                                "type": "string",
-                                                "example": "2022-12-14T22:24:26+00:00"
-                                            }
-                                        },
-                                        "type": "object"
+                                        "$ref": "#/components/schemas/Book"
                                     }
                                 }
                             }
@@ -304,8 +229,9 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "firstName",
-                                    "lastName"
+                                    "title",
+                                    "publisher",
+                                    "authorId"
                                 ],
                                 "properties": {
                                     "title": {
@@ -329,42 +255,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "string",
-                                            "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
-                                        },
-                                        "title": {
-                                            "type": "string",
-                                            "example": "Curso avançado de Java"
-                                        },
-                                        "publisher": {
-                                            "type": "string",
-                                            "example": "Editora XPTO"
-                                        },
-                                        "author": {
-                                            "properties": {
-                                                "id": {
-                                                    "type": "string",
-                                                    "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
-                                                },
-                                                "name": {
-                                                    "type": "string",
-                                                    "example": "Autor Y"
-                                                }
-                                            },
-                                            "type": "object"
-                                        },
-                                        "createdAt": {
-                                            "type": "string",
-                                            "example": "2022-12-14T22:24:26+00:00"
-                                        },
-                                        "updatedAt": {
-                                            "type": "string",
-                                            "example": "2022-12-14T22:24:26+00:00"
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Book"
                                 }
                             }
                         }
@@ -426,75 +317,50 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "string",
-                                            "example": "31c35de6-4d7f-65a7-2da9-8abcf3c44357"
-                                        },
-                                        "book": {
-                                            "properties": {
-                                                "id": {
-                                                    "type": "string",
-                                                    "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
-                                                },
-                                                "title": {
-                                                    "type": "string",
-                                                    "example": "Book X"
-                                                },
-                                                "publisher": {
-                                                    "type": "string",
-                                                    "example": "Publisher Y"
-                                                },
-                                                "author": {
-                                                    "properties": {
-                                                        "id": {
-                                                            "type": "string",
-                                                            "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
-                                                        },
-                                                        "name": {
-                                                            "type": "string",
-                                                            "example": "Autor Y"
-                                                        }
-                                                    },
-                                                    "type": "object"
-                                                }
-                                            },
-                                            "type": "object"
-                                        },
-                                        "loanDate": {
-                                            "type": "string",
-                                            "example": "2022-12-14"
-                                        },
-                                        "returnDate": {
-                                            "type": "string",
-                                            "example": "2022-12-21"
-                                        },
-                                        "returnedAt": {
-                                            "type": "string",
-                                            "example": "2022-12-21"
-                                        },
-                                        "lastRenewedAt": {
-                                            "type": "string",
-                                            "example": "2022-12-21"
-                                        },
-                                        "renewalCount": {
-                                            "type": "number",
-                                            "example": 0
-                                        },
-                                        "status": {
-                                            "type": "string",
-                                            "example": "active"
-                                        },
-                                        "createdAt": {
-                                            "type": "string",
-                                            "example": "2022-12-14T22:24:26+00:00"
-                                        },
-                                        "updatedAt": {
-                                            "type": "string",
-                                            "example": "2022-12-14T22:24:26+00:00"
-                                        }
-                                    },
-                                    "type": "object"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Loan"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição com erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bad Request"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Proibido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Forbidden Error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Internal server error"
                                 }
                             }
                         }
@@ -540,37 +406,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "string",
-                                            "example": "31c35de6-4d7f-65a7-2da9-8abcf3c44357"
-                                        },
-                                        "bookId": {
-                                            "type": "string",
-                                            "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
-                                        },
-                                        "loanDate": {
-                                            "type": "string",
-                                            "example": "2022-12-14"
-                                        },
-                                        "returnDate": {
-                                            "type": "string",
-                                            "example": "2022-12-21"
-                                        },
-                                        "status": {
-                                            "type": "string",
-                                            "example": "active"
-                                        },
-                                        "createdAt": {
-                                            "type": "string",
-                                            "example": "2022-12-14T22:24:26+00:00"
-                                        },
-                                        "updatedAt": {
-                                            "type": "string",
-                                            "example": "2022-12-14T22:24:26+00:00"
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Loan"
                                 }
                             }
                         }
@@ -737,42 +573,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "properties": {
-                                            "id": {
-                                                "type": "string",
-                                                "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
-                                            },
-                                            "title": {
-                                                "type": "string",
-                                                "example": "Curso avançado de Java"
-                                            },
-                                            "publisher": {
-                                                "type": "string",
-                                                "example": "Editora XPTO"
-                                            },
-                                            "author": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "string",
-                                                        "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
-                                                    },
-                                                    "name": {
-                                                        "type": "string",
-                                                        "example": "Autor Y"
-                                                    }
-                                                },
-                                                "type": "object"
-                                            },
-                                            "createdAt": {
-                                                "type": "string",
-                                                "example": "2022-12-14T22:24:26+00:00"
-                                            },
-                                            "updatedAt": {
-                                                "type": "string",
-                                                "example": "2022-12-14T22:24:26+00:00"
-                                            }
-                                        },
-                                        "type": "object"
+                                        "$ref": "#/components/schemas/Book"
                                     }
                                 }
                             }
@@ -813,7 +614,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                    "$ref": "#/components/schemas/Resource Not Found Error"
                                 }
                             }
                         }
@@ -898,18 +699,18 @@
                             }
                         }
                     },
-                    "403": {
-                        "description": "Não autorizado",
+                    "404": {
+                        "description": "Não encontrado",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                    "$ref": "#/components/schemas/Resource Not Found Error"
                                 }
                             }
                         }
                     },
-                    "404": {
-                        "description": "Não encontrado",
+                    "403": {
+                        "description": "Não autorizado",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -986,8 +787,55 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Requisição com erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bad Request"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Proibido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Forbidden Error"
+                                }
+                            }
+                        }
+                    },
                     "404": {
-                        "description": "Loan not found"
+                        "description": "Não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Resource Not Found Error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Internal server error"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -995,6 +843,166 @@
     },
     "components": {
         "schemas": {
+            "Author": {
+                "title": "Author",
+                "description": "Author entity",
+                "properties": {
+                    "id": {
+                        "description": "ID of the author",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "Full name of the author",
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "description": "Timestamp when the author was created",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-08-29T04:25:50.000000Z"
+                    },
+                    "updatedAt": {
+                        "description": "Timestamp when the author was last updated",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-08-29T04:25:50.000000Z"
+                    }
+                },
+                "type": "object"
+            },
+            "AuthorName": {
+                "title": "AuthorName",
+                "description": "Name of the author",
+                "properties": {
+                    "firstName": {
+                        "description": "First name of the author",
+                        "type": "string",
+                        "example": "Zula"
+                    },
+                    "lastName": {
+                        "description": "Last name of the author",
+                        "type": "string",
+                        "example": "Considine"
+                    }
+                },
+                "type": "object"
+            },
+            "Book": {
+                "title": "Book",
+                "description": "Book entity",
+                "properties": {
+                    "id": {
+                        "description": "ID of the book",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "title": {
+                        "description": "Title of the book",
+                        "type": "string",
+                        "example": "Curso avançado de Java"
+                    },
+                    "publisher": {
+                        "description": "Publisher of the book",
+                        "type": "string",
+                        "example": "Editora XPTO"
+                    },
+                    "authorId": {
+                        "description": "ID of the author",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "author": {
+                        "$ref": "#/components/schemas/Author"
+                    },
+                    "isAvailable": {
+                        "description": "Availability status of the book",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "createdAt": {
+                        "description": "Timestamp when the book was created",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-08-29T04:25:50.000000Z"
+                    },
+                    "updatedAt": {
+                        "description": "Timestamp when the book was last updated",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-08-29T04:25:50.000000Z"
+                    }
+                },
+                "type": "object"
+            },
+            "Loan": {
+                "title": "Loan",
+                "description": "Loan entity",
+                "properties": {
+                    "id": {
+                        "description": "ID of the loan",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "loanDate": {
+                        "description": "Date when the loan was made",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-08-29T04:25:50.000000Z"
+                    },
+                    "returnDate": {
+                        "description": "Date when the loan is expected to be returned",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-09-29T04:25:50.000000Z"
+                    },
+                    "status": {
+                        "description": "Status of the loan",
+                        "type": "string",
+                        "enum": [
+                            "created",
+                            "active",
+                            "finished",
+                            "overdue"
+                        ],
+                        "example": "active"
+                    },
+                    "returnedAt": {
+                        "description": "Date when the loan was returned",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-09-15T04:25:50.000000Z",
+                        "nullable": true
+                    },
+                    "renewalCount": {
+                        "description": "Number of times the loan has been renewed",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "lastRenewedAt": {
+                        "description": "Date when the loan was last renewed",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-09-10T04:25:50.000000Z"
+                    },
+                    "book": {
+                        "$ref": "#/components/schemas/Book"
+                    },
+                    "createdAt": {
+                        "description": "Timestamp when the loan was created",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-08-29T04:25:50.000000Z"
+                    },
+                    "updatedAt": {
+                        "description": "Timestamp when the loan was last updated",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-08-29T04:25:50.000000Z"
+                    }
+                },
+                "type": "object"
+            },
             "Resource Not Found Error": {
                 "properties": {
                     "error": {
@@ -1064,48 +1072,6 @@
                     }
                 },
                 "type": "object"
-            }
-        },
-        "responses": {
-            "400": {
-                "description": "Requisição com erro",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/Bad Request"
-                        }
-                    }
-                }
-            },
-            "401": {
-                "description": "Proibido",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/Forbidden Error"
-                        }
-                    }
-                }
-            },
-            "403": {
-                "description": "Não autorizado",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/Unauthorized Error"
-                        }
-                    }
-                }
-            },
-            "500": {
-                "description": "Erro interno",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/Internal server error"
-                        }
-                    }
-                }
             }
         }
     },

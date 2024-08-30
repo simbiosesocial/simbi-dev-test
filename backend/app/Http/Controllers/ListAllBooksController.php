@@ -28,39 +28,7 @@ class ListAllBooksController extends Controller
      *      description="Books list",
      *      @OA\JsonContent(
      *        type="array",
-     *        @OA\Items(
-     *            @OA\Property(
-     *              property="id",
-     *              type="string",
-     *              example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344",
-     *            ),
-     *            @OA\Property(
-     *              property="title",
-     *              type="string",
-     *              example="Curso avançado de Java",
-     *            ),
-     *            @OA\Property(
-     *              property="publisher",
-     *              type="string",
-     *              example="Editora XPTO",
-     *            ),
-     *            @OA\Property(
-     *              property="author",
-     *              type="object",
-     *              @OA\Property(property="id", type="string", example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344"),
-     *              @OA\Property(property="name", type="string", example="Autor Y"),
-     *            ),
-     *            @OA\Property(
-     *              property="createdAt",
-     *              type="string",
-     *              example="2022-12-14T22:24:26+00:00",
-     *            ),
-     *            @OA\Property(
-     *              property="updatedAt",
-     *              type="string",
-     *              example="2022-12-14T22:24:26+00:00",
-     *            ),
-     *        )
+     *        @OA\Items(ref="#/components/schemas/Book")
      *      ),
      *    ),
      *

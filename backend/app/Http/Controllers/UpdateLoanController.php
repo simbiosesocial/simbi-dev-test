@@ -16,6 +16,7 @@ class UpdateLoanController extends Controller
 {
     /**
      * @param FinalizeLoanUseCase $finalizeUseCase
+     * @param RenewLoanUseCase $renewUseCase
      */
     public function __construct(
         private FinalizeLoanUseCase $finalizeUseCase,
@@ -64,7 +65,7 @@ class UpdateLoanController extends Controller
      *         )
      *     ),
      *
-     *     @OA\Response(response="400", description="Requisição com erro",
+     *    @OA\Response(response="400", description="Requisição com erro",
      *      @OA\MediaType(
      *       mediaType="application/json",
      *          @OA\Schema(ref="#/components/schemas/Bad Request")
@@ -76,20 +77,18 @@ class UpdateLoanController extends Controller
      *          @OA\Schema(ref="#/components/schemas/Forbidden Error")
      *      )
      *    ),
+     *     @OA\Response(response=404, description="Não encontrado",
+     *      @OA\MediaType(
+     *       mediaType="application/json",
+     *          @OA\Schema(ref="#/components/schemas/Resource Not Found Error")
+     *      )
+     *    ),
      *    @OA\Response(response="403", description="Não autorizado",
      *      @OA\MediaType(
      *       mediaType="application/json",
      *          @OA\Schema(ref="#/components/schemas/Unauthorized Error")
      *      )
      *    ),
-     *    @OA\Response(
-     *         response=404,
-     *         description="Não encontrado",
-     *      @OA\MediaType(
-     *       mediaType="application/json",
-     *          @OA\Schema(ref="#/components/schemas/Unauthorized Error")
-     *      )
-     *     ),
      *    @OA\Response(response="500", description="Erro interno",
      *      @OA\MediaType(
      *       mediaType="application/json",
@@ -154,10 +153,37 @@ class UpdateLoanController extends Controller
      *             )
      *         )
      *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="Loan not found"
-     *     )
+
+     *    @OA\Response(response="400", description="Requisição com erro",
+     *      @OA\MediaType(
+     *       mediaType="application/json",
+     *          @OA\Schema(ref="#/components/schemas/Bad Request")
+     *      )
+     *    ),
+     *    @OA\Response(response="401", description="Proibido",
+     *      @OA\MediaType(
+     *       mediaType="application/json",
+     *          @OA\Schema(ref="#/components/schemas/Forbidden Error")
+     *      )
+     *    ),
+     *     @OA\Response(response=404, description="Não encontrado",
+     *      @OA\MediaType(
+     *       mediaType="application/json",
+     *          @OA\Schema(ref="#/components/schemas/Resource Not Found Error")
+     *      )
+     *    ),
+     *    @OA\Response(response="403", description="Não autorizado",
+     *      @OA\MediaType(
+     *       mediaType="application/json",
+     *          @OA\Schema(ref="#/components/schemas/Unauthorized Error")
+     *      )
+     *    ),
+     *    @OA\Response(response="500", description="Erro interno",
+     *      @OA\MediaType(
+     *       mediaType="application/json",
+     *          @OA\Schema(ref="#/components/schemas/Internal server error")
+     *      )
+     *    ),
      * )
      * @return JsonResponse
      */

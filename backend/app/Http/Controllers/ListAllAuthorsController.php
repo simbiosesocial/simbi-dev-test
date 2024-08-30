@@ -28,28 +28,7 @@ class ListAllAuthorsController extends Controller
      *      description="Authors list",
      *      @OA\JsonContent(
      *        type="array",
-     *        @OA\Items(
-     *            @OA\Property(
-     *              property="id",
-     *              type="string",
-     *              example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344",
-     *            ),
-     *            @OA\Property(
-     *              property="name",
-     *              type="string",
-     *              example="Maria Carolina de Jesus",
-     *            ),
-     *            @OA\Property(
-     *              property="createdAt",
-     *              type="string",
-     *              example="2022-12-14T22:24:26+00:00",
-     *            ),
-     *            @OA\Property(
-     *              property="updatedAt",
-     *              type="string",
-     *              example="2022-12-14T22:24:26+00:00",
-     *            ),
-     *        )
+     *        @OA\Items(ref="#/components/schemas/Author")
      *      ),
      *    ),
      *

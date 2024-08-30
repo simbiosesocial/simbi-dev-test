@@ -36,34 +36,7 @@ final class CreateAuthorController extends Controller
      *    @OA\Response(
      *      response=201,
      *      description="Author Created",
-     *      @OA\JsonContent(
-     *        type="object",
-     *        @OA\Property(
-     *          property="id",
-     *          type="string",
-     *          example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344",
-     *        ),
-     *        @OA\Property(
-     *          property="firstName",
-     *          type="string",
-     *          example="User",
-     *        ),
-     *        @OA\Property(
-     *          property="lastName",
-     *          type="string",
-     *          example="Teste",
-     *        ),
-     *        @OA\Property(
-     *          property="createdAt",
-     *          type="string",
-     *          example="2022-12-14T22:24:26+00:00",
-     *        ),
-     *        @OA\Property(
-     *          property="updatedAt",
-     *          type="string",
-     *          example="2022-12-14T22:24:26+00:00",
-     *        ),
-     *      )
+     *      @OA\JsonContent(ref="#/components/schemas/Author")
      *    ),
      *
      *    @OA\Response(response="400", description="Requisição com erro",

@@ -38,44 +38,7 @@ class CreateLoanController extends Controller
      *    @OA\Response(
      *      response=201,
      *      description="Loan Created",
-     *      @OA\JsonContent(
-     *        type="object",
-     *        @OA\Property(
-     *          property="id",
-     *          type="string",
-     *          example="31c35de6-4d7f-65a7-2da9-8abcf3c44357",
-     *        ),
-     *        @OA\Property(
-     *          property="bookId",
-     *          type="string",
-     *          example="13b35be6-65a7-4d7f-9ad2-8caaf3c75344",
-     *        ),
-     *        @OA\Property(
-     *          property="loanDate",
-     *          type="string",
-     *          example="2022-12-14",
-     *        ),
-     *        @OA\Property(
-     *          property="returnDate",
-     *          type="string",
-     *          example="2022-12-21",
-     *        ),
-     *        @OA\Property(
-     *          property="status",
-     *          type="string",
-     *          example="active",
-     *        ),
-     *        @OA\Property(
-     *          property="createdAt",
-     *          type="string",
-     *          example="2022-12-14T22:24:26+00:00",
-     *        ),
-     *        @OA\Property(
-     *          property="updatedAt",
-     *          type="string",
-     *          example="2022-12-14T22:24:26+00:00",
-     *        ),
-     *      )
+     *      @OA\JsonContent(ref="#/components/schemas/Loan")
      *    ),
      *
      *    @OA\Response(response="400", description="Requisição com erro",
