@@ -6,6 +6,87 @@
     },
     "paths": {
         "/api/authors": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Lista todos os autores cadastrados na API",
+                "description": "Lista todos os autores cadastrados.",
+                "operationId": "c58eebe54a1725fdda791b1e824149c7",
+                "responses": {
+                    "200": {
+                        "description": "Authors list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Maria Carolina de Jesus"
+                                            },
+                                            "createdAt": {
+                                                "type": "string",
+                                                "example": "2022-12-14T22:24:26+00:00"
+                                            },
+                                            "updatedAt": {
+                                                "type": "string",
+                                                "example": "2022-12-14T22:24:26+00:00"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição com erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bad Request"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Proibido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Forbidden Error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "Authors"
