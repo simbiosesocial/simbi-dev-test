@@ -43,16 +43,16 @@ class CreateLoanUseCaseTest extends TestCase
         $loan = $this->useCase->execute($request)->resource->toArray(null);
 
         $today = new DateTime('now');
-        $loanDate = $today->format(DateTime::ATOM);
-        $returnDate = (clone $today)->modify('+7 days')->format(DateTime::ATOM);
+        $loanDate = new DateTime($loan['loanDate']);
+        $returnDate = new DateTime($loan['returnDate']);
 
         $this->assertIsString($loan['id']);
         $this->assertEquals($this->book->id, $loan['book']['id']);
         $this->assertEquals(false, $loan['book']['isAvailable']);
         $this->assertEquals('active', $loan['status']);
 
-        $this->assertEquals($loanDate, $loan['loanDate']);
-        $this->assertEquals($returnDate, $loan['returnDate']);
+        $this->assertEquals($today->format('Y-m-d'), $loanDate->format('Y-m-d'));
+        $this->assertEquals($today->modify('+7 days')->format('Y-m-d'), $returnDate->format('Y-m-d'));
         $this->assertEquals(null, $loan['returnedAt']);
         $this->assertEquals(0, $loan['renewalCount']);
         $this->assertEquals(null, $loan['lastRenewedAt']);

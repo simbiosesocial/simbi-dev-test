@@ -35,13 +35,11 @@ final class RenewLoanService implements RenewLoanUseCase
         $id = $requestModel->getLoanId();
         $this->validate($id);
 
-        $status = 'active';
         $lastRenewedAt = new DateTime();
         $returnDate = (clone $lastRenewedAt)->modify('+7 days');
 
         $loan = $this->loanRepository->renew(
             $id,
-            $status,
             $lastRenewedAt->format(DateTime::ATOM),
             $returnDate->format(DateTime::ATOM)
         );

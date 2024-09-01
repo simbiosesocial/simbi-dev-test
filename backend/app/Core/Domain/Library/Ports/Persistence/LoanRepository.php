@@ -29,16 +29,14 @@ interface LoanRepository
 
     /**
      * @param string $id,
-     * @param string $status,
      * @param string $returnedAt,
      *
      * @return Loan
      */
-    public function finalize(string $id, string $status, string $returnedAt): Loan;
+    public function finalize(string $id, string $returnedAt): Loan;
 
     /**
      * @param string $id,
-     * @param string $status,
      * @param string $lastRenewedAt,
      * @param string $returnDate,
      *
@@ -46,7 +44,6 @@ interface LoanRepository
      */
     public function renew(
         string $id,
-        string $status,
         string $lastRenewedAt,
         string $returnDate,
     ): Loan;
