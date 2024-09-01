@@ -27,7 +27,7 @@ class BookFactory extends Factory
      */
     public function definition(): array
     {
-        $author = Author::inRandomOrder()->first();
+        $author = Author::inRandomOrder()->first() ?? Author::factory()->create();
 
         return [
             "id" => $this->faker->uuid(),
