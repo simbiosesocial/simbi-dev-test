@@ -91,4 +91,14 @@ final class Book extends Entity
             throw new BookMustHaveAPublisher();
         }
     }
+
+    /**
+     * @param bool $isAvailable
+     *
+     * @return void
+     */
+    public function setAvailable(bool $isAvailable): void
+    {
+        $this->isAvailable = $isAvailable;
+    }
 }
