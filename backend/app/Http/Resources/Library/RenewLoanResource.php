@@ -26,7 +26,7 @@ final class RenewLoanResource extends JsonResource
     {
         return [
             'id' => $this->loan->id,
-            'bookId' => $this->loan->bookId,
+            'book' => (new BookDetailsResource($this->loan->book))->resolve(),
             'status' => $this->loan->status,
             'returnDate' => $this->loan->returnDate->format(DateTimeInterface::ATOM),
             'renewalCount' => $this->loan->renewalCount,

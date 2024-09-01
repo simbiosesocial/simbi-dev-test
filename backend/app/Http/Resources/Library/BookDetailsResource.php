@@ -24,6 +24,7 @@ final class BookDetailsResource extends JsonResource
             'title' => $this->book->title,
             'publisher' => $this->book->publisher,
             'author' => (new AuthorDetailsResource($this->book->author))->resolve(),
+            'isAvailable' => $this->book->isAvailable,
         ];
     }
 }

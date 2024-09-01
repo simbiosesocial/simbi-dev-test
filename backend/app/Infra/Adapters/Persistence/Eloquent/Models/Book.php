@@ -39,7 +39,7 @@ final class Book extends Model
      *
      * @var array
      */
-    protected $fillable = ['id', 'title', 'publisher', 'author_id'];
+    protected $fillable = ['id', 'title', 'publisher', 'author_id', 'is_available'];
 
     /**
      * @return BelongsTo

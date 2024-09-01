@@ -30,6 +30,9 @@ final class CreateLoanResource extends JsonResource
             'returnDate' => $this->loan->returnDate->format(DateTimeInterface::ATOM),
             'status' => $this->loan->status,
             'book' => (new BookDetailsResource($this->loan->book))->resolve(),
+            'returnedAt' => $this->loan->returnedAt,
+            'renewalCount' => $this->loan->renewalCount,
+            'lastRenewedAt' => $this->loan->lastRenewedAt,
             'createdAt' => $this->loan->createdAt->format(DateTimeInterface::ATOM),
             'updatedAt' => $this->loan->updatedAt->format(DateTimeInterface::ATOM),
         ];
