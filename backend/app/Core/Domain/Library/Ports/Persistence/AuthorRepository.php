@@ -18,4 +18,11 @@ interface AuthorRepository
      * @return array<Author>
      */
     public function getAll(): array;
+
+    /**
+     * @param string $authorId
+     *
+     * @return ?Author
+     */
+    public function findById(string $authorId): ?Author;
 }

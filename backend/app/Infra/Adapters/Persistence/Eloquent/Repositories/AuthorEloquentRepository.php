@@ -36,4 +36,20 @@ final class AuthorEloquentRepository implements AuthorRepository
 
         return AuthorMapper::toManyDomainEntities($eloquentAuthors);
     }
+
+    /**
+     * @param string $authorId
+     *
+     * @return ?Author
+     */
+    public function findById(string $authorId): ?Author
+    {
+        $eloquentAuthor = EloquentAuthor::find($authorId);
+
+        if (empty($eloquentAuthor)) {
+            return null;
+        }
+
+        return AuthorMapper::toDomainEntity($eloquentAuthor);
+    }
 }

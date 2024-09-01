@@ -4,7 +4,8 @@ namespace App\Core\Services\Library;
 
 use App\Core\Common\Ports\ViewModel;
 use App\Core\Domain\Library\Entities\Book;
-use App\Core\Domain\Library\Exceptions\{BookMustHaveAPublisher, BookMustHaveATitle, BookMustHaveAnAuthor};
+use App\Core\Domain\Library\Exceptions\{AuthorNotFound, BookMustHaveAPublisher, BookMustHaveATitle, BookMustHaveAnAuthor};
+use App\Core\Domain\Library\Ports\Persistence\AuthorRepository;
 use App\Core\Domain\Library\Ports\Persistence\BookRepository;
 use App\Core\Domain\Library\Ports\UseCases\CreateBook\{
     CreateBookOutputPort,
@@ -18,8 +19,11 @@ final class CreateBookService implements CreateBookUseCase
     /**
      * @param CreateBookOutputPort $output
      */
-    public function __construct(private CreateBookOutputPort $output, private BookRepository $bookRepository)
-    {
+    public function __construct(
+        private CreateBookOutputPort $output,
+        private BookRepository $bookRepository,
+        private AuthorRepository $authorRepository
+    ) {
     }
 
     /**
@@ -57,8 +61,14 @@ final class CreateBookService implements CreateBookUseCase
             throw new BookMustHaveAPublisher();
         }
 
-        if (empty($requestModel->getAuthorId())) {
+        $authorId = $requestModel->getAuthorId();
+        if (empty($authorId)) {
             throw new BookMustHaveAnAuthor();
+        }
+
+        $author = $this->authorRepository->findById($authorId);
+        if (empty($author)) {
+            throw new AuthorNotFound();
         }
     }
 }
