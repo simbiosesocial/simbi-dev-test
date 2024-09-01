@@ -50,6 +50,7 @@ class CreateBookUseCaseTest extends TestCase
         $this->assertEquals("Book-Title", $book['title']);
         $this->assertEquals("Book-Publisher", $book['publisher']);
         $this->assertEquals($this->author->id, $book['author']['id']);
+        $this->assertEquals(true, $book['isAvailable']);
     }
 
     public function testShouldThrowBookMustHaveATitle()

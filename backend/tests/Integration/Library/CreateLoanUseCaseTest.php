@@ -8,7 +8,6 @@ use App\Core\Domain\Library\Exceptions\LoanMustHaveABook;
 use App\Core\Domain\Library\Ports\UseCases\CreateLoan\CreateLoanRequestModel;
 use App\Core\Domain\Library\Ports\UseCases\CreateLoan\CreateLoanUseCase;
 use App\Core\Services\Library\CreateLoanService;
-use App\Infra\Adapters\Persistence\Eloquent\Models\Author;
 use App\Infra\Adapters\Persistence\Eloquent\Models\Book;
 use App\Infra\Adapters\Persistence\Eloquent\Repositories\BookEloquentRepository;
 use App\Infra\Adapters\Persistence\Eloquent\Repositories\LoanEloquentRepository;
@@ -43,22 +42,27 @@ class CreateLoanUseCaseTest extends TestCase
 
         $loan = $this->useCase->execute($request)->resource->toArray(null);
 
+        $today = new DateTime('now');
+        $loanDate = $today->format(DateTime::ATOM);
+        $returnDate = (clone $today)->modify('+7 days')->format(DateTime::ATOM);
+
         $this->assertIsString($loan['id']);
         $this->assertEquals($this->book->id, $loan['book']['id']);
-        $this->assertArrayHasKey('loanDate', $loan);
-        $this->assertArrayHasKey('returnDate', $loan);
+        $this->assertEquals(false, $loan['book']['isAvailable']);
         $this->assertEquals('active', $loan['status']);
 
-        $today = new DateTime('now');
-        $returnDate = (clone $today)->modify('+7 days');
-        $this->assertEquals($today->format(DateTime::ATOM), $loan['loanDate']);
-        $this->assertEquals($returnDate->format(DateTime::ATOM), $loan['returnDate']);
+        $this->assertEquals($loanDate, $loan['loanDate']);
+        $this->assertEquals($returnDate, $loan['returnDate']);
+        $this->assertEquals(null, $loan['returnedAt']);
+        $this->assertEquals(0, $loan['renewalCount']);
+        $this->assertEquals(null, $loan['lastRenewedAt']);
     }
 
     public function testShouldCreateALoanWhenOnlyLoanDateIsProvided()
     {
         $today = new DateTime('now');
         $loanDate = $today->format(DateTime::ATOM);
+
         $request = new CreateLoanRequestModel([
             "bookId" => $this->book->id,
             "loanDate" => $loanDate,
@@ -68,13 +72,16 @@ class CreateLoanUseCaseTest extends TestCase
 
         $this->assertIsString($loan['id']);
         $this->assertEquals($this->book->id, $loan['book']['id']);
-        $this->assertArrayHasKey('loanDate', $loan);
-        $this->assertArrayHasKey('returnDate', $loan);
+        $this->assertEquals(false, $loan['book']['isAvailable']);
         $this->assertEquals('active', $loan['status']);
         $this->assertEquals($loanDate, $loan['loanDate']);
 
         $returnDate = (clone $today)->modify('+7 days')->format(DateTime::ATOM);
         $this->assertEquals($returnDate, $loan['returnDate']);
+
+        $this->assertEquals(null, $loan['returnedAt']);
+        $this->assertEquals(0, $loan['renewalCount']);
+        $this->assertEquals(null, $loan['lastRenewedAt']);
     }
 
     public function testShouldCreateALoanWhenDatesAreProvided()
@@ -93,11 +100,15 @@ class CreateLoanUseCaseTest extends TestCase
 
         $this->assertIsString($loan['id']);
         $this->assertEquals($this->book->id, $loan['book']['id']);
-        $this->assertArrayHasKey('loanDate', $loan);
-        $this->assertArrayHasKey('returnDate', $loan);
+        $this->assertEquals(false, $loan['book']['isAvailable']);
         $this->assertEquals('active', $loan['status']);
 
+        $this->assertEquals($loanDate, $loan['loanDate']);
         $this->assertEquals($returnDate, $loan['returnDate']);
+
+        $this->assertEquals(null, $loan['returnedAt']);
+        $this->assertEquals(0, $loan['renewalCount']);
+        $this->assertEquals(null, $loan['lastRenewedAt']);
     }
 
     public function testShouldThrowLoanMustHaveABook()
