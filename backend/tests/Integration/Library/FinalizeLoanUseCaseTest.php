@@ -2,12 +2,12 @@
 
 namespace Tests\Integration\Library;
 
-use App\Adapters\Presenters\Library\RenewLoanJsonPresenter;
+use App\Adapters\Presenters\Library\FinalizeLoanJsonPresenter;
 use App\Core\Domain\Library\Exceptions\LoanAlreadyHaveFinished;
 use App\Core\Domain\Library\Exceptions\LoanNotFound;
-use App\Core\Domain\Library\Ports\UseCases\RenewLoan\RenewLoanRequestModel;
-use App\Core\Domain\Library\Ports\UseCases\RenewLoan\RenewLoanUseCase;
-use App\Core\Services\Library\RenewLoanService;
+use App\Core\Domain\Library\Ports\UseCases\FinalizeLoan\FinalizeLoanRequestModel;
+use App\Core\Domain\Library\Ports\UseCases\FinalizeLoan\FinalizeLoanUseCase;
+use App\Core\Services\Library\FinalizeLoanService;
 use App\Infra\Adapters\Persistence\Eloquent\Models\Loan;
 use App\Infra\Adapters\Persistence\Eloquent\Repositories\LoanEloquentRepository;
 use DateTime;
@@ -15,59 +15,48 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
-class RenewLoanUseCaseTest extends TestCase
+class FinalizeLoanUseCaseTest extends TestCase
 {
     use RefreshDatabase;
 
-    private RenewLoanUseCase $useCase;
+    private FinalizeLoanUseCase $useCase;
 
     private Loan $loan;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->useCase = new RenewLoanService(
-            output: new RenewLoanJsonPresenter(),
+        $this->useCase = new FinalizeLoanService(
+            output: new FinalizeLoanJsonPresenter(),
             loanRepository: new LoanEloquentRepository()
         );
         $this->loan = Loan::where([ 'status' => 'active', 'returned_at' => null])->first() ?? Loan::factory()->create(['status' => 'active', 'returned_at' => null]);
     }
 
-    public function testShouldRenewALoan()
+    public function testShouldFinalizeALoan()
     {
-        $request = new RenewLoanRequestModel([
+        $request = new FinalizeLoanRequestModel([
             "loanId" => $this->loan->id,
         ]);
 
         $loan = $this->useCase->execute($request)->resource->toArray(null);
 
         $today = new DateTime('now');
-        $lastRenewedAt = new DateTime($loan['lastRenewedAt']);
-
-        $lastReturnDate = new DateTime($this->loan->returnDate);
-        $newReturnDate = $lastReturnDate->modify('+7 days')->format('Y-m-d');
-        $returnDate = new DateTime($loan['returnDate']);
-
+        $returnedAt = new DateTime($loan['returnedAt']);
 
         $this->assertIsString($loan['id']);
-        $this->assertEquals('active', $loan['status']);
-        $this->assertEquals(false, $loan['book']['isAvailable']);
+        $this->assertEquals('finished', $loan['status']);
+        $this->assertEquals(true, $loan['book']['isAvailable']);
 
-        $this->assertArrayHasKey('returnDate', $loan);
-        $this->assertEquals($newReturnDate, $returnDate->format('Y-m-d'));
-
-        $this->assertArrayHasKey('renewalCount', $loan);
-        $this->assertEquals(1, $loan['renewalCount']);
-
-        $this->assertArrayHasKey('lastRenewedAt', $loan);
-        $this->assertEquals($today->format('Y-m-d'), $lastRenewedAt->format('Y-m-d'));
+        $this->assertArrayHasKey('returnedAt', $loan);
+        $this->assertEquals($today->format('Y-m-d'), $returnedAt->format('Y-m-d'));
     }
 
 
     public function testShouldThrowLoanNotFound()
     {
         $invalidLoanId = Uuid::uuid4();
-        $request = new RenewLoanRequestModel([
+        $request = new FinalizeLoanRequestModel([
             "loanId" => $invalidLoanId
         ]);
 
@@ -83,7 +72,7 @@ class RenewLoanUseCaseTest extends TestCase
         $loanEloquent = new LoanEloquentRepository();
         $loanEloquent->finalize($this->loan->id, $returnedAt);
 
-        $request = new RenewLoanRequestModel([
+        $request = new FinalizeLoanRequestModel([
             "loanId" => $this->loan->id,
         ]);
 

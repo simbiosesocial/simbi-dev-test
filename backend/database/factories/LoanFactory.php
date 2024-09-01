@@ -29,8 +29,8 @@ class LoanFactory extends Factory
         $returnDate = (clone $loanDate)->modify('+7 days');
         $now = new DateTime();
         $returned_at = $this->faker->optional()->dateTimeBetween($loanDate, $returnDate);
-        $status = is_null($returned_at) ? ($returnDate < $now ? 'overdue' : 'active') : 'finished';
-        $book->is_available = is_null($returned_at) ? false : true;
+        $status = is_null($returned_at) ? ($returnDate->format('Y-d-m') < $now->format('Y-d-m') ? 'overdue' : 'active') : 'finished';
+        $book->is_available = $status === 'finished' ? true : false;
         $book->save();
 
         return [

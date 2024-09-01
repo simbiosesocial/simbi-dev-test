@@ -3,11 +3,9 @@
 namespace App\Core\Services\Library;
 
 use App\Core\Common\Ports\ViewModel;
-use App\Core\Domain\Library\Entities\Loan;
 use App\Core\Domain\Library\Exceptions\LoanAlreadyHaveFinished;
 use App\Core\Domain\Library\Exceptions\LoanIdIsRequired;
 use App\Core\Domain\Library\Exceptions\LoanNotFound;
-use App\Core\Domain\Library\Ports\Persistence\BookRepository;
 use App\Core\Domain\Library\Ports\Persistence\LoanRepository;
 use App\Core\Domain\Library\Ports\UseCases\FinalizeLoan\{
     FinalizeLoanOutputPort,
@@ -25,8 +23,7 @@ final class FinalizeLoanService implements FinalizeLoanUseCase
      */
     public function __construct(
         private FinalizeLoanOutputPort $output,
-        private LoanRepository $loanRepository,
-        private BookRepository $bookRepository
+        private LoanRepository $loanRepository
         )
     {
     }
