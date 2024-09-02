@@ -8,10 +8,12 @@ use App\Core\Domain\Library\Exceptions\LoanNotFound;
 use App\Core\Domain\Library\Ports\UseCases\RenewLoan\RenewLoanRequestModel;
 use App\Core\Domain\Library\Ports\UseCases\RenewLoan\RenewLoanUseCase;
 use App\Core\Services\Library\RenewLoanService;
+use App\Infra\Adapters\Persistence\Eloquent\Models\Book;
 use App\Infra\Adapters\Persistence\Eloquent\Models\Loan;
 use App\Infra\Adapters\Persistence\Eloquent\Repositories\LoanEloquentRepository;
 use DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
@@ -30,7 +32,7 @@ class RenewLoanUseCaseTest extends TestCase
             output: new RenewLoanJsonPresenter(),
             loanRepository: new LoanEloquentRepository()
         );
-        $this->loan = Loan::where([ 'status' => 'active', 'returned_at' => null])->first() ?? Loan::factory()->create(['status' => 'active', 'returned_at' => null]);
+        $this->loan = Loan::where(['returned_at' => null])->first() ?? Loan::factory()->create(['returned_at' => null]);
     }
 
     public function testShouldRenewALoan()
@@ -38,7 +40,6 @@ class RenewLoanUseCaseTest extends TestCase
         $request = new RenewLoanRequestModel([
             "loanId" => $this->loan->id,
         ]);
-
         $loan = $this->useCase->execute($request)->resource->toArray(null);
 
         $today = new DateTime('now');

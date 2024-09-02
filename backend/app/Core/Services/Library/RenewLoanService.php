@@ -43,6 +43,8 @@ final class RenewLoanService implements RenewLoanUseCase
             $lastRenewedAt->format(DateTime::ATOM),
             $returnDate->format(DateTime::ATOM)
         );
+        $loan->book->setAvailable(false);
+
         return $this->output->present(new RenewLoanResponseModel($loan));
     }
 
