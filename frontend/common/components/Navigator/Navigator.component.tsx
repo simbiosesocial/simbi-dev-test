@@ -36,7 +36,7 @@ export function Navigator(props: NavigatorProps) {
             </ListItem>
             {children.map(({ id: childId, icon, url }) => (
               <Link href={`${url}`} key={childId}>
-                <ListItem disablePadding>
+                <ListItem disablePadding sx={{ color: item.color }}> 
                   <ListItemButton selected={currentPath === url}>
                     <ListItemIcon>{icon}</ListItemIcon>
                     <ListItemText>{childId}</ListItemText>
