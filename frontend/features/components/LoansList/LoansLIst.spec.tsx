@@ -8,7 +8,7 @@ describe("<LoansList />", () => {
   it("renders LoansList component", () => {
     render(<LoansList {...loansList} />);
 
-    expect(screen.getByText(loans[0].book.title)).toBeInTheDocument();
-    expect(screen.getByText(loans[1].book.title)).toBeInTheDocument();
+    expect(screen.getAllByText(loans[0].book.title)).toBeTruthy();
+    expect(screen.getAllByText(loans[1].book.title)).toBeTruthy();
   });
 });

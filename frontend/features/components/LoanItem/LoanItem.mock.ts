@@ -9,7 +9,9 @@ export const loanItem: LoanItemProps =   {
     "author": {
       "id": "1a16f999-ff5f-39d6-a074-bacfab1c7605",
       "name": "Brenda Lynch"
-    }
+    },
+    "coverUrl": "https://picsum.photos/id/10/200/300",
+    "isAvailable": false,
   },
   "loanDate": "2024-08-26T00:00:00+00:00",
   "returnDate": "2024-09-02T00:00:00+00:00",

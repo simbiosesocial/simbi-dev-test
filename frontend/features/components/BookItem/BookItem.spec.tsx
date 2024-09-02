@@ -10,7 +10,7 @@ describe("<BookItem />", () => {
   });
 
   it("should use the provided cover image", () => {
-    const { debug } = render(<BookItem {...bookItem} />);
+    const { debug } = render(<BookItem {...bookItem} coverUrl={bookItem.coverUrl} />);
     const imageElement = screen.getByRole("img", { name: bookItem.title });
     expect(imageElement).toHaveAttribute("style", `background-image: url(${bookItem.coverUrl});`);
   });
@@ -22,8 +22,14 @@ describe("<BookItem />", () => {
   });
 
   it("should render the loan button", () => {
-    render(<BookItem {...bookItem} />);
+    render(<BookItem {...bookItem} isAvailable={true} />);
     const buttonElement = screen.getByRole("button", { name: /Empréstimo/i });
+    expect(buttonElement).toBeInTheDocument();
+  });
+
+  it("should render the loan button", () => {
+    render(<BookItem {...bookItem} isAvailable={false} />);
+    const buttonElement = screen.getByRole("button", { name: /Emprestado/i });
     expect(buttonElement).toBeInTheDocument();
   });
 

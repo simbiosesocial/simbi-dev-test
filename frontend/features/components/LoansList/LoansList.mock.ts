@@ -1,3 +1,4 @@
+import { booksList } from "../BooksList/BooksList.mock";
 import type { LoansListProps } from "./LoansList.interface";
 
 export const loansList: LoansListProps = {
@@ -11,7 +12,8 @@ export const loansList: LoansListProps = {
         "author": {
           "id": "ba490614-0dc9-3953-af78-4dba91b32d59",
           "name": "Adela Lebsack"
-        }
+        },
+        "isAvailable": true,
       },
       "loanDate": "2024-08-13T00:00:00+00:00",
       "returnDate": "2024-08-20T00:00:00+00:00",
@@ -31,7 +33,8 @@ export const loansList: LoansListProps = {
         "author": {
           "id": "ba490614-0dc9-3953-af78-4dba91b32d59",
           "name": "Adela Lebsack"
-        }
+        },
+        "isAvailable": false,
       },
       "loanDate": "2024-08-13T00:00:00+00:00",
       "returnDate": "2024-08-20T00:00:00+00:00",
@@ -51,7 +54,8 @@ export const loansList: LoansListProps = {
         "author": {
           "id": "1a16f999-ff5f-39d6-a074-bacfab1c7605",
           "name": "Brenda Lynch"
-        }
+        },
+        "isAvailable": false,
       },
       "loanDate": "2024-07-31T00:00:00+00:00",
       "returnDate": "2024-08-07T00:00:00+00:00",
@@ -71,7 +75,8 @@ export const loansList: LoansListProps = {
         "author": {
           "id": "ba490614-0dc9-3953-af78-4dba91b32d59",
           "name": "Adela Lebsack"
-        }
+        },
+        "isAvailable": false,
       },
       "loanDate": "2024-08-26T00:00:00+00:00",
       "returnDate": "2024-09-02T00:00:00+00:00",
@@ -91,7 +96,8 @@ export const loansList: LoansListProps = {
         "author": {
           "id": "872bff1e-f538-32b3-aeef-a0bae53669c9",
           "name": "Travis Kohler"
-        }
+        },
+        "isAvailable": false,
       },
       "loanDate": "2024-08-26T00:00:00+00:00",
       "returnDate": "2024-09-02T00:00:00+00:00",
@@ -111,7 +117,8 @@ export const loansList: LoansListProps = {
         "author": {
           "id": "ba490614-0dc9-3953-af78-4dba91b32d59",
           "name": "Adela Lebsack"
-        }
+        },
+        "isAvailable": false,
       },
       "loanDate": "2024-08-26T00:00:00+00:00",
       "returnDate": "2024-09-02T00:00:00+00:00",
@@ -131,7 +138,8 @@ export const loansList: LoansListProps = {
         "author": {
           "id": "ba490614-0dc9-3953-af78-4dba91b32d59",
           "name": "Adela Lebsack"
-        }
+        },
+        "isAvailable": false,
       },
       "loanDate": "2024-08-26T00:00:00+00:00",
       "returnDate": "2024-09-02T00:00:00+00:00",
@@ -151,7 +159,8 @@ export const loansList: LoansListProps = {
         "author": {
           "id": "1a16f999-ff5f-39d6-a074-bacfab1c7605",
           "name": "Brenda Lynch"
-        }
+        },
+        "isAvailable": false,
       },
       "loanDate": "2024-08-26T00:00:00+00:00",
       "returnDate": "2024-09-02T00:00:00+00:00",
@@ -171,7 +180,8 @@ export const loansList: LoansListProps = {
         "author": {
           "id": "ba490614-0dc9-3953-af78-4dba91b32d59",
           "name": "Adela Lebsack"
-        }
+        },
+        "isAvailable": true,
       },
       "loanDate": "2024-08-22T00:00:00+00:00",
       "returnDate": "2024-09-02T00:00:00+00:00",
