@@ -11,7 +11,9 @@ class ListAllLoansController extends Controller
     /**
      * @param ListAllLoansUseCase $useCase
      */
-    public function __construct(private ListAllLoansUseCase $useCase) {}
+    public function __construct(private ListAllLoansUseCase $useCase)
+    {
+    }
 
     /**
      * Lista todos os empréstimos cadastrados.

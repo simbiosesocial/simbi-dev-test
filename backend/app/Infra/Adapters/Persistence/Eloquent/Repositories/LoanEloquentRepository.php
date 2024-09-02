@@ -59,7 +59,6 @@ final class LoanEloquentRepository implements LoanRepository
 
     /**
      * @param string $id,
-     * @param string $status,
      * @param string $returnedAt,
      *
      * @return Loan
@@ -76,7 +75,6 @@ final class LoanEloquentRepository implements LoanRepository
 
     /**
      * @param string $id,
-     * @param string $status,
      * @param string $lastRenewedAt,
      * @param string $returnDate,
      *

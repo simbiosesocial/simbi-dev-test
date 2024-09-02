@@ -37,5 +37,5 @@ interface BookRepository
      *
      * @return Book
      */
-    public function setAvailable(string $bookId,  bool $isAvailable): Book;
+    public function setAvailable(string $bookId, bool $isAvailable): Book;
 }

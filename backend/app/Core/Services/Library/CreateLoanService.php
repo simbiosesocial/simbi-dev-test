@@ -36,8 +36,7 @@ final class CreateLoanService implements CreateLoanUseCase
         private CreateLoanOutputPort $output,
         private LoanRepository $loanRepository,
         private BookRepository $bookRepository
-        )
-    {
+    ) {
         $this->loanDate = null;
         $this->returnDate = null;
     }

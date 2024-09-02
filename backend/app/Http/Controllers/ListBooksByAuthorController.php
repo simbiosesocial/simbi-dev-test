@@ -12,7 +12,9 @@ class ListBooksByAuthorController extends Controller
     /**
      * @param ListBooksByAuthorUseCase $useCase
      */
-    public function __construct(private ListBooksByAuthorUseCase $useCase) {}
+    public function __construct(private ListBooksByAuthorUseCase $useCase)
+    {
+    }
     /**
      * Lista todos os livros cadastrados por um determinado autor.
      *

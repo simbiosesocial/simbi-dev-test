@@ -24,8 +24,7 @@ final class FinalizeLoanService implements FinalizeLoanUseCase
     public function __construct(
         private FinalizeLoanOutputPort $output,
         private LoanRepository $loanRepository
-        )
-    {
+    ) {
     }
     /**
      * @param FinalizeLoanRequestModel $requestModel
@@ -56,7 +55,7 @@ final class FinalizeLoanService implements FinalizeLoanUseCase
             throw new LoanIdIsRequired();
         }
         $loan = $this->loanRepository->findById($loanId);
-        if(empty($loan)) {
+        if (empty($loan)) {
             throw new LoanNotFound();
         }
         $loan = $this->loanRepository->findById($loanId);
