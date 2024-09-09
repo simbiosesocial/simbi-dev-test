@@ -2,10 +2,13 @@ import { Alert, AlertColor, Snackbar, SnackbarOrigin } from "@mui/material";
 import { Dispatch, ReactElement, SetStateAction } from "react";
 
 interface SnackAlertParams {
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>; 
+  state: {
+    open: boolean,
+    message: string,
+  };
+  setState: Dispatch<SetStateAction<SnackAlertParams['state']>>; 
   severity: AlertColor;
-  children: string | ReactElement;
+  children?: string | ReactElement;
   key?: any;
   vertical?: SnackbarOrigin['vertical']; 
   horizontal?: SnackbarOrigin['horizontal']; 
@@ -14,8 +17,8 @@ interface SnackAlertParams {
 }
 
 const SnackAlert = ({ 
-  open, 
-  setOpen, 
+  state, 
+  setState, 
   severity,
   children,
   key=severity,
@@ -24,20 +27,31 @@ const SnackAlert = ({
   variant="filled",
   autoHideDuration=3500,
 }: SnackAlertParams) => {
+  const { open, message } = state;
+
+  const handleClose = () => {
+    setState((prev) => ({
+        ... prev, 
+        open: false
+      })
+    );
+  }
+  
   return (
     <Snackbar 
       open={open} 
       autoHideDuration={autoHideDuration} 
-      onClose={() => setOpen(false)}
+      onClose={handleClose}
       anchorOrigin={{ vertical, horizontal }}
       key={key}
     >
       <Alert
-        onClose={() => setOpen(false)}
+        onClose={handleClose}
         severity={severity}
         variant={variant}
         sx={{ width: '100%' }}
       >
+        {message}
         {children}
       </Alert>
     </Snackbar>
