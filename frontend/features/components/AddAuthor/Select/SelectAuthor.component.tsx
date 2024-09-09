@@ -34,17 +34,24 @@ const SelectAuthor = ({ author, setAuthor }: AddAuthorDialogProps) => {
   const [openAddAuthor, toggleOpenAddAuthor] = useState<boolean>(false);
   const [addAuthorData, setAddAuthorData] = useState<AuthorName>({ firstName: '', lastName: '' });
   const [authorsList, setAuthorsList] = useState<AuthorOptionType[]>([]);
-  const [snackSuccess, setSnackSuccess] = useState<boolean>(false);
-  const [snackError, setSnackError] = useState<boolean>(false);
-
+  const [snackSuccess, setSnackSuccess] = useState({ open: false, message: '' });
+  const [snackError, setSnackError] = useState({ open: false, message: '' });
 
   useEffect(() => {
     const fetchAuthorsList = async () => {
       const authorsList = await getAuthors();
       if(!authorsList) {
-        setSnackError(true);
+        setSnackError({ 
+          open: true,
+          message: "Erro ao buscar autores."
+        });
       }
-      setAuthorsList(authorsList as AuthorOptionType[]);
+      if(authorsList){
+        const sortedAuthors = authorsList.sort((a, b) => {
+              return a.name.localeCompare(b.name)
+          });
+        setAuthorsList(sortedAuthors);
+      }
     }
 
     fetchAuthorsList();
@@ -62,9 +69,13 @@ const SelectAuthor = ({ author, setAuthor }: AddAuthorDialogProps) => {
     e.preventDefault();
     const newAuthor = await createAuthor(addAuthorData);
     if(newAuthor){ 
-      setSnackSuccess(true);
+      setSnackSuccess({ 
+          open: true,
+          message: "Autor adicionado com sucesso!"
+        });
       handleCloseDialog();
     }
+    setAuthorsList((prev) => [...prev, newAuthor] as AuthorOptionType[]);
     setAuthor(newAuthor);
   };
 
@@ -78,12 +89,8 @@ const SelectAuthor = ({ author, setAuthor }: AddAuthorDialogProps) => {
         setDialogValue={setAddAuthorData}
       />
 
-      <SnackAlert severity='success' open={snackSuccess} setOpen={setSnackSuccess}>
-        Author adicionado com sucesso!
-      </SnackAlert>
-      <SnackAlert severity='error' open={snackError} setOpen={setSnackError}>
-        Erro ao buscar autores.
-      </SnackAlert>
+      <SnackAlert severity='success' state={snackSuccess} setState={setSnackSuccess} />
+      <SnackAlert severity='error' state={snackError} setState={setSnackError} />
 
       <Autocomplete
         value={author}
