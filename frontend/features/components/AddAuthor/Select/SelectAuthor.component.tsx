@@ -1,36 +1,19 @@
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
   TextField,
-  Button,
-  DialogContentText,
   Autocomplete,
-  createFilterOptions,
-  Snackbar,
-  Alert,
+  createFilterOptions
 } from '@mui/material';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import AddAuthorDialog, { AuthorName } from '../Dialog/AddAuthorDialog.component';
+import { useEffect, useState } from 'react';
+import AddAuthorDialog from '../Dialog/AddAuthor.component';
 import { createAuthor } from '@/requests/authors/createAuthor';
 import { getAuthors } from '@/requests/authors/getAuthors';
 import SnackAlert from '@/common/components/SnackAlert/SnackAlert.component';
-
-export interface AuthorOptionType {
-  id?: string;
-  name: string;
-  inputValue?: string;
-}
+import { AuthorOptionType, SelectAuthorProps } from './SelectAuthor.interface';
+import { AuthorName } from '../Dialog/AddAuthor.interface';
 
 const filter = createFilterOptions<AuthorOptionType>();
 
-interface AddAuthorDialogProps {
-  author: AuthorOptionType | undefined, 
-  setAuthor: Dispatch<SetStateAction<AuthorOptionType>>
-}
-
-const SelectAuthor = ({ author, setAuthor }: AddAuthorDialogProps) => {
+const SelectAuthor = ({ author, setAuthor }: SelectAuthorProps) => {
   const [openAddAuthor, toggleOpenAddAuthor] = useState<boolean>(false);
   const [addAuthorData, setAddAuthorData] = useState<AuthorName>({ firstName: '', lastName: '' });
   const [authorsList, setAuthorsList] = useState<AuthorOptionType[]>([]);
@@ -112,7 +95,7 @@ const SelectAuthor = ({ author, setAuthor }: AddAuthorDialogProps) => {
                 lastName: lastName.join(' '),
               });
             } else {
-              newValue && setAuthor(newValue);
+              setAuthor(newValue || { name: '' });
             }
           }}
         filterOptions={(options, params) => {
@@ -121,7 +104,7 @@ const SelectAuthor = ({ author, setAuthor }: AddAuthorDialogProps) => {
           if (params.inputValue !== '') {
             filtered.push({
               inputValue: params.inputValue,
-              name: `Add "${params.inputValue}"`,
+              name: `Adicionar "${params.inputValue}"`,
             });
           }
           return filtered;
