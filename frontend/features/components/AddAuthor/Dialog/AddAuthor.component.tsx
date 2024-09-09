@@ -7,22 +7,17 @@ import {
   Button,
   DialogContentText,
 } from '@mui/material';
-import { Dispatch, SetStateAction } from 'react';
+import { AddAuthorDialogProps } from './AddAuthor.interface';
 
-export interface AuthorName {
-  firstName: string;
-  lastName: string;
-}
 
-interface AddAuthorDialogProps {
-  open: boolean,
-  handleClose: () => void,
-  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void,
-  dialogValue: AuthorName
-  setDialogValue: Dispatch<SetStateAction<AuthorName>>
-}
 
-const AddAuthorDialog = ({ open, handleClose, handleSubmit, setDialogValue, dialogValue }: AddAuthorDialogProps) => {
+const AddAuthorDialog = ({ 
+  open, 
+  handleClose, 
+  handleSubmit, 
+  setDialogValue, 
+  dialogValue 
+}: AddAuthorDialogProps) => {
   return (
     <Dialog open={open} onClose={handleClose}>
       <form onSubmit={handleSubmit}>
@@ -42,7 +37,7 @@ const AddAuthorDialog = ({ open, handleClose, handleSubmit, setDialogValue, dial
                 firstName: event.target.value,
               })
             }
-            label="First Name"
+            label="Nome"
             type="text"
             variant="standard"
           />
@@ -56,7 +51,7 @@ const AddAuthorDialog = ({ open, handleClose, handleSubmit, setDialogValue, dial
                 lastName: event.target.value,
               })
             }
-            label="Last Name"
+            label="Sobrenome"
             type="text"
             variant="standard"
           />
