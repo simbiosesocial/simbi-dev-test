@@ -1,4 +1,4 @@
-export const getAuthors= async (): Promise<Author[] | undefined> => {
+export const getAuthors = async (): Promise<Author[] | undefined> => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/authors`, {
       method: "GET",
