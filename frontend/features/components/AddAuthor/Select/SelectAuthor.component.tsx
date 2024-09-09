@@ -27,7 +27,7 @@ const filter = createFilterOptions<AuthorOptionType>();
 
 interface AddAuthorDialogProps {
   author: AuthorOptionType | undefined, 
-  setAuthor: Dispatch<SetStateAction<AuthorOptionType | undefined>>
+  setAuthor: Dispatch<SetStateAction<AuthorOptionType>>
 }
 
 const SelectAuthor = ({ author, setAuthor }: AddAuthorDialogProps) => {
@@ -48,7 +48,7 @@ const SelectAuthor = ({ author, setAuthor }: AddAuthorDialogProps) => {
       }
       if(authorsList){
         const sortedAuthors = authorsList.sort((a, b) => {
-              return a.name.localeCompare(b.name)
+            return a.name.localeCompare(b.name);
           });
         setAuthorsList(sortedAuthors);
       }
@@ -69,14 +69,14 @@ const SelectAuthor = ({ author, setAuthor }: AddAuthorDialogProps) => {
     e.preventDefault();
     const newAuthor = await createAuthor(addAuthorData);
     if(newAuthor){ 
+      setAuthor(newAuthor);
+      setAuthorsList((prev) => [...prev, newAuthor] as AuthorOptionType[]);
       setSnackSuccess({ 
-          open: true,
-          message: "Autor adicionado com sucesso!"
-        });
+        open: true,
+        message: "Autor adicionado com sucesso!"
+      });
       handleCloseDialog();
     }
-    setAuthorsList((prev) => [...prev, newAuthor] as AuthorOptionType[]);
-    setAuthor(newAuthor);
   };
 
   return (
@@ -106,12 +106,13 @@ const SelectAuthor = ({ author, setAuthor }: AddAuthorDialogProps) => {
             });
             } else if (newValue && newValue.inputValue) {
               toggleOpenAddAuthor(true);
+              const [firstName, ...lastName] = newValue.inputValue.split(' ');
               setAddAuthorData({
-                firstName: newValue.inputValue,
-                lastName: '',
+                firstName: firstName,
+                lastName: lastName.join(' '),
               });
             } else {
-              setAuthor(newValue ?? undefined);
+              newValue && setAuthor(newValue);
             }
           }}
         filterOptions={(options, params) => {
@@ -152,7 +153,6 @@ const SelectAuthor = ({ author, setAuthor }: AddAuthorDialogProps) => {
             </li>
           );
         }}
-        sx={{ width: 300 }}
       />
     </>
   );
