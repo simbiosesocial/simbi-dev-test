@@ -6,7 +6,14 @@ async function getBooks(): Promise<Book[]> {
   if (!response.ok) {
     throw new Error("Failed to fetch books", { cause: response.statusText });
   }
-  return response.json();
+  const data: Book[] = await response.json();
+  data.sort((a, b) => {
+    if (a.isAvailable === b.isAvailable) {
+      return a.title.localeCompare(b.title);
+    }
+    return a.isAvailable ? -1 : 1;
+  });
+  return data;
 }
 
 export default async function Home() {
