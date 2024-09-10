@@ -1,5 +1,4 @@
-import { render, screen } from "@/common/utils/test-utils";
-import { fireEvent, waitFor, act } from '@testing-library/react';
+import { render, screen, act, fireEvent, waitFor } from "@/common/utils/test-utils";
 import { LoanItem } from "./LoanItem.component";
 import { loanItem } from "./LoanItem.mock";
 import { renewLoan, finalizeLoan } from '@/requests/loans/updateLoan';
@@ -52,7 +51,7 @@ describe("<LoanItem />", () => {
     expect(tooltipElement).toBeInTheDocument();
   });
 
-    it('should handle loan renewal successfully', async () => {
+  it('should handle loan renewal successfully', async () => {
     const updatedLoan = {...loanItem, status: 'active' as LoanStatus, returnDate: '2024-09-16T00:00:00+00:00' };
     mockRenewLoan.mockResolvedValueOnce(updatedLoan);
 

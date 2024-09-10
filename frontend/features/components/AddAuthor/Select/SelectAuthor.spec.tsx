@@ -1,6 +1,5 @@
-import React, { act } from 'react';
-import { fireEvent, waitFor } from '@testing-library/react';
-import { render, screen } from "@/common/utils/test-utils";
+import React from 'react';
+import { render, screen, fireEvent, waitFor } from "@/common/utils/test-utils";
 import SelectAuthor from './SelectAuthor.component';
 import { getAuthors } from '@/requests/authors/getAuthors';
 import { createAuthor } from '@/requests/authors/createAuthor';
