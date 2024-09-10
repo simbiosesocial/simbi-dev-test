@@ -6,6 +6,7 @@ use App\Core\Common\Ports\ViewModel;
 use App\Core\Domain\Library\Exceptions\LoanAlreadyHaveFinished;
 use App\Core\Domain\Library\Exceptions\LoanIdIsRequired;
 use App\Core\Domain\Library\Exceptions\LoanNotFound;
+use App\Core\Domain\Library\Ports\Persistence\BookRepository;
 use App\Core\Domain\Library\Ports\Persistence\LoanRepository;
 use App\Core\Domain\Library\Ports\UseCases\FinalizeLoan\{
     FinalizeLoanOutputPort,
@@ -20,10 +21,13 @@ final class FinalizeLoanService implements FinalizeLoanUseCase
     /**
      * @param FinalizeLoanOutputPort $output
      * @param LoanRepository $loanRepository
+     * @param BookRepository $bookRepository
+     *
      */
     public function __construct(
         private FinalizeLoanOutputPort $output,
-        private LoanRepository $loanRepository
+        private LoanRepository $loanRepository,
+        private BookRepository $bookRepository
     ) {
     }
     /**
@@ -39,7 +43,7 @@ final class FinalizeLoanService implements FinalizeLoanUseCase
         $returnedAt = new DateTime();
 
         $loan = $this->loanRepository->finalize($loanId, $returnedAt->format('Y-m-d H:i:s'));
-        $loan->book->setAvailable(true);
+        $this->bookRepository->setAvailable($loan->bookId, true);
 
         return $this->output->present(new FinalizeLoanResponseModel($loan));
     }

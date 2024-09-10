@@ -59,7 +59,7 @@ final class CreateLoanService implements CreateLoanUseCase
             loanDate: $this->loanDate,
             returnDate: $this->returnDate,
         ));
-        $loan->book->setAvailable(false);
+        $this->bookRepository->setAvailable($bookId, false);
 
         return $this->output->present(new CreateLoanResponseModel($loan));
     }
