@@ -1,20 +1,5 @@
-import { Alert, AlertColor, Snackbar, SnackbarOrigin } from "@mui/material";
-import { Dispatch, ReactElement, SetStateAction } from "react";
-
-interface SnackAlertParams {
-  state: {
-    open: boolean,
-    message: string,
-  };
-  setState: Dispatch<SetStateAction<SnackAlertParams['state']>>; 
-  severity: AlertColor;
-  children?: string | ReactElement;
-  key?: any;
-  vertical?: SnackbarOrigin['vertical']; 
-  horizontal?: SnackbarOrigin['horizontal']; 
-  variant?: 'standard' | 'filled' | 'outlined';
-  autoHideDuration?: number;
-}
+import { Alert, Snackbar } from "@mui/material";
+import { SnackAlertParams } from "./SnackAlert.interface";
 
 const SnackAlert = ({ 
   state, 
