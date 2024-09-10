@@ -19,6 +19,7 @@ final class BookMapper
             'title' => $book->title,
             'publisher' => $book->publisher,
             'author_id' => $book->authorId,
+            'is_available' => $book->isAvailable
         ]);
     }
 
@@ -35,6 +36,7 @@ final class BookMapper
             title: $book->title,
             publisher: $book->publisher,
             authorId: $book->author_id,
+            isAvailable: $book->is_available,
             createdAt: $book->created_at,
             updatedAt: $book->updated_at,
         );

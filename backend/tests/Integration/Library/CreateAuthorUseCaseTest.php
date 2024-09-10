@@ -34,9 +34,8 @@ class CreateAuthorUseCaseTest extends TestCase
         ]);
 
         $author = $this->useCase->execute($request)->resource->toArray(null);
-
-        $this->assertIsString($author->id);
-        $this->assertEquals("Teste de Autor", $author->name);
+        $this->assertIsString($author['id']);
+        $this->assertEquals("Teste de Autor", $author['name']);
     }
 
     public function testShouldThrowInvalidAuthorName()

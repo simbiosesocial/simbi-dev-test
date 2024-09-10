@@ -19,9 +19,9 @@ final class Author extends Entity
      */
     public string $lastName;
     /**
-     * @var mixed $books
+     * @var array<Book> $books
      */
-    private mixed $books;
+    private array $books;
     /**
      * @param ?string $id
      * @param ?AuthorName $name
@@ -57,11 +57,13 @@ final class Author extends Entity
         // todo
     }
 
-    /**
-     * @return mixed
+     /**
+     * Get the books associated with the author.
+     *
+     * @return array<Book>
      */
-    public function getBooks(): mixed
+    public function getBooks(): array
     {
-        return []; // todo
+        return $this->books;
     }
 }

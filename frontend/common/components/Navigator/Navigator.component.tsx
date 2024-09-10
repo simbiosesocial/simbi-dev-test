@@ -1,3 +1,4 @@
+"use client";
 import type { NavigatorProps } from "./Navigator.interface";
 
 import Divider from "@mui/material/Divider";
@@ -11,9 +12,12 @@ import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 
 import { categories, item, itemCategory } from "./Navigator.consts";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function Navigator(props: NavigatorProps) {
   const { ...other } = props;
+  const currentPath = usePathname();
 
   return (
     <Drawer variant="permanent" {...other}>
@@ -30,13 +34,15 @@ export function Navigator(props: NavigatorProps) {
             <ListItem sx={{ py: 2, px: 3 }}>
               <ListItemText sx={{ color: "#fff" }}>{id}</ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active }) => (
-              <ListItem disablePadding key={childId}>
-                <ListItemButton selected={active} sx={item}>
-                  <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText>{childId}</ListItemText>
-                </ListItemButton>
-              </ListItem>
+            {children.map(({ id: childId, icon, url }) => (
+              <Link href={`${url}`} key={childId}>
+                <ListItem disablePadding sx={{ color: item.color }}> 
+                  <ListItemButton selected={currentPath === url}>
+                    <ListItemIcon>{icon}</ListItemIcon>
+                    <ListItemText>{childId}</ListItemText>
+                  </ListItemButton>
+                </ListItem>
+              </Link>
             ))}
             <Divider sx={{ mt: 2 }} />
           </Box>

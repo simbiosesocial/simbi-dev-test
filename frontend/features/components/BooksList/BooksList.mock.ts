@@ -9,6 +9,7 @@ export const booksList: BooksListProps = {
       author: { id: "d505a8d4-81e1-36e1-9f88-a591a9bd606c", name: "Marlee Fahey" },
       createdAt: "2024-08-16T14:39:16+00:00",
       updatedAt: "2024-08-16T14:39:16+00:00",
+      isAvailable: true,
     },
     {
       id: "1629c389-e106-3471-8467-2a1341a6705c",
@@ -17,6 +18,7 @@ export const booksList: BooksListProps = {
       author: { id: "45e8ec10-ab63-3b81-ae4e-b3fa4fa45365", name: "Kolby Bauch" },
       createdAt: "2024-08-16T14:39:16+00:00",
       updatedAt: "2024-08-16T14:39:16+00:00",
+      isAvailable: false,
     },
     {
       id: "9cf5fe00-eaf3-35b9-bed2-b98f0c8055d9",
@@ -25,6 +27,7 @@ export const booksList: BooksListProps = {
       author: { id: "8ece12eb-b595-3dbd-a646-38bff87aa667", name: "Effie Will" },
       createdAt: "2024-08-16T14:39:16+00:00",
       updatedAt: "2024-08-16T14:39:16+00:00",
+      isAvailable: true,
     },
     {
       id: "3a3e4d87-b1a2-3cda-a2d2-5c1b3b3312cc",
@@ -33,6 +36,7 @@ export const booksList: BooksListProps = {
       author: { id: "d505a8d4-81e1-36e1-9f88-a591a9bd606c", name: "Marlee Fahey" },
       createdAt: "2024-08-16T14:39:16+00:00",
       updatedAt: "2024-08-16T14:39:16+00:00",
+      isAvailable: true,
     },
     {
       id: "82dcce13-46bb-3ecd-947f-83b2f887a96d",
@@ -41,6 +45,7 @@ export const booksList: BooksListProps = {
       author: { id: "8ece12eb-b595-3dbd-a646-38bff87aa667", name: "Effie Will" },
       createdAt: "2024-08-16T14:39:16+00:00",
       updatedAt: "2024-08-16T14:39:16+00:00",
+      isAvailable: true,
     },
   ],
 };

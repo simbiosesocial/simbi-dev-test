@@ -31,6 +31,14 @@ final class Book extends Entity
      * @var ?Author $author
      */
     public ?Author $author;
+    /**
+     * @var array<Loan> $loans
+     */
+    public array $loans;
+    /**
+     * @var ?bool $isAvailable
+     */
+    public ?bool $isAvailable;
 
     /**
      * @param ?string $id
@@ -45,6 +53,7 @@ final class Book extends Entity
         ?string $authorId = null,
         ?DateTime $createdAt = null,
         ?DateTime $updatedAt = null,
+        ?bool $isAvailable = true,
     ) {
         parent::__construct($id);
         $this->title = $title;
@@ -52,6 +61,8 @@ final class Book extends Entity
         $this->authorId = $authorId;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
+        $this->isAvailable = $isAvailable;
+        $this->validate();
     }
     /**
      * @param Author $author
@@ -79,5 +90,15 @@ final class Book extends Entity
         if (empty($this->publisher)) {
             throw new BookMustHaveAPublisher();
         }
+    }
+
+    /**
+     * @param bool $isAvailable
+     *
+     * @return void
+     */
+    public function setAvailable(bool $isAvailable): void
+    {
+        $this->isAvailable = $isAvailable;
     }
 }

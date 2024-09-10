@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Infra\Adapters\Persistence\Eloquent\Models\Author;
 use App\Infra\Adapters\Persistence\Eloquent\Models\Book;
+use App\Infra\Adapters\Persistence\Eloquent\Models\Loan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -26,13 +27,14 @@ class BookFactory extends Factory
      */
     public function definition(): array
     {
-        $author = Author::inRandomOrder()->first();
+        $author = Author::inRandomOrder()->first() ?? Author::factory()->create();
 
         return [
             "id" => $this->faker->uuid(),
             "title" => $this->faker->text(80),
             "publisher" => $this->faker->company(),
-            "author_id" => $author->id
+            "author_id" => $author->id,
+            "is_available" => true
         ];
     }
 }
