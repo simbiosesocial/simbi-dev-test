@@ -45,7 +45,7 @@ describe('AddBookDialog', () => {
     
     expect(screen.getByText('Adicionar Novo Livro')).toBeInTheDocument();
     expect(screen.getByLabelText('Título')).toBeInTheDocument();
-    expect(screen.getByRole('combobox')).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: "Autor"})).toBeInTheDocument();
     expect(screen.getByLabelText('Editora')).toBeInTheDocument();
     expect(screen.getByText('Cancelar')).toBeInTheDocument();
     expect(screen.getByText('Adicionar')).toBeInTheDocument();
@@ -59,11 +59,11 @@ describe('AddBookDialog', () => {
 
     act(() => {
       fireEvent.change(screen.getByLabelText('Título'), { target: { value: bookTitle } });
-      fireEvent.change(screen.getByRole('combobox'), { target: { value: bookAuthor } });
+      fireEvent.change(screen.getByRole('combobox', { name: "Autor"}), { target: { value: bookAuthor } });
       fireEvent.change(screen.getByLabelText('Editora'), { target: { value: bookPublisher } });
     });
     expect(screen.getByLabelText('Título')).toHaveValue(bookTitle);
-    expect(screen.getByRole('combobox')).toHaveValue(bookAuthor);
+    expect(screen.getByRole('combobox', { name: "Autor"})).toHaveValue(bookAuthor);
     expect(screen.getByLabelText('Editora')).toHaveValue(bookPublisher);
   });
 
@@ -77,7 +77,7 @@ describe('AddBookDialog', () => {
 
     expect(mockOnClose).toHaveBeenCalled();
     expect(screen.getByLabelText('Título')).toHaveValue('');
-    expect(screen.getByRole('combobox')).toHaveValue('');
+    expect(screen.getByRole('combobox', { name: "Autor"})).toHaveValue('');
     expect(screen.getByLabelText('Editora')).toHaveValue('');
   });
 
@@ -92,7 +92,7 @@ describe('AddBookDialog', () => {
 
     act(() => {
       fireEvent.change(screen.getByLabelText('Título'), { target: { value: bookTitle } });
-      fireEvent.change(screen.getByRole('combobox'), { target: { value: bookAuthor } });
+      fireEvent.change(screen.getByRole('combobox', { name: "Autor"}), { target: { value: bookAuthor } });
       fireEvent.keyDown(screen.getByRole('combobox'), { key: 'Enter', code: 'Enter' });
       fireEvent.change(screen.getByLabelText('Editora'), { target: { value: bookPublisher } });
     });

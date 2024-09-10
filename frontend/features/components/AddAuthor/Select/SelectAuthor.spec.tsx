@@ -1,5 +1,4 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from "@/common/utils/test-utils";
+import { render, screen, fireEvent, waitFor, act } from "@/common/utils/test-utils";
 import SelectAuthor from './SelectAuthor.component';
 import { getAuthors } from '@/requests/authors/getAuthors';
 import { createAuthor } from '@/requests/authors/createAuthor';
@@ -14,7 +13,7 @@ const mockCreateAuthor = createAuthor as jest.MockedFunction<typeof createAuthor
 const mockSetAuthor = jest.fn();
 
 const defaultProps = {
-  author: undefined,
+  author: { name: '' },
   setAuthor: mockSetAuthor,
 };
 
@@ -28,7 +27,9 @@ describe('SelectAuthor', () => {
   it('should render the component and fetch authors', async () => {
     mockGetAuthors.mockResolvedValueOnce(authorsList);
 
-    render(<SelectAuthor {...defaultProps} />);
+    act(() => {
+      render(<SelectAuthor {...defaultProps} />);
+    });
 
     expect(screen.getByLabelText('Autor')).toBeInTheDocument();
     fireEvent.change(screen.getByLabelText('Autor'), { target: { value: 'J' } });
@@ -43,7 +44,9 @@ describe('SelectAuthor', () => {
   it('should show error message if fetching authors fails', async () => {
     mockGetAuthors.mockResolvedValueOnce(undefined);
 
-    render(<SelectAuthor {...defaultProps} />);
+    act(() => {
+      render(<SelectAuthor {...defaultProps} />);
+    });
 
     await waitFor(() => {
       expect(mockGetAuthors).toHaveBeenCalled();
@@ -54,22 +57,41 @@ describe('SelectAuthor', () => {
   it('should show `Adicionar "New Author"` when a new author is typed', async () => {
     mockGetAuthors.mockResolvedValueOnce(authorsList);
 
-    render(<SelectAuthor {...defaultProps} />);
+    act(() => {
+      render(<SelectAuthor {...defaultProps} />);
+    });
 
     fireEvent.change(screen.getByLabelText('Autor'), { target: { value: 'New Author' } });
 
     await waitFor(() => {
       expect(screen.getByText('Adicionar "New Author"')).toBeInTheDocument();
     });
-    
+  });
+
+  it('should call setAuthor with the selected author', async () => {
+    mockGetAuthors.mockResolvedValueOnce(authorsList);
+
+    render(<SelectAuthor {...defaultProps} />);
+
+    fireEvent.change(screen.getByRole('combobox', { name: "Autor"}), { target: { value: "Jane" } });
+
+    await waitFor(() => {
+      expect(screen.getByText('Jane Smith')).toBeInTheDocument()
+      fireEvent.click(screen.getByRole('option', { name: authorsList[0].name }));
+      expect(defaultProps.setAuthor).toHaveBeenCalledWith({ ...authorsList[0] });
+    });
+
   });
 
   it('should add a new author and update the list', async () => {
     mockGetAuthors.mockResolvedValueOnce(authorsList);
+
     const newAuthor = { id: '3', name: 'New Author' };
     mockCreateAuthor.mockResolvedValueOnce(newAuthor);
 
-    render(<SelectAuthor {...defaultProps} />);
+    act(() => {
+      render(<SelectAuthor {...defaultProps} />);
+    });
 
     fireEvent.change(screen.getByLabelText('Autor'), { target: { value: 'New Author' } });
 
@@ -88,7 +110,9 @@ describe('SelectAuthor', () => {
       expect(screen.getByLabelText('Sobrenome')).toHaveValue("Author");
     });
 
-    fireEvent.submit(screen.getByRole('button', { name: 'Adicionar Autor' }));
+    act(() => {
+      fireEvent.submit(screen.getByRole('button', { name: 'Adicionar Autor' }));
+    });
 
     await waitFor(() => {
       expect(mockCreateAuthor).toHaveBeenCalledWith({ firstName: 'New', lastName: 'Author' });
