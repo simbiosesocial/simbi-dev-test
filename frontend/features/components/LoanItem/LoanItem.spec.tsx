@@ -66,7 +66,7 @@ describe("<LoanItem />", () => {
     await waitFor(() => {
       expect(mockRenewLoan).toHaveBeenCalled();
       expect(mockRenewLoan).toHaveBeenCalledWith(updatedLoan.id);
-      expect(screen.getByText('Empréstimo atualizado com sucesso!')).toBeInTheDocument();
+      expect(screen.getByText('Empréstimo renovado com sucesso!')).toBeInTheDocument();
       expect(screen.getByText('Data de devolução: 16/09/2024')).toBeInTheDocument();
       expect(screen.getByText(/Status: active/i)).toBeInTheDocument();
     });
@@ -86,7 +86,7 @@ describe("<LoanItem />", () => {
     await waitFor(() => {
       expect(mockRenewLoan).toHaveBeenCalled();
       expect(mockRenewLoan).toHaveBeenCalledWith(loanItem.id);
-      expect(screen.getByText('Erro ao atualizar empréstimo. Tente novamente.')).toBeInTheDocument();
+      expect(screen.getByText('Erro ao renovar empréstimo. Tente novamente.')).toBeInTheDocument();
     });
   });
 
@@ -104,7 +104,7 @@ describe("<LoanItem />", () => {
 
     await waitFor(() => {
       expect(mockFinalizeLoan).toHaveBeenCalledWith(updatedLoan.id);
-      expect(screen.getByText('Empréstimo atualizado com sucesso!')).toBeInTheDocument();
+      expect(screen.getByText('Empréstimo finalizado com sucesso!')).toBeInTheDocument();
       expect(screen.getByText('Devolvido: 09/09/2024')).toBeInTheDocument();
       expect(screen.getByText('Status: finished')).toBeInTheDocument();
 
@@ -124,7 +124,7 @@ describe("<LoanItem />", () => {
 
     await waitFor(() => {
       expect(mockFinalizeLoan).toHaveBeenCalledWith(loanItem.id);
-      expect(screen.getByText('Erro ao atualizar empréstimo. Tente novamente.')).toBeInTheDocument();
+      expect(screen.getByText('Erro ao finalizar empréstimo. Tente novamente.')).toBeInTheDocument();
     });
   });
 

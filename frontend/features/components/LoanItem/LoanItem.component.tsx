@@ -4,6 +4,7 @@ import { useState, type FunctionComponent } from "react";
 import type { LoanItemProps } from "./LoanItem.interface";
 import { Card, CardContent, CardMedia, CardActions, Button, Typography, Tooltip, Alert, Snackbar } from "@mui/material";
 import { finalizeLoan, renewLoan } from "@/requests/loans/updateLoan";
+import SnackAlert from "@/common/components/SnackAlert/SnackAlert.component";
 
 const formatDateToLocal = (dateString: string): string => {
   const date = new Date(dateString);
@@ -14,8 +15,9 @@ const formatDateToLocal = (dateString: string): string => {
 export const LoanItem: FunctionComponent<LoanItemProps> = ({ id, status, returnDate, returnedAt, book }) => {
   const [isLoadingRenew, setIsLoadingRenew] = useState(false);
   const [isLoadingFinalize, setIsLoadingFinalize] = useState(false);
-  const [openSuccess, setOpenSuccess] = useState(false);
-  const [openError, setOpenError] = useState(false);
+  const [alertSuccess, setAlertSuccess] = useState({ open: false, message: '' });
+  const [alertError, setAlertError] = useState({ open: false, message: '' });
+
   const [loan, setLoan] = useState({
     status,
     returnDate,
@@ -33,7 +35,7 @@ export const LoanItem: FunctionComponent<LoanItemProps> = ({ id, status, returnD
       const data = await renewLoan(id);
       setIsLoadingRenew(false);
       if (data) {
-        setOpenSuccess(true);
+        setAlertSuccess({ open: true, message: "Empréstimo renovado com sucesso!" });
         setLoan({
           ...loan,
           status: data.status,
@@ -41,7 +43,7 @@ export const LoanItem: FunctionComponent<LoanItemProps> = ({ id, status, returnD
         });
       }
     } catch (error) {
-      setOpenError(true);
+      setAlertError({ open: true, message: "Erro ao renovar empréstimo. Tente novamente." });
       console.error("Error renewing loan:", error);
     } finally {
       setIsLoadingRenew(false);
@@ -54,7 +56,7 @@ export const LoanItem: FunctionComponent<LoanItemProps> = ({ id, status, returnD
       const data = await finalizeLoan(id);
       setIsLoadingFinalize(false);
       if (data) {
-        setOpenSuccess(true);
+        setAlertSuccess({ open: true, message: "Empréstimo finalizado com sucesso!" });
         setLoan({
           ...loan,
           status: data.status,
@@ -62,7 +64,7 @@ export const LoanItem: FunctionComponent<LoanItemProps> = ({ id, status, returnD
         });
       }
     } catch (error) {
-      setOpenError(true);
+      setAlertError({ open: true, message: "Erro ao finalizar empréstimo. Tente novamente." });
       console.error("Error finalizing loan:", error);
     } finally {
       setIsLoadingFinalize(false);
@@ -126,36 +128,9 @@ export const LoanItem: FunctionComponent<LoanItemProps> = ({ id, status, returnD
         </Button>
       </CardActions>
     </Card>
-    <Snackbar 
-      open={openSuccess} 
-      autoHideDuration={3500} 
-      onClose={() => setOpenSuccess(false)}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-    >
-      <Alert
-        onClose={() => setOpenSuccess(false)}
-        severity="success"
-        variant="filled"
-        sx={{ width: '100%' }}
-      >
-        Empréstimo atualizado com sucesso!
-      </Alert>
-    </Snackbar>
-    <Snackbar 
-      open={openError} 
-      autoHideDuration={3500} 
-      onClose={() => setOpenError(false)}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-    >
-      <Alert
-        onClose={() => setOpenError(false)}
-        severity="error"
-        variant="filled"
-        sx={{ width: '100%' }}
-      >
-        Erro ao atualizar empréstimo. Tente novamente.
-      </Alert>
-    </Snackbar>
+
+    <SnackAlert severity="success" state={alertSuccess} setState={setAlertSuccess} />
+    <SnackAlert severity="error" state={alertError} setState={setAlertError} />
   </>
   );
 };
