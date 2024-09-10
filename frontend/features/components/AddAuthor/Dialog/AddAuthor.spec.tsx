@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, } from '@testing-library/react';
+import { render, screen } from "@/common/utils/test-utils";
 import { AddAuthorDialogProps } from './AddAuthor.interface';
 import AddAuthorDialog from './AddAuthor.component';
 

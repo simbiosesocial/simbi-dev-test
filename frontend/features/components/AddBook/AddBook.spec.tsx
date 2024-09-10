@@ -1,5 +1,6 @@
 import React, { act } from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
+import { render, screen } from "@/common/utils/test-utils";
 import AddBookDialog from './AddBook.component';
 import { createBook } from '@/requests/books/createBook';
 import { getAuthors } from '@/requests/authors/getAuthors';
@@ -38,8 +39,11 @@ describe('AddBookDialog', () => {
   const bookPublisher = 'Publisher';
 
   it('should render the component with the correct elements', () => {
-    render(<AddBookDialog {...defaultProps} />);
-
+    mockGetAuthors.mockResolvedValueOnce(authorsList);
+    act(() => {
+      render(<AddBookDialog {...defaultProps} />);
+    });
+    
     expect(screen.getByText('Adicionar Novo Livro')).toBeInTheDocument();
     expect(screen.getByLabelText('Título')).toBeInTheDocument();
     expect(screen.getByRole('combobox')).toBeInTheDocument();
@@ -49,7 +53,10 @@ describe('AddBookDialog', () => {
   });
 
   it('should update the title, author and publisher fields when changed', () => {
-    render(<AddBookDialog {...defaultProps} />);
+    mockGetAuthors.mockResolvedValueOnce(authorsList);
+    act(() => {
+      render(<AddBookDialog {...defaultProps} />);
+    });
 
     act(() => {
       fireEvent.change(screen.getByLabelText('Título'), { target: { value: bookTitle } });
@@ -62,7 +69,10 @@ describe('AddBookDialog', () => {
   });
 
   it('should call onClose and reset data when Cancelar is clicked', () => {
-    render(<AddBookDialog {...defaultProps} />);
+    mockGetAuthors.mockResolvedValueOnce(authorsList);
+    act(() => {
+      render(<AddBookDialog {...defaultProps} />);
+    });
 
     fireEvent.click(screen.getByText('Cancelar'));
 
@@ -76,7 +86,10 @@ describe('AddBookDialog', () => {
     const newBook = { id: '1', title: bookTitle, author: { id: '2', name: bookAuthor }, isAvailable: true, publisher: bookPublisher };
     mockCreateBook.mockResolvedValue(newBook);
 
-    render(<AddBookDialog {...defaultProps} />);
+    mockGetAuthors.mockResolvedValueOnce(authorsList);
+    act(() => {
+      render(<AddBookDialog {...defaultProps} />);
+    });
 
     act(() => {
       fireEvent.change(screen.getByLabelText('Título'), { target: { value: bookTitle } });
@@ -106,10 +119,6 @@ describe('AddBookDialog', () => {
 
     await waitFor(() => {
       expect(screen.getByText(`Erro ao adicionar o livro ${bookTitle}. Tente novamente`)).toBeInTheDocument();
-      // expect(mockCreateBook).toHaveBeenCalledWith({
-      //   title: bookTitle,
-      //   publisher: bookPublisher,
-      // });
     });
   });
 });

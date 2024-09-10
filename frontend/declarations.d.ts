@@ -14,7 +14,7 @@ type Book = {
   isAvailable: boolean;
 };
 
-type LoanStatus = 
+export type LoanStatus = 
   | 'active'
   | 'finished'
   | 'overdue';
