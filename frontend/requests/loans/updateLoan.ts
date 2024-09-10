@@ -1,3 +1,5 @@
+import { Loan } from "@/declarations";
+
 export const finalizeLoan = async (loanId: string): Promise<Loan | undefined> => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/loans/${loanId}/finalize`, {

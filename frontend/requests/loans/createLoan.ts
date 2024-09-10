@@ -1,3 +1,5 @@
+import { Loan } from "@/declarations";
+
 export const createLoan = async (bookId: string): Promise<Loan | undefined> => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/loans`, {

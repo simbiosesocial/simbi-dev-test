@@ -1,3 +1,5 @@
+import { Author } from "@/declarations";
+
 interface AddAuthorParams {
   firstName: string;
   lastName: string;

@@ -1,4 +1,5 @@
 import { env } from "@/common/config/env";
+import { Book } from "@/declarations";
 import HomePageView from "@/views/HomePage";
 
 async function getBooks(): Promise<Book[]> {

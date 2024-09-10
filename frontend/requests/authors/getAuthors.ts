@@ -1,3 +1,5 @@
+import { Author } from "@/declarations";
+
 export const getAuthors = async (): Promise<Author[] | undefined> => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/authors`, {

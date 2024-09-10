@@ -1,3 +1,4 @@
+import { Book } from "@/declarations";
 import { Dispatch, SetStateAction } from "react";
 
 export type BookItemProps = Book & {};

@@ -9,6 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { LoansList } from "@/features/components";
 import { Box } from "@mui/material";
 import { useState } from "react";
+import { Loan } from "@/declarations";
 
 type ViewProps = {
   loans: Loan[];

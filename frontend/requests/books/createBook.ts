@@ -1,3 +1,5 @@
+import { Book } from "@/declarations";
+
 interface AddBookParams {
   title: string;
   authorId: string;

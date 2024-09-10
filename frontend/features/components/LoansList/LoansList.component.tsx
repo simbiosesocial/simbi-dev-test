@@ -2,6 +2,7 @@ import type { FunctionComponent } from "react";
 import type { LoansListProps } from "./LoansList.interface";
 import Grid from "@mui/material/Unstable_Grid2";
 import { LoanItem } from "../LoanItem";
+import { Loan } from "@/declarations";
 
 export const LoansList: FunctionComponent<LoansListProps> = ({ loans }) => {
   const compareLoanItems = (a: Loan, b: Loan) => {

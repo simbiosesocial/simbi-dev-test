@@ -12,6 +12,7 @@ import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import AddBookDialog from "@/features/components/AddBook/AddBook.component";
 import SnackAlert from "@/common/components/SnackAlert/SnackAlert.component";
+import { Book } from "@/declarations";
 
 type ViewProps = {
   books: Book[];

@@ -12,6 +12,7 @@ import SelectAuthor from '../AddAuthor/Select/SelectAuthor.component';
 import { createBook } from '@/requests/books/createBook';
 import SnackAlert from '@/common/components/SnackAlert/SnackAlert.component';
 import { AuthorOptionType } from '../AddAuthor/Select/SelectAuthor.interface';
+import { Book } from '@/declarations';
 
 const AddBookDialog = ({ open, onClose, setAllBooks }: any) => {
   // const [ISBN, setISBN] = useState('');
