@@ -2,19 +2,41 @@
 
 import { useState, type FunctionComponent } from "react";
 import type { LoanItemProps } from "./LoanItem.interface";
-import { Card, CardContent, CardMedia, CardActions, Button, Typography, Tooltip, Alert, Snackbar } from "@mui/material";
+import { Card, CardContent, CardMedia, CardActions, Button, Typography, Tooltip } from "@mui/material";
 import { finalizeLoan, renewLoan } from "@/requests/loans/updateLoan";
 import SnackAlert from "@/common/components/SnackAlert/SnackAlert.component";
 
-const formatDateToLocal = (dateString: string): string => {
+const formatDateToLocal = (dateString: string, locale: string = navigator.language): string => {
   const date = new Date(dateString);
   const utcDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
-  return utcDate.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  return utcDate.toLocaleDateString(locale, { day: '2-digit', month: '2-digit', year: 'numeric' });
 };
+
+enum LOAN_STATUS {
+  ACTIVE = 'active',
+  FINISHED = 'finished',
+  OVERDUE = 'overdue',
+}
+
+const statusData = {
+  [LOAN_STATUS.ACTIVE]: {
+    label: 'Ativo',
+    color: 'green',
+  },
+  [LOAN_STATUS.FINISHED]: {
+    label: 'Finalizado',
+    color: 'gray',
+  },
+  [LOAN_STATUS.OVERDUE]: {
+    label: 'Atrasado',
+    color: 'error',
+  }
+}
 
 export const LoanItem: FunctionComponent<LoanItemProps> = ({ id, status, returnDate, returnedAt, book }) => {
   const [isLoadingRenew, setIsLoadingRenew] = useState(false);
   const [isLoadingFinalize, setIsLoadingFinalize] = useState(false);
+  const [isFinished, setIsFinished] = useState(status === LOAN_STATUS.FINISHED);
   const [alertSuccess, setAlertSuccess] = useState({ open: false, message: '' });
   const [alertError, setAlertError] = useState({ open: false, message: '' });
 
@@ -23,7 +45,6 @@ export const LoanItem: FunctionComponent<LoanItemProps> = ({ id, status, returnD
     returnDate,
     returnedAt,
   });
-  const finished = loan.status === 'finished';
 
   const formattedReturnDate = formatDateToLocal(loan.returnDate);
   const formattedReturnedAt = loan.returnedAt && formatDateToLocal(loan.returnedAt);
@@ -62,6 +83,7 @@ export const LoanItem: FunctionComponent<LoanItemProps> = ({ id, status, returnD
           status: data.status,
           returnedAt: data.returnedAt
         });
+        setIsFinished(true);
       }
     } catch (error) {
       setAlertError({ open: true, message: "Erro ao finalizar empréstimo. Tente novamente." });
@@ -72,7 +94,7 @@ export const LoanItem: FunctionComponent<LoanItemProps> = ({ id, status, returnD
   }
 
   const handleDisabled = () => {
-    if (finished) {
+    if (isFinished) {
       return true;
     } else {
       if (isLoadingRenew || isLoadingFinalize) {
@@ -94,10 +116,10 @@ export const LoanItem: FunctionComponent<LoanItemProps> = ({ id, status, returnD
         </Tooltip>
         
         <Typography variant="overline">
-          Status: {loan.status}
+          Status: <Typography variant="overline" sx={{fontWeight: "bold"}} color={statusData[loan.status].color}>{statusData[loan.status].label}</Typography>
         </Typography>
 
-        {finished ? 
+        {isFinished ? 
           (<Typography>
             Devolvido: {formattedReturnedAt}
           </Typography>)

@@ -2,6 +2,7 @@
 
 import { env } from "@/common/config/env";
 import { Book } from "@/declarations";
+import { revalidateTag } from "next/cache";
 
 interface AddBookParams {
   title: string;
@@ -39,8 +40,10 @@ export const createBook = async (bookData: AddBookParams): Promise<Book | undefi
     if (!response.ok) {
       throw new Error("Failed to create book", { cause: response.statusText });
     }
+    
+    revalidateTag('books');
+
     const data = await response.json();
-    console.log("CREATE BOOK", data);
     return data;
   } catch (error) {
     console.error("Error creating book:", error);
