@@ -1,8 +1,11 @@
+"use server"
+
 import { Author } from "@/declarations";
+import { env } from "@/common/config/env";
 
 export const getAuthors = async (): Promise<Author[] | undefined> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/authors`, {
+    const response = await fetch(`${env.API_URL}/api/authors`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

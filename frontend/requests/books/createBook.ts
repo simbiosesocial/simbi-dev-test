@@ -1,3 +1,6 @@
+"use server"
+
+import { env } from "@/common/config/env";
 import { Book } from "@/declarations";
 
 interface AddBookParams {
@@ -20,12 +23,13 @@ export const fetchBookInfo = async (ISBN: string): Promise<any> => {
       }
     } catch (error) {
       console.error('Error fetching book info:', error);
+      throw new Error("Failed to fetch book info", { cause: error });
     }
   };
 
 export const createBook = async (bookData: AddBookParams): Promise<Book | undefined> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/books`, {
+    const response = await fetch(`${env.API_URL}/api/books`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,5 +44,6 @@ export const createBook = async (bookData: AddBookParams): Promise<Book | undefi
     return data;
   } catch (error) {
     console.error("Error creating book:", error);
+    throw new Error("Failed to create book", { cause: error });
   } 
 }

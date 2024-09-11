@@ -1,4 +1,7 @@
+'use server'
+
 import { Author } from "@/declarations";
+import { env } from "@/common/config/env";
 
 interface AddAuthorParams {
   firstName: string;
@@ -7,7 +10,7 @@ interface AddAuthorParams {
 
 export const createAuthor = async (authorData: AddAuthorParams): Promise<Author | undefined> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/authors`, {
+    const response = await fetch(`${env.API_URL}/api/authors`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,5 +24,6 @@ export const createAuthor = async (authorData: AddAuthorParams): Promise<Author 
     return data;
   } catch (error) {
     console.error("Error creating author:", error);
+    throw new Error("Failed to create author", { cause: error });
   } 
 }

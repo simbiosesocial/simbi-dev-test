@@ -1,8 +1,11 @@
+"use server"
+
 import { Loan } from "@/declarations";
+import { env } from "@/common/config/env";
 
 export const createLoan = async (bookId: string): Promise<Loan | undefined> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/loans`, {
+    const response = await fetch(`${env.API_URL}/api/loans`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -16,5 +19,6 @@ export const createLoan = async (bookId: string): Promise<Loan | undefined> => {
     return data;
   } catch (error) {
     console.error("Error creating loan:", error);
+    throw new Error("Failed to create loan", { cause: error });
   } 
 }
