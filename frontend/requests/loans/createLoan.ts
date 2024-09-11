@@ -2,6 +2,7 @@
 
 import { Loan } from "@/declarations";
 import { env } from "@/common/config/env";
+import { revalidateTag } from "next/cache";
 
 export const createLoan = async (bookId: string): Promise<Loan | undefined> => {
   try {
@@ -15,6 +16,10 @@ export const createLoan = async (bookId: string): Promise<Loan | undefined> => {
     if (!response.ok) {
       throw new Error("Failed to create loan", { cause: response.statusText });
     }
+
+    revalidateTag('books');
+    revalidateTag('loans');
+
     const data = await response.json();
     return data;
   } catch (error) {
