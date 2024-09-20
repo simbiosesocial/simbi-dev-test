@@ -1,25 +1,17 @@
-"use client"
-
 import AppBar from "@mui/material/AppBar"
 import Toolbar from "@mui/material/Toolbar"
 import Paper from "@mui/material/Paper"
 import Grid from "@mui/material/Grid"
-import Button from "@mui/material/Button"
 import TextField from "@mui/material/TextField"
 import SearchIcon from "@mui/icons-material/Search"
-import { BooksList, CreateBookDialog } from "@/features/components"
+import { LoansList } from "@/features/components"
 import { Box } from "@mui/material"
-import { useState } from "react"
 
 type ViewProps = {
-  books: Book[]
+  loans: Loan[]
 }
 
-export default function HomePageView({ books = [] }: ViewProps) {
-  const [shouldCreateBook, setShouldCreateBook] = useState(false)
-
-  const handleCreateBookDialogOpen = () => setShouldCreateBook(true)
-
+export default function LoansPageView({ loans = [] }: ViewProps) {
   return (
     <Paper sx={{ maxWidth: 936, margin: "auto", overflow: "hidden" }}>
       <AppBar
@@ -44,25 +36,12 @@ export default function HomePageView({ books = [] }: ViewProps) {
                 variant="standard"
               />
             </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                sx={{ mr: 1 }}
-                onClick={handleCreateBookDialogOpen}
-              >
-                Adicionar um livro
-              </Button>
-            </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
       <Box sx={{ my: 5, mx: 2 }}>
-        <BooksList books={books} />
+        <LoansList loans={loans} />
       </Box>
-      <CreateBookDialog
-        shouldOpen={shouldCreateBook}
-        openCloseControl={setShouldCreateBook}
-      />
     </Paper>
   )
 }

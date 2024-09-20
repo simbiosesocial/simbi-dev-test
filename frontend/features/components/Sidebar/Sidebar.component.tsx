@@ -1,19 +1,23 @@
-"use client";
+"use client"
 
-import type { FunctionComponent } from "react";
-import type { Theme } from "@mui/material/styles";
+import type { FunctionComponent } from "react"
+import type { Theme } from "@mui/material/styles"
 
-import { Box, useMediaQuery } from "@mui/material";
-import { drawerWidth } from "./Sidebar.consts";
-import { Navigator } from "@/common/components";
-import { useApp } from "@/common/providers/AppProvider";
+import { Box, useMediaQuery } from "@mui/material"
+import { drawerWidth } from "./Sidebar.consts"
+import { Navigator } from "@/common/components"
+import { useApp } from "@/common/providers/AppProvider"
 
 export const Sidebar: FunctionComponent = () => {
-  const { mobileOpen, onDrawerToggle } = useApp();
-  const isSmUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"));
+  const { mobileOpen, onDrawerToggle } = useApp()
+  const isSmUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"))
 
   return (
-    <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
+    <Box
+      component="nav"
+      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      data-testid="sidebar"
+    >
       {isSmUp ? null : (
         <Navigator
           data-testid="navigator-xs"
@@ -23,7 +27,10 @@ export const Sidebar: FunctionComponent = () => {
           onClose={onDrawerToggle}
         />
       )}
-      <Navigator PaperProps={{ style: { width: drawerWidth } }} sx={{ display: { sm: "block", xs: "none" } }} />
+      <Navigator
+        PaperProps={{ style: { width: drawerWidth } }}
+        sx={{ display: { sm: "block", xs: "none" } }}
+      />
     </Box>
-  );
-};
+  )
+}
