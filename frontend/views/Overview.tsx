@@ -3,65 +3,75 @@ import { Typography } from "@mui/material"
 export default function Overview() {
   return (
     <>
-      <Typography variant="h4">Aloha!</Typography>
-      <Typography variant="body2">
-        Em primeiro lugar, gostei bastante do case, muito bem formatado
+      <Typography variant="h4">Visão Geral do Projeto</Typography>
+      <Typography variant="body2" sx={{ marginTop: 2 }}>
+        O case proposto foi bastante interessante e bem estruturado, o que
+        tornou o processo de desenvolvimento uma experiência enriquecedora.
       </Typography>
-      <Typography variant="body2">
-        Apesar de tudo, deu para implementar todos os testes no back e a maior
-        parte do front
+      <Typography variant="body2" sx={{ marginTop: 2 }}>
+        Consegui implementar todos os testes no backend e a maior parte das
+        funcionalidades no frontend, apesar de alguns desafios com o tempo.
       </Typography>
-      <Typography variant="body2">
-        Gostaria de ter aproveitado mais o tempo no escopo do projeto
+      <Typography variant="body2" sx={{ marginTop: 2 }}>
+        Embora o prazo tenha sido apertado, consegui focar nas funcionalidades
+        essenciais e gostaria de ter explorado mais a relação entre livros e
+        leitores no contexto dos empréstimos.
       </Typography>
-      <Typography variant="body2">
-        Gostaria de ter explorado melhor a relação n-n de empréstimos entre
-        livros e leitores, mas não dava tempo de adicionar mais uma entidade,
-        bem como as suas ações, cheguei a adicionar a entidade com alguns
-        objetos de valor, mas, dentre essas e outras demandas da vida cotidiana,
-        o tempo era curto
+      <Typography variant="body2" sx={{ marginTop: 2 }}>
+        Também houve a tentativa de adicionar uma nova entidade ao sistema, mas
+        isso exigiria um planejamento maior de implementação devido à
+        complexidade de novas ações e objetos de valor.
       </Typography>
-      <Typography variant="body2">
-        Ficaram faltando algumas etapas dentre otimizações no front para o
-        melhor aproveitamento do cache do nextjs e renderização server-side, até
-        melhores feedbacks para o usuário sobre as tarefas executadas, bem como
-        outras features como permitir ao usuário selecionar as datas de
-        empréstimo (que ficaram em 8 dias por padrão)
+      <Typography variant="body2" sx={{ marginTop: 2 }}>
+        Alguns aspectos do frontend poderiam ser mais otimizados, especialmente
+        em relação ao cache do Next.js e renderização do lado do servidor, além
+        de melhorias na experiência do usuário, como feedbacks mais visuais
+        sobre as ações executadas.
       </Typography>
-      <Typography variant="body2">
-        Também senti falta de adicionar algumas libs para deixar o front mais
-        supimpa, tive que evitar em benefício do tempo
+      <Typography variant="body2" sx={{ marginTop: 2 }}>
+        Uma outra funcionalidade que considerei importante foi permitir ao
+        usuário selecionar datas personalizadas para os empréstimos, mas, por
+        uma questão de tempo, ficou configurado com um valor padrão de 8 dias.
       </Typography>
-      <Typography variant="body2">
-        Adicionei o template de debug do nextjs para o vscode para facilitar a
-        vida, não coloquei o xdebug instalado no container do back porque não
-        deu tempo
+      <Typography variant="body2" sx={{ marginTop: 2 }}>
+        Senti falta de utilizar algumas bibliotecas que poderiam melhorar a
+        interface do usuário, mas priorizei o cumprimento do prazo, o que me
+        levou a simplificar algumas escolhas no front.
       </Typography>
-      <Typography variant="body2">
-        Sem mais delongas aqui vão duas listas do que fiz e do que gostaria de
-        ter feito/finalizado
+      <Typography variant="body2" sx={{ marginTop: 2 }}>
+        Configurei o template de debug do Next.js para o VSCode, o que facilita
+        bastante o desenvolvimento. No entanto, não consegui integrar o Xdebug
+        no backend por falta de tempo.
       </Typography>
-      <Typography sx={{ margin: "20px" }}>Done</Typography>
+      <Typography variant="body2" sx={{ marginTop: 2 }}>
+        A seguir estão as listas do que foi implementado e o que gostaria de ter
+        finalizado:
+      </Typography>
+      <Typography sx={{ margin: "20px", fontWeight: "bold" }}>
+        Tarefas Concluídas
+      </Typography>
       <ul>
-        <li>Tests backend - 100%</li>
-        <li>Tests backend - 91.3%</li>
-        <li>Doc Swagger backend</li>
-        <li>Code Doc backend</li>
+        <li>Implementação de testes no backend - 100%</li>
+        <li>Implementação de funcionalidades principais no frontend - 91.3%</li>
+        <li>Documentação da API com Swagger</li>
+        <li>Documentação do código backend</li>
       </ul>
-      <Typography sx={{ margin: "20px" }}>TODO</Typography>
+      <Typography sx={{ margin: "20px", fontWeight: "bold" }}>
+        Tarefas Pendentes
+      </Typography>
       <ul>
-        <li>Adição de mais verificações no backend</li>
-        <li>Adição de mais libs</li>
+        <li>Adição de verificações extras no backend para maior robustez</li>
+        <li>Integração de mais bibliotecas para melhorar o frontend</li>
         <li>
-          Adição de mais features no front como selecionar datas de vencimento
-          empréstimo, leitores, etc
+          Adição de funcionalidades no frontend, como seleção de datas de
+          empréstimo e associação de leitores
         </li>
         <li>
-          Adição de mais otimizações para o front (cache - renderização
-          server-side)
+          Otimizações no frontend, incluindo cache e renderização server-side
         </li>
         <li>
-          Melhores feedbacks para o usuário, notificações toasts, dentre outas
+          Feedbacks mais visuais e interativos para o usuário (ex: notificações
+          toast)
         </li>
       </ul>
     </>

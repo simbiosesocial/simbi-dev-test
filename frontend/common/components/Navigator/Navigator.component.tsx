@@ -36,7 +36,6 @@ export function Navigator(props: NavigatorProps) {
           <Link href="overview">
             <ListItemText>Overview</ListItemText>
           </Link>
-          <ListItemText>Overview</ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
           <Box key={id} sx={{ bgcolor: "#101F33" }}>
