@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   frontend:
     build:
@@ -21,7 +23,7 @@ services:
     env_file:
       - ./backend/.env
     ports:
-      - 8000:8000
+      - 9000:8000
     volumes:
       - ./backend:/var/www/html
     working_dir: "/var/www/html"
