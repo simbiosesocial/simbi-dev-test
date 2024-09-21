@@ -11,6 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 
 import { categories, item, itemCategory } from "./Navigator.consts";
+import Link from "next/link";
 
 export function Navigator(props: NavigatorProps) {
   const { ...other } = props;
@@ -31,16 +32,16 @@ export function Navigator(props: NavigatorProps) {
               <ListItemText sx={{ color: "#fff" }}>{id}</ListItemText>
             </ListItem>
             {children.map(({ id: childId, icon, active }) => (
-              <ListItem disablePadding key={childId}>
-                <ListItemButton selected={active} sx={item}>
-                  <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText>{childId}</ListItemText>
+              <Link href={childId === 'Empréstimos' ? '/loans' : ''} key={childId}>
+                  <ListItemButton selected={active} sx={item}>
+                    <ListItemIcon>{icon}</ListItemIcon>
+                    <ListItemText>{childId}</ListItemText>
                 </ListItemButton>
-              </ListItem>
-            ))}
-            <Divider sx={{ mt: 2 }} />
-          </Box>
-        ))}
+            </Link>
+          ))}
+          <Divider sx={{ mt: 2 }} />
+        </Box>
+      ))}
       </List>
     </Drawer>
   );
