@@ -1,8 +1,9 @@
+import Link from 'next/link';
 import type { FunctionComponent } from "react";
 import type { BookItemProps } from "./BookItem.interface";
 import { Card, CardContent, CardMedia, CardActions, Button, Typography, Tooltip } from "@mui/material";
 
-export const BookItem: FunctionComponent<BookItemProps> = ({ title, coverUrl }) => {
+export const BookItem: FunctionComponent<BookItemProps> = ({ title, coverUrl, id }) => {
   return (
     <Card variant="outlined">
       <CardMedia sx={{ height: 264 }} image={coverUrl ? coverUrl : "/cover.png"} title={title} />
@@ -18,7 +19,9 @@ export const BookItem: FunctionComponent<BookItemProps> = ({ title, coverUrl }) 
       </CardContent>
       <CardActions>
         <Button size="small" variant="contained" fullWidth>
+        <Link href={`/form/${id}`}>
           Empréstimo
+        </Link>
         </Button>
       </CardActions>
     </Card>
