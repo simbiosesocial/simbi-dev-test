@@ -24,4 +24,5 @@ interface BookRepository
      * @return array<Book>;
      */
     public function getBooksByAuthorId(string $authorId): array;
+    public function getBookById(string $bookId): Book;
 }
