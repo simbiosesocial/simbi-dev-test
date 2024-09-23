@@ -26,7 +26,8 @@ final class UserAddress implements ValueObject
 
         $isValidAddress = $isValidZipCode && $isValidNumber;
 
-        if (!$isValidAddress)
+        if (!$isValidAddress) {
             throw new InvalidUserAddress();
+        }
     }
 }

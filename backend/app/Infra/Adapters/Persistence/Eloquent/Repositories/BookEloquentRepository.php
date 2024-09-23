@@ -57,7 +57,7 @@ final class BookEloquentRepository implements BookRepository
         return BookMapper::toManyDomainEntities($eloquentBooks);
     }
 
-        public function getBookById(string $bookId): Book
+    public function getBookById(string $bookId): Book
     {
         $eloquentBook = EloquentBook::where(['id' => $bookId])->first();
 

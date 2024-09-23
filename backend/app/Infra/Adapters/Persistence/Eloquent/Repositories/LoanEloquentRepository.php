@@ -43,18 +43,18 @@ final class LoanEloquentRepository implements LoanRepository
 
         $eloquentLoan = EloquentLoan::where([
             ["book_id" => $book_id],
-            ["is_book_back_to_library" => false], 
+            ["is_book_back_to_library" => false],
         ])->first();
 
-       
+
         if (empty($eloquentLoan)) {
             return false;
         }
 
-       
+
         $today = new DateTime("today");
 
-        
+
         $isBookOverdue = $eloquentLoan->endLoanDate < $today;
 
         return $isBookOverdue;

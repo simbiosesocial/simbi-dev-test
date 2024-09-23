@@ -19,7 +19,8 @@ final class UserEmail implements ValueObject
     {
         $isValidEmailFormat = !!filter_var($this->email, FILTER_VALIDATE_EMAIL);
 
-        if (!$isValidEmailFormat)
+        if (!$isValidEmailFormat) {
             throw new InvalidUserEmail();
+        }
     }
 }

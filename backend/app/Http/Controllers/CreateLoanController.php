@@ -17,7 +17,7 @@ class CreateLoanController extends Controller
      * Permite adicionar um novo empréstimo
      *
      * @OA\Post(
-     *    path="/api/loans", 
+     *    path="/api/loans",
      *    summary="Cria um novo empréstimo",
      *    tags={"Loans"},
      *
@@ -84,9 +84,9 @@ class CreateLoanController extends Controller
      * @param  CreateLoanRequest $request
      *
      * @return JsonResponse
-     * 
+     *
      */
-    
+
     public function __invoke(CreateLoanRequest $request)
     {
         $viewModel = $this->useCase->execute(new CreateLoanRequestModel($request->validated()));
