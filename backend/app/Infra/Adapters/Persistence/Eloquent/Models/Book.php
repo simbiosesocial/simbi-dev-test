@@ -48,6 +48,11 @@ final class Book extends Model
         return $this->belongsTo(Author::class);
     }
 
+    public function loan(): BelongsTo
+    {
+        return $this->belongsTo(Loan::class, 'id', 'book_id');
+    }
+
     /**
      * @return Factory
      */

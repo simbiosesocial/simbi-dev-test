@@ -24,6 +24,20 @@ use App\Infra\Adapters\Persistence\Eloquent\Repositories\AuthorEloquentRepositor
 use App\Infra\Adapters\Persistence\Eloquent\Repositories\BookEloquentRepository;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Sanctum\Sanctum;
+use App\Adapters\Presenters\Library\CreateLoanJsonPresenter;
+use App\Adapters\Presenters\Library\DeleteLoanJsonPresenter;
+use App\Adapters\Presenters\Library\ListAllLoansJsonPresenter;
+use App\Core\Domain\Library\Ports\Persistence\LoanRepository;
+use App\Core\Domain\Library\Ports\UseCases\CreateLoan\CreateLoanUseCase;
+use App\Core\Domain\Library\Ports\UseCases\DeleteLoan\DeleteLoanUseCase;
+use App\Core\Domain\Library\Ports\UseCases\ListAllLoans\ListAllLoansUseCase;
+use App\Core\Services\Library\CreateLoanService;
+use App\Core\Services\Library\DeleteLoanService;
+use App\Core\Services\Library\ListAllLoansService;
+use App\Http\Controllers\CreateLoanController;
+use App\Http\Controllers\DeleteLoanController;
+use App\Http\Controllers\ListAllLoansController;
+use App\Infra\Adapters\Persistence\Eloquent\Repositories\LoanEloquentRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -45,6 +59,7 @@ class AppServiceProvider extends ServiceProvider
          * Example bindings
          */
         $this->app->bind(AuthorRepository::class, AuthorEloquentRepository::class);
+        $this->app->bind(LoanRepository::class, LoanEloquentRepository::class);
         $this->app->bind(BookRepository::class, BookEloquentRepository::class);
     }
 
@@ -86,6 +101,32 @@ class AppServiceProvider extends ServiceProvider
             ->give(
                 fn($app) => $app->make(ListBooksByAuthorService::class, [
                     "output" => $app->make(ListBooksByAuthorJsonPresenter::class),
+                ]),
+            );
+            $this->app
+            ->when(CreateLoanController::class)
+            ->needs(CreateLoanUseCase::class)
+            ->give(
+                fn($app) => $app->make(CreateLoanService::class, [
+                    "output" => $app->make(CreateLoanJsonPresenter::class),
+                ]),
+            );
+
+        $this->app
+            ->when(ListAllLoansController::class)
+            ->needs(ListAllLoansUseCase::class)
+            ->give(
+                fn($app) => $app->make(ListAllLoansService::class, [
+                    "output" => $app->make(ListAllLoansJsonPresenter::class),
+                ]),
+            );
+
+        $this->app
+            ->when(DeleteLoanController::class)
+            ->needs(DeleteLoanUseCase::class)
+            ->give(
+                fn($app) => $app->make(DeleteLoanService::class, [
+                    "output" => $app->make(DeleteLoanJsonPresenter::class),
                 ]),
             );
     }
