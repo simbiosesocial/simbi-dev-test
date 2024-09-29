@@ -331,6 +331,238 @@
                 }
             }
         },
+        "/api/loans": {
+            "get": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "Lista todos os empréstimos cadastrados na API",
+                "description": "Lista todos os empréstimos cadastrados.",
+                "operationId": "da1da231dd673e1cd157ba27ce4f70c9",
+                "responses": {
+                    "200": {
+                        "description": "Loans list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                            },
+                                            "bookId": {
+                                                "type": "string",
+                                                "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                            },
+                                            "loan_date": {
+                                                "type": "string",
+                                                "example": "2022-12-14T22:24:26+00:00"
+                                            },
+                                            "due_date": {
+                                                "type": "string",
+                                                "example": "2022-12-14T22:24:26+00:00"
+                                            },
+                                            "return_date": {
+                                                "type": "string",
+                                                "example": "2022-12-14T22:24:26+00:00"
+                                            },
+                                            "status": {
+                                                "type": "string",
+                                                "example": "active"
+                                            },
+                                            "book": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Curso de Java"
+                                                    },
+                                                    "publisher": {
+                                                        "type": "string",
+                                                        "example": "Editora XPTO"
+                                                    },
+                                                    "authorId": {
+                                                        "type": "string",
+                                                        "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                                    },
+                                                    "createdAt": {
+                                                        "type": "string",
+                                                        "example": "2022-12-14T22:24:26+00:00"
+                                                    },
+                                                    "updatedAt": {
+                                                        "type": "string",
+                                                        "example": "2022-12-14T22:24:26+00:00"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "createdAt": {
+                                                "type": "string",
+                                                "example": "2022-12-14T22:24:26+00:00"
+                                            },
+                                            "updatedAt": {
+                                                "type": "string",
+                                                "example": "2022-12-14T22:24:26+00:00"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição com erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bad Request"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Proibido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Forbidden Error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "Faz um novo empréstimo de um livro na API",
+                "description": "Permite fazer um novo empréstimo de um livro",
+                "operationId": "bf75f8441c0b3e6818b9a5a48f2e512a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "bookId"
+                                ],
+                                "properties": {
+                                    "bookId": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Loan Made",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                        },
+                                        "bookId": {
+                                            "type": "string",
+                                            "example": "13b35be6-65a7-4d7f-9ad2-8caaf3c75344"
+                                        },
+                                        "loan_date": {
+                                            "type": "string",
+                                            "example": "2022-12-14T22:24:26+00:00"
+                                        },
+                                        "due_date": {
+                                            "type": "string",
+                                            "example": "2022-12-14T22:24:26+00:00"
+                                        },
+                                        "return_date": {
+                                            "type": "string",
+                                            "example": "2022-12-14T22:24:26+00:00"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "active"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição com erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bad Request"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Proibido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Forbidden Error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthorized Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/health": {
             "get": {
                 "tags": [
@@ -617,6 +849,10 @@
         {
             "name": "Books",
             "description": "Books"
+        },
+        {
+            "name": "Loans",
+            "description": "Loans"
         },
         {
             "name": "Health Check",
